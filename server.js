@@ -49,8 +49,12 @@ if ('development' == app.get('env')) {
 
 
 //Our only route! Render it with the current watchList
-app.get('/',  function(req, res) {
+app.get('/', express.basicAuth('gcardoso89', 'timesUP32'),  function(req, res) {
   res.render('index.html');
+});
+
+app.get('/haproxy', function(req, res){
+	res.render('teste.html');
 });
 
 //Start a Socket.IO listen

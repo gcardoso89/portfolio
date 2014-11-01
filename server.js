@@ -53,7 +53,7 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'),  function(req, res) {
   res.render('index.html');
 });
 
-app.get('/haproxy', function(req, res){
+app.get('/teste', function(req, res){
 	res.render('teste.html');
 });
 

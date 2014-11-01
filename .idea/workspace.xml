@@ -59,19 +59,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="3" selection-start="1671" selection-end="1671" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1875">
+            <state line="56" column="29" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.40336135" vertical-offset="408" max-vertical-offset="1875">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teste.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="teste.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/teste.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="0.11183597" vertical-offset="0" max-vertical-offset="1073">
+            <state line="8" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
               <folding />
             </state>
           </provider>
@@ -116,8 +116,8 @@
       <list>
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/views/teste.html" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -338,16 +338,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/views/teste.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="3" selection-start="1671" selection-end="1671" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1875">
+        <state line="8" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/teste.html">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="0.11183597" vertical-offset="0" max-vertical-offset="1073">
+        <state line="56" column="29" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.40336135" vertical-offset="408" max-vertical-offset="1875">
           <folding />
         </state>
       </provider>

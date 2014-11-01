@@ -49,7 +49,7 @@ if ('development' == app.get('env')) {
 
 
 //Our only route! Render it with the current watchList
-app.get('/',express.basicAuth('gcardoso89', 'timesUP32'),  function(req, res) {
+app.get('/',  function(req, res) {
   res.render('index.html');
 });
 

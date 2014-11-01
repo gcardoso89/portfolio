@@ -1,159 +1,115 @@
-#!/bin/env node
-//  OpenShift sample Node application
-var express = require('express');
-var fs      = require('fs');
-
-
 /**
- *  Define the sample application.
+ * Module dependencies.
  */
-var SampleApp = function() {
+var express = require('express')
+  , io = require('socket.io')
+  , http = require('http')
+  , twitter = require('ntwitter')
+  , cronJob = require('cron').CronJob
+  , _ = require('underscore')
+  , path = require('path');
 
-    //  Scope.
-    var self = this;
+//Create an express app
+var app = express();
 
+//Create the HTTP server with the express app as an argument
+var server = http.createServer(app);
 
-    /*  ================================================================  */
-    /*  Helper functions.                                                 */
-    /*  ================================================================  */
+// Twitter symbols array
+var watchSymbols = ['#gcardoso'];
 
-    /**
-     *  Set up server IP address and port # using env variables/defaults.
-     */
-    self.setupVariables = function() {
-        //  Set the environment variables we need.
-        self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+//This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
+var watchList = {
+  total: 0,
+  symbols: {}
+};
 
-        if (typeof self.ipaddress === "undefined") {
-            //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
-            //  allows us to run/test the app locally.
-            console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
-            self.ipaddress = "127.0.0.1";
-        };
-    };
+//Set the watch symbols to zero.
+_.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
 
+//Generic Express setup
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+app.engine('html', require('hogan-express'));
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(require('stylus').middleware(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-    /**
-     *  Populate the cache.
-     */
-    self.populateCache = function() {
-        if (typeof self.zcache === "undefined") {
-            self.zcache = { 'index.html': '' };
-        }
+//We're using bower components so add it to the path to make things easier
+app.use('/components', express.static(path.join(__dirname, 'components')));
 
-        //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./index.html');
-    };
-
-
-    /**
-     *  Retrieve entry (content) from cache.
-     *  @param {string} key  Key identifying content to retrieve from cache.
-     */
-    self.cache_get = function(key) { return self.zcache[key]; };
-
-
-    /**
-     *  terminator === the termination handler
-     *  Terminate server on receipt of the specified signal.
-     *  @param {string} sig  Signal to terminate on.
-     */
-    self.terminator = function(sig){
-        if (typeof sig === "string") {
-           console.log('%s: Received %s - terminating sample app ...',
-                       Date(Date.now()), sig);
-           process.exit(1);
-        }
-        console.log('%s: Node server stopped.', Date(Date.now()) );
-    };
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
 
 
-    /**
-     *  Setup termination handlers (for exit and a list of signals).
-     */
-    self.setupTerminationHandlers = function(){
-        //  Process on exit and signals.
-        process.on('exit', function() { self.terminator(); });
+//Our only route! Render it with the current watchList
+app.get('/',express.basicAuth('gcardoso89', 'timesUP32'),  function(req, res) {
+  res.render('index.html');
+});
 
-        // Removed 'SIGPIPE' from the list - bugz 852598.
-        ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
-         'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
-        ].forEach(function(element, index, array) {
-            process.on(element, function() { self.terminator(element); });
-        });
-    };
+//Start a Socket.IO listen
+var sockets = io.listen(server);
 
+//Set the sockets.io configuration.
+//THIS IS NECESSARY ONLY FOR HEROKU!
+sockets.configure(function() {
+  sockets.set('transports', ['xhr-polling']);
+  sockets.set('polling duration', 3600);
+});
 
-    /*  ================================================================  */
-    /*  App server functions (main app logic here).                       */
-    /*  ================================================================  */
+//Instantiate the twitter component
+//You will need to get your own key. Don't worry, it's free. But I cannot provide you one
+//since it will instantiate a connection on my behalf and will drop all other streaming connections.
+//Check out: https://dev.twitter.com/
+var t = new twitter({
+  consumer_key: 'XHHh0St57xEb0uZ6zlVxAzgFv',           // <--- FILL ME IN
+  consumer_secret: 'qxbmnjQau0W6ofQsJeByRuIi2iGMFLW2aJMNd5aXjnTZ4Ic8tU',        // <--- FILL ME IN
+  access_token_key: '93891411-DtXySlEpuTNnM09dUEjb0aHnoj6mBrXb0gPQAgz87',       // <--- FILL ME IN
+  access_token_secret: 'mEegi29Ivz0eZJHDxwxURk32wMqbWf0CxgUJvBqWimf2g'     // <--- FILL ME IN
+});
 
-    /**
-     *  Create the routing table entries + handlers for the application.
-     */
-    self.createRoutes = function() {
-        self.routes = { };
+var arr = new Array();
+var screens = [null,null,null];
+var nrScreems = screens.length;
 
-        self.routes['/asciimo'] = function(req, res) {
-            var link = "http://i.imgur.com/kmbjB.png";
-            res.send("<html><body><img src='" + link + "'></body></html>");
-        };
+//Tell the twitter API to filter on the watchSymbols
+t.stream('statuses/filter', { track: watchSymbols }, function(stream) {
 
-        self.routes['/'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
-        };
-    };
+  //We have a connection. Now watch the 'data' event for incomming tweets.
+  stream.on('data', function(tweet) {
 
+    //Make sure it was a valid tweet
+    if (tweet.text !== undefined) {
 
-    /**
-     *  Initialize the server (express) and create the routes and register
-     *  the handlers.
-     */
-    self.initializeServer = function() {
-        self.createRoutes();
-        self.app = express.createServer();
+      arr.push(tweet);
 
-        //  Add handlers for the app (from the routes).
-        for (var r in self.routes) {
-            self.app.get(r, self.routes[r]);
-        }
-    };
+      var c = 0;
 
+      for (var i = 0, n = arr.length; i < n; i++){
 
-    /**
-     *  Initializes the sample application.
-     */
-    self.initialize = function() {
-        self.setupVariables();
-        self.populateCache();
-        self.setupTerminationHandlers();
+        if ( c >= screens.length ) c = 0;
 
-        // Create the express server and routes.
-        self.initializeServer();
-    };
+        screens[c] = arr[i];
+        c++
 
+      }
 
-    /**
-     *  Start the server (starts up the sample application).
-     */
-    self.start = function() {
-        //  Start the app on the specific interface (and port).
-        self.app.listen(self.port, self.ipaddress, function() {
-            console.log('%s: Node server started on %s:%d ...',
-                        Date(Date.now() ), self.ipaddress, self.port);
-        });
-    };
+      sockets.sockets.emit('data', screens);
+    }
+  });
+});
 
-};   /*  Sample Application.  */
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
+//Create the server
+server.listen(app.get('port'), server_ip_address, function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
 
-
-/**
- *  main():  Main code.
- */
-var zapp = new SampleApp();
-zapp.initialize();
-zapp.start();
 

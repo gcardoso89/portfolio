@@ -2,21 +2,30 @@
  * Module dependencies.
  */
 var express = require('express')
+	, mailer = require('express-mailer')
 	, io = require('socket.io')
 	, http = require('http')
 	, twitter = require('ntwitter')
-	, cronJob = require('cron').CronJob
 	, _ = require('underscore')
 	, path = require('path')
-	, mongo = require('mongodb').MongoClient
-	, assert = require('assert');
-
-var mongoUrl = 'mongodb://localhost:27017/gcardoso';
+	, mongo = require('mongodb').MongoClient;
 
 var portfolioList = [];
 
 //Create an express app
 var app = express();
+
+mailer.extend(app, {
+	from: 'site@gcardoso.pt',
+	host: 'smtp.gcardoso.pt', // hostname
+	secureConnection: true, // use SSL
+	port: 25, // port for secure SMTP
+	transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
+	auth: {
+		user: 'site@gcardoso.pt',
+		pass: 'timesUP32'
+	}
+});
 
 //Create the HTTP server with the express app as an argument
 var server = http.createServer(app);
@@ -95,6 +104,24 @@ app.get('/teste', function (req, res) {
 	res.render('teste.html');
 });
 
+app.post('/sendEmail', function(req, res){
+
+	app.mailer.send('email',{
+		to: 'goncalo.cb.ferreira@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
+		subject: 'Portfolio', // REQUIRED.
+		otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
+	}, function (err) {
+		if (err) {
+			// handle error
+			console.log(err);
+			res.json(200, { success : false });
+			return;
+		}
+		res.json(200, { success : true });
+	});
+
+});
+
 //Start a Socket.IO listen
 var sockets = io.listen(server);
 
@@ -117,32 +144,16 @@ var t = new twitter({
 });
 
 var arr = new Array();
-var screens = [null, null, null];
-var nrScreems = screens.length;
 
 //Tell the twitter API to filter on the watchSymbols
 t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 
 	//We have a connection. Now watch the 'data' event for incomming tweets.
 	stream.on('data', function (tweet) {
-
 		//Make sure it was a valid tweet
 		if (tweet.text !== undefined) {
-
 			arr.push(tweet);
-
-			var c = 0;
-
-			for (var i = 0, n = arr.length; i < n; i++) {
-
-				if (c >= screens.length) c = 0;
-
-				screens[c] = arr[i];
-				c++
-
-			}
-
-			sockets.sockets.emit('data', screens);
+			sockets.sockets.emit('data', arr);
 		}
 	});
 });

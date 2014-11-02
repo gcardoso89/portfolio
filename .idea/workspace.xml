@@ -23,15 +23,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="README.cron" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.openshift/cron/README.cron">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.openshift/cron/daily/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
@@ -41,10 +32,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="10" selection-start="1988" selection-end="1988" vertical-scroll-proportion="0.7296539" vertical-offset="240" max-vertical-offset="2445">
+            <state line="111" column="21" selection-start="3110" selection-end="3123" vertical-scroll-proportion="-24.807692" vertical-offset="1020" max-vertical-offset="2610">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="email.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/email.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="9" selection-start="75" selection-end="75" vertical-scroll-proportion="0.10019084" vertical-offset="0" max-vertical-offset="1048">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="html5shiv.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/html5shiv.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="34" selection-start="333" selection-end="333" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="360">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/express-mailer/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="19" selection-start="44" selection-end="49" vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="1155">
               <folding />
             </state>
           </provider>
@@ -62,16 +91,16 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="273" column="17" selection-start="11109" selection-end="11109" vertical-scroll-proportion="-15.875" vertical-offset="3714" max-vertical-offset="5475">
+            <state line="273" column="17" selection-start="11109" selection-end="11109" vertical-scroll-proportion="-170.625" vertical-offset="0" max-vertical-offset="5475">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="deplist.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/deplist.txt">
+      <file leaf-file-name="functions.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+            <state line="561" column="52" selection-start="16347" selection-end="16347" vertical-scroll-proportion="0.0" vertical-offset="7536" max-vertical-offset="8595">
               <folding />
             </state>
           </provider>
@@ -81,15 +110,6 @@
         <entry file="file://$PROJECT_DIR$/node_modules/express/node_modules/send/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state line="33" column="1724" selection-start="2387" selection-end="2387" vertical-scroll-proportion="-20.625" vertical-offset="0" max-vertical-offset="780">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="0" selection-start="602" selection-end="602" vertical-scroll-proportion="-18.6" vertical-offset="0" max-vertical-offset="555">
               <folding />
             </state>
           </provider>
@@ -108,9 +128,11 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/views/teste.html" />
         <option value="$PROJECT_DIR$/node_modules/mongodb/package.json" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/views/index.html" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/public/js/functions.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/views/email.html" />
       </list>
     </option>
   </component>
@@ -189,6 +211,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -204,6 +258,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="express-mailer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -247,7 +319,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947463" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977778" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -325,20 +397,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="17" selection-start="11109" selection-end="11109" vertical-scroll-proportion="-15.875" vertical-offset="3714" max-vertical-offset="5475">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="28" selection-start="323" selection-end="323" vertical-scroll-proportion="0.21008404" vertical-offset="0" max-vertical-offset="1071">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/mongodb/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="20" selection-start="164" selection-end="164" vertical-scroll-proportion="0.12605043" vertical-offset="0" max-vertical-offset="3810">
@@ -353,9 +411,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="273" column="17" selection-start="11109" selection-end="11109" vertical-scroll-proportion="-170.625" vertical-offset="0" max-vertical-offset="5475">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express-mailer/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="19" selection-start="44" selection-end="49" vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="1155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="34" selection-start="333" selection-end="333" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="360">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/html5shiv.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1059">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="561" column="52" selection-start="16347" selection-end="16347" vertical-scroll-proportion="0.0" vertical-offset="7536" max-vertical-offset="8595">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="10" selection-start="1988" selection-end="1988" vertical-scroll-proportion="0.7296539" vertical-offset="240" max-vertical-offset="2445">
+        <state line="111" column="21" selection-start="3110" selection-end="3123" vertical-scroll-proportion="-24.807692" vertical-offset="1020" max-vertical-offset="2610">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/email.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="9" selection-start="75" selection-end="75" vertical-scroll-proportion="0.10019084" vertical-offset="0" max-vertical-offset="1048">
           <folding />
         </state>
       </provider>

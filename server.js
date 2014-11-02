@@ -5,9 +5,10 @@ var express = require('express')
 	, mailer = require('express-mailer')
 	, io = require('socket.io')
 	, http = require('http')
-	, twitter = require('ntwitter')
+	, twitter = require('twitter')
 	, _ = require('underscore')
 	, path = require('path')
+	, util = require('util')
 	, mongo = require('mongodb').MongoClient;
 
 var portfolioList = [];
@@ -59,6 +60,45 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
+//Start a Socket.IO listen
+var sockets = io.listen(server);
+
+//Set the sockets.io configuration.
+//THIS IS NECESSARY ONLY FOR HEROKU!
+sockets.configure(function () {
+	sockets.set('transports', ['xhr-polling']);
+	sockets.set('polling duration', 3600);
+});
+
+//Instantiate the twitter component
+//You will need to get your own key. Don't worry, it's free. But I cannot provide you one
+//since it will instantiate a connection on my behalf and will drop all other streaming connections.
+//Check out: https://dev.twitter.com/
+var t = new twitter({
+	consumer_key: 'XHHh0St57xEb0uZ6zlVxAzgFv',           // <--- FILL ME IN
+	consumer_secret: 'qxbmnjQau0W6ofQsJeByRuIi2iGMFLW2aJMNd5aXjnTZ4Ic8tU',        // <--- FILL ME IN
+	access_token_key: '93891411-DtXySlEpuTNnM09dUEjb0aHnoj6mBrXb0gPQAgz87',       // <--- FILL ME IN
+	access_token_secret: 'mEegi29Ivz0eZJHDxwxURk32wMqbWf0CxgUJvBqWimf2g'     // <--- FILL ME IN
+});
+
+var arr = [];
+
+
+
+//Tell the twitter API to filter on the watchSymbols
+t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
+
+	//We have a connection. Now watch the 'data' event for incomming tweets.
+	stream.on('data', function (tweet) {
+		//Make sure it was a valid tweet
+		if (tweet.text !== undefined) {
+			sockets.sockets.emit('data', [tweet]);
+		}
+	});
+});
+
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+
 var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
 var enviromnent = app.get('env');
@@ -68,7 +108,6 @@ if ('development' == enviromnent) {
 	app.use(express.errorHandler());
 	mongoUrl = 'mongodb://localhost:27017/gcardoso';
 }
-
 
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
@@ -93,7 +132,14 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 			}
 
 			res.render('index.html', {portfolio: portfolioList});
+
+			t.search('#gcardoso', function(data) {
+				var newData = _.sortBy(data.statuses, function(o){ return o.created_at });
+				sockets.sockets.emit('data', newData);
+			});
+
 			db.close();
+
 		});
 
 	});
@@ -122,47 +168,7 @@ app.post('/sendEmail', function(req, res){
 
 });
 
-//Start a Socket.IO listen
-var sockets = io.listen(server);
-
-//Set the sockets.io configuration.
-//THIS IS NECESSARY ONLY FOR HEROKU!
-sockets.configure(function () {
-	sockets.set('transports', ['xhr-polling']);
-	sockets.set('polling duration', 3600);
-});
-
-//Instantiate the twitter component
-//You will need to get your own key. Don't worry, it's free. But I cannot provide you one
-//since it will instantiate a connection on my behalf and will drop all other streaming connections.
-//Check out: https://dev.twitter.com/
-var t = new twitter({
-	consumer_key: 'XHHh0St57xEb0uZ6zlVxAzgFv',           // <--- FILL ME IN
-	consumer_secret: 'qxbmnjQau0W6ofQsJeByRuIi2iGMFLW2aJMNd5aXjnTZ4Ic8tU',        // <--- FILL ME IN
-	access_token_key: '93891411-DtXySlEpuTNnM09dUEjb0aHnoj6mBrXb0gPQAgz87',       // <--- FILL ME IN
-	access_token_secret: 'mEegi29Ivz0eZJHDxwxURk32wMqbWf0CxgUJvBqWimf2g'     // <--- FILL ME IN
-});
-
-var arr = new Array();
-
-//Tell the twitter API to filter on the watchSymbols
-t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
-
-	//We have a connection. Now watch the 'data' event for incomming tweets.
-	stream.on('data', function (tweet) {
-		//Make sure it was a valid tweet
-		if (tweet.text !== undefined) {
-			arr.push(tweet);
-			sockets.sockets.emit('data', arr);
-		}
-	});
-});
-
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
-
 //Create the server
 server.listen(app.get('port'), server_ip_address, function () {
 	console.log('Express server listening on port ' + app.get('port'));
 });
-
-

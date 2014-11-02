@@ -1654,6 +1654,11 @@ blockquote footer {
 	color: #41969c
 }
 
+.twitter{
+	background: #d1d1d1;
+	padding: 90px 0px 90px 0px;
+}
+
 body > footer {
 	background: #41969c;
 	padding: 110px 0 0 0;

@@ -10,7 +10,7 @@
 		"hogan-express": "0.5.2",
 		"socket.io": "0.9.16",
 		"stylus" : "0.42.2",
-		"ntwitter" : "0.5.0",
+		"twitter" : "0.2.13",
 		"underscore" : "1.5.2",
 		"mongodb" : "1.4.19",
 		"express-mailer" : "0.2.3"

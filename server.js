@@ -66,17 +66,12 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	mongo.connect(mongoUrl, function (err, db) {
 
-		console.log(mongoUrl);
-		console.log(db);
-
 		var collection = db.collection('portfolio');
-
-		console.log(collection);
-		console.log(collection.find());
 
 		collection.find({}).toArray(function (err, docs) {
 			//assert.equal(err, null);
 			//assert.equal(4, docs.length);
+			console.log(docs);
 			portfolioList = docs;
 
 			for (var i = 0; i < portfolioList.length; i++) {

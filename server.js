@@ -18,7 +18,7 @@ var app = express();
 mailer.extend(app, {
 	from: 'site@gcardoso.pt',
 	host: 'smtp.gcardoso.pt', // hostname
-	secureConnection: true, // use SSL
+	secureConnection: false, // use SSL
 	port: 25, // port for secure SMTP
 	transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
 	auth: {

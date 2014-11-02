@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
-var mongoUrl = 'mongodb://'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
+var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
 var enviromnent = app.get('env');
 
@@ -66,27 +66,25 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	mongo.connect(mongoUrl, function (err, db) {
 
+		if(('development' != enviromnent)) db.auth('admin', 'VPSH3mpQp6fH');
+
 		var collection = db.collection('portfolio');
 
 		collection.find({}).toArray(function (err, docs) {
+			//assert.equal(err, null);
+			//assert.equal(4, docs.length);
+			portfolioList = docs;
 
-			if (docs != null){
-
-				portfolioList = docs;
-
-				for (var i = 0; i < portfolioList.length; i++) {
-					var obj = portfolioList[i];
-					for (var prop in obj) {
-						var col = obj[prop];
-						if (col == "null" || col == 'null' || col == null) portfolioList[i][prop] = null;
-					}
+			for (var i = 0; i < portfolioList.length; i++) {
+				var obj = portfolioList[i];
+				for (var prop in obj) {
+					var col = obj[prop];
+					if (col == "null" || col == 'null' || col == null) portfolioList[i][prop] = null;
 				}
-
 			}
 
 			res.render('index.html', {portfolio: portfolioList});
 			db.close();
-
 		});
 
 	});

@@ -69,21 +69,24 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 		var collection = db.collection('portfolio');
 
 		collection.find({}).toArray(function (err, docs) {
-			//assert.equal(err, null);
-			//assert.equal(4, docs.length);
-			console.log(docs);
-			portfolioList = docs;
 
-			for (var i = 0; i < portfolioList.length; i++) {
-				var obj = portfolioList[i];
-				for (var prop in obj) {
-					var col = obj[prop];
-					if (col == "null" || col == 'null' || col == null) portfolioList[i][prop] = null;
+			if (docs != null){
+
+				portfolioList = docs;
+
+				for (var i = 0; i < portfolioList.length; i++) {
+					var obj = portfolioList[i];
+					for (var prop in obj) {
+						var col = obj[prop];
+						if (col == "null" || col == 'null' || col == null) portfolioList[i][prop] = null;
+					}
 				}
+
 			}
 
 			res.render('index.html', {portfolio: portfolioList});
 			db.close();
+
 		});
 
 	});

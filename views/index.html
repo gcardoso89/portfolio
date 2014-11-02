@@ -266,6 +266,39 @@
     </div>
 </section>
 
+<section class="portfolio" data-content="portfolio">
+    <div class="base">
+        <h2>Portfolio <small>click and drag to more detail</small></h2>
+
+        {{#portfolio}}
+        <article>
+            <figure><img src="{{image_url}}" data-big-image="{{full_image_url}}" alt="{{name}}" draggable="false" /></figure>
+            <h3>{{ name }}</h3>
+            <ul>
+                {{#client}}
+                <li><strong>client</strong>{{client}}</li>
+                {{/client}}
+
+                {{#start_date}}
+                <li><strong>year</strong>{{start_date}} {{#end_date}} - {{end_date}} {{/end_date}}</li>
+                {{/start_date}}
+
+                {{#working_as}}
+                <li><strong>working as</strong>{{working_as}}</li>
+                {{/working_as}}
+
+                {{#link}}
+                <li><strong>project link</strong><a href="{{link}}" target="_blank" {{#link_title}} title="{{link_title}}" {{/link_title}}>{{link_text}}</a></li>
+                {{/link}}
+            </ul>
+            <div class="magni"><span></span></div>
+            <div class="dark"></div>
+        </article>
+        {{/portfolio}}
+
+    </div>
+</section>
+
 <section class="contact" data-content="contact">
     <div class="base">
         <h2>Contact<span> me</span></h2>

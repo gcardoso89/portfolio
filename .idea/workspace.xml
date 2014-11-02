@@ -32,15 +32,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.openshift/action_hooks/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="135">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.openshift/cron/daily/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
@@ -53,7 +44,16 @@
       <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="25" selection-start="227" selection-end="227" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="345">
+            <state line="15" column="28" selection-start="323" selection-end="323" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="360">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/mongodb/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="20" selection-start="164" selection-end="164" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="3810">
               <folding />
             </state>
           </provider>
@@ -62,7 +62,7 @@
       <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="29" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.40336135" vertical-offset="408" max-vertical-offset="1875">
+            <state line="66" column="26" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.2946679" vertical-offset="675" max-vertical-offset="2445">
               <folding />
             </state>
           </provider>
@@ -72,6 +72,15 @@
         <entry file="file://$PROJECT_DIR$/views/teste.html">
           <provider selected="true" editor-type-id="text-editor">
             <state line="8" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="273" column="17" selection-start="11109" selection-end="11109" vertical-scroll-proportion="-15.875" vertical-offset="3714" max-vertical-offset="5475">
               <folding />
             </state>
           </provider>
@@ -114,9 +123,11 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/views/teste.html" />
+        <option value="$PROJECT_DIR$/node_modules/mongodb/package.json" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/views/index.html" />
         <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
@@ -214,6 +225,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gcardoso" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mongodb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -222,6 +251,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="LayoutCode.rearrangeEntriesJavaScript" value="false" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -303,13 +333,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="25" selection-start="227" selection-end="227" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="345">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="0" selection-start="602" selection-end="602" vertical-scroll-proportion="-18.6" vertical-offset="0" max-vertical-offset="555">
@@ -338,6 +361,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mongodb/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="20" selection-start="164" selection-end="164" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="3810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="28" selection-start="323" selection-end="323" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="360">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/teste.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="240">
@@ -345,9 +382,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="273" column="17" selection-start="11109" selection-end="11109" vertical-scroll-proportion="-15.875" vertical-offset="3714" max-vertical-offset="5475">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="29" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.40336135" vertical-offset="408" max-vertical-offset="1875">
+        <state line="66" column="26" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.2946679" vertical-offset="675" max-vertical-offset="2445">
           <folding />
         </state>
       </provider>

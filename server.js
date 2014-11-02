@@ -66,9 +66,7 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	mongo.connect(mongoUrl, function (err, db) {
 
-		console.log(err);
-
-		//if(('development' != enviromnent)) db.auth('admin', 'VPSH3mpQp6fH');
+		if(('development' != enviromnent)) db.auth('admin', 'VPSH3mpQp6fH');
 
 		var collection = db.collection('portfolio');
 

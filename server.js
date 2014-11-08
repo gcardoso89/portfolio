@@ -9,7 +9,8 @@ var express = require('express')
 	, _ = require('underscore')
 	, path = require('path')
 	, util = require('util')
-	, mongo = require('mongodb').MongoClient;
+	, mongo = require('mongodb').MongoClient
+	, stringify = require('json-stringify-safe');
 
 var portfolioList = [];
 
@@ -111,8 +112,6 @@ if ('development' == enviromnent) {
 
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
-
-	console.log(req);
 
 	mongo.connect(mongoUrl, function (err, db) {
 

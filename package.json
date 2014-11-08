@@ -13,7 +13,8 @@
 		"twitter" : "0.2.13",
 		"underscore" : "1.5.2",
 		"mongodb" : "1.4.19",
-		"express-mailer" : "0.2.3"
+		"express-mailer" : "0.2.3",
+		"json-stringify-safe" : "5.0.0"
 	},
 	"main": "server.js"
 }

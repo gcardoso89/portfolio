@@ -10,7 +10,7 @@ var express = require('express')
 	, path = require('path')
 	, util = require('util')
 	, mongo = require('mongodb').MongoClient
-	, stringify = require('json-stringify-safe');
+	, jwt = require('jwt-simple');
 
 var portfolioList = [];
 
@@ -33,7 +33,7 @@ mailer.extend(app, {
 var server = http.createServer(app);
 
 // Twitter symbols array
-var watchSymbols = ['#gcardoso'];
+var watchSymbols = ['#gcardoso','@goncalocardo_o'];
 
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
@@ -110,8 +110,14 @@ if ('development' == enviromnent) {
 	mongoUrl = 'mongodb://localhost:27017/gcardoso';
 }
 
+var token;
+
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
+
+	token = jwt.encode({
+		ip : req.ip
+	}, new Date().toString());
 
 	mongo.connect(mongoUrl, function (err, db) {
 
@@ -132,11 +138,7 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 				}
 			}
 
-			t.search('#gcardoso', function(data) {
-				var newData = _.sortBy(data.statuses, function(o){ return o.created_at });
-				res.render('index.html', {portfolio: portfolioList, twitterWall : newData});
-				sockets.sockets.emit('data', newData);
-			});
+			res.render('index.html', {portfolio: portfolioList, token: token});
 
 			db.close();
 
@@ -146,25 +148,48 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 });
 
+app.post('/getFirstTweets', function(req, res){
+
+	if (req.body.token == token){
+		t.search('#gcardoso', function(data) {
+			var newData = _.sortBy(data.statuses, function(o){ return new Date(o.created_at) });
+			res.json({success:true, tweets: newData})
+		});
+	}
+
+	else {
+		res.json({success:false});
+	}
+
+});
+
 app.get('/teste', function (req, res) {
 	res.render('teste.html');
 });
 
 app.post('/sendEmail', function(req, res){
 
-	app.mailer.send('email',{
-		to: 'goncalo.cb.ferreira@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
-		subject: 'Portfolio', // REQUIRED.
-		otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
-	}, function (err) {
-		if (err) {
-			// handle error
-			console.log(err);
-			res.json(200, { success : false });
-			return;
-		}
-		res.json(200, { success : true });
-	});
+	if ( req.body.token == token ){
+
+		app.mailer.send('email',{
+			to: 'goncalo.cb.ferreira@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
+			subject: 'Portfolio', // REQUIRED.
+			emailobject: req.body // All additional properties are also passed to the template as local variables.
+		}, function (err) {
+			if (err) {
+				// handle error
+				console.log(err);
+				res.json(200, { success : false });
+				return;
+			}
+			res.json(200, { success : true });
+		});
+
+	}
+
+	else {
+		res.status(403).end();
+	}
 
 });
 

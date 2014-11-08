@@ -565,9 +565,9 @@ ContactForm.prototype.sendEmail = function () {
 	var _email = $('input[name="email"]', this.cont).val();
 	var _message = $('textarea[name="message"]', this.cont).val();
 	var _subject = $('input[name="subject"]', this.cont).val();
+	var _token = $('input[name="tweetToken"]').val();
 
-	var dataString = 'name=' + _name + '&company=' + _company + '&email=' + _email + '&message=' + _message + '&subject=' + _subject;
-
+	var dataString = 'name=' + _name + '&company=' + _company + '&email=' + _email + '&message=' + _message + '&subject=' + _subject + '&token=' + _token;
 
 	$.ajax({
 		type: "POST",
@@ -583,29 +583,62 @@ ContactForm.prototype.sendEmail = function () {
 
 function TwitterWall($scope){
 
-	var _this = this;
 	this.list = [];
 	this.scope = $scope;
 
-	var socket = io.connect(window.location.hostname);
-	socket.on('data', function(data) {
+	this.socket = null;
 
-		for (var i = 0; i < data.length; i++) {
-			var obj = data[i];
-			_this.showTweet(obj);
-		}
-
-		_this.scope.$digest();
-
-	});
+	this.connectFirst();
 
 }
 
-TwitterWall.prototype.showTweet = function(data){
+TwitterWall.prototype.processTweetData = function(data){
+
+	for (var i = 0; i < data.length; i++) {
+		var obj = data[i];
+		this.showTweet(this.createTweet(obj));
+	}
+
+	this.scope.$digest();
+
+};
+
+TwitterWall.prototype.connectFirst = function(){
 
 	var _this = this;
 
-	var newObj = {
+	$.ajax({
+
+		url : '/getFirstTweets',
+
+		type : 'POST',
+
+		dataType : 'json',
+
+		data : { token : $('#tweetToken').val() },
+
+		success : function(res){
+
+			if (res.success){
+
+				_this.processTweetData(res.tweets);
+
+				_this.socket = io.connect(window.location.hostname);
+				_this.socket.on('data', function(data) {
+					_this.processTweetData(data);
+				});
+
+			}
+
+		}
+
+	})
+
+};
+
+TwitterWall.prototype.createTweet = function(data){
+
+	return {
 
 		name : data.user.name,
 
@@ -623,6 +656,8 @@ TwitterWall.prototype.showTweet = function(data){
 
 	};
 
-	this.list.push(newObj);
+};
 
+TwitterWall.prototype.showTweet = function(tweet){
+	this.list.push(tweet);
 };

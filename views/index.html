@@ -304,6 +304,7 @@
 
 <section class="twitter" ng-controller="TwitterWall as twitter">
 
+    <input name="tweetToken" id="tweetToken" type="hidden" value="{{token}}"/>
     <div class="base">
 
         <div ng-repeat="tweet in twitter.list | reverse">
@@ -372,12 +373,6 @@
         </div>
     </div>
 </footer>
-
-<script type="text/javascript">
-
-    var _twitterWallFirstArray = {{twitterWall}};
-
-</script>
 
 </body>
 </html>

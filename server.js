@@ -112,6 +112,8 @@ if ('development' == enviromnent) {
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
+	console.log(req);
+
 	mongo.connect(mongoUrl, function (err, db) {
 
 		//if(('development' != enviromnent)) db.auth('admin', 'VPSH3mpQp6fH');
@@ -131,10 +133,9 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 				}
 			}
 
-			res.render('index.html', {portfolio: portfolioList});
-
 			t.search('#gcardoso', function(data) {
 				var newData = _.sortBy(data.statuses, function(o){ return o.created_at });
+				res.render('index.html', {portfolio: portfolioList, twitterWall : newData});
 				sockets.sockets.emit('data', newData);
 			});
 

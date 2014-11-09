@@ -193,6 +193,16 @@ app.post('/sendEmail', function(req, res){
 
 });
 
+// Handle 404
+app.use(function(req, res) {
+	res.render('error/404.html', {error: "404 error page"});
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+	res.render('error/500.html', {error: "500 error page"});
+});
+
 //Create the server
 server.listen(app.get('port'), server_ip_address, function () {
 	console.log('Express server listening on port ' + app.get('port'));

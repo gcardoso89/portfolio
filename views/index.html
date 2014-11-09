@@ -19,6 +19,8 @@
     <script type="text/javascript" src="js/form-builder.min.js"></script>
     <script type="text/javascript" src="js/functions.js"></script>
 
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,700italic' rel='stylesheet' type='text/css'>
+
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -49,7 +51,8 @@
             <a href="/skills" data-target="skills">Skills</a>
             <a href="/work-education" data-target="workandeducation">Work & Education</a>
             <a href="/portfolio" data-target="portfolio">Portfolio</a>
-            <a href="/contact-me" data-target="contact">Contact me</a>
+            <a href="/twitter-wall" data-target="twitter-wall">Tweet this</a>
+            <a href="/contact-me" data-target="contact">Contact</a>
         </nav>
     </div>
 </header>
@@ -302,16 +305,25 @@
     </div>
 </section>
 
-<section class="twitter" ng-controller="TwitterWall as twitter">
+<section class="twitter" data-content="twitter-wall" ng-controller="TwitterWall as twitter">
 
     <input name="tweetToken" id="tweetToken" type="hidden" value="{{token}}"/>
+
     <div class="base">
 
-        <div ng-repeat="tweet in twitter.list | reverse">
+        <h3>My porfolio was proudly developed using<br /><em>MongoDB</em>, <em>AngularJS</em> and <em>NodeJS</em></h3>
+        
+        <div class="logos">
+            <img src="images/mongodb_logo.png" alt="MongoDB" />
+            <img src="images/angularjs_logo.png" alt="AngularJS"/>
+            <img src="images/nodejs_logo.png" alt="Node.js"/>
+        </div>
+
+        <div data-ng-repeat="tweet in twitter.list | reverse">
             <h1>[[tweet.name]] - [[tweet.username]]</h1>
             <h2>[[tweet.date]]</h2>
-            <div ng-bind-html="tweet.text"></div>
-            <img ng-src="[[tweet.image]]" ng-show="[[tweet.imageVisible]]" />
+            <div data-ng-bind-html="tweet.text"></div>
+            <img data-ng-src="[[tweet.image]]" data-ng-show="[[tweet.imageVisible]]" />
         </div>
 
     </div>

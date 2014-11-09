@@ -33,7 +33,7 @@ mailer.extend(app, {
 var server = http.createServer(app);
 
 // Twitter symbols array
-var watchSymbols = ['#gcardoso','@goncalocardo_o'];
+var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
 
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {

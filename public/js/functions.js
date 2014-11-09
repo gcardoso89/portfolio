@@ -12,7 +12,7 @@ window.mobilecheck = function () {
 	return check;
 };
 
-var gcardosoPortfolioApp = angular.module('gcardosoPortfolioApp', ['ngSanitize'], function($interpolateProvider){
+var gcardosoPortfolioApp = angular.module('gcardosoPortfolioApp', ['ngSanitize','ngAnimate'], function($interpolateProvider){
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 });
@@ -26,6 +26,7 @@ gcardosoPortfolioApp.filter('reverse', function() {
 		return items.slice().reverse();
 	};
 });
+
 
 $(function () {
 	_portfolio = new Portfolio();
@@ -409,7 +410,7 @@ ScrollControler.prototype.scrollHandler = function () {
 		this.objCon.addClass('anim');
 		this.objCon.hasAnimClass = true;
 	}
-	;
+
 
 };
 
@@ -482,7 +483,7 @@ function ProfileGallery() {
 	this.ci = 0;
 	this.timer = null;
 	this.startTimeout();
-};
+}
 
 ProfileGallery.prototype.startTimeout = function () {
 
@@ -502,7 +503,7 @@ ProfileGallery.prototype.changeImage = function () {
 	this.imgList.eq(cur).fadeOut(1700);
 
 	if (cur + 1 >= this.lgth) cur = 0;
-	else cur++
+	else cur++;
 
 	this.imgList.eq(cur).fadeIn(1700);
 
@@ -581,18 +582,90 @@ ContactForm.prototype.sendEmail = function () {
 };
 
 
-function TwitterWall($scope){
+function TwitterWall($scope, $timeout){
 
 	this.list = [];
 	this.scope = $scope;
+	this.timeOut = $timeout;
 
 	this.socket = null;
+
+	this.positions = [
+
+		{
+			current : null
+		},
+		{
+			current : null,
+			out : 8,
+			hidden : false
+		},
+		{
+			current : null,
+			out : 7,
+			hidden : false
+		},
+		{
+			current : null,
+			out : 10,
+			hidden : false
+		},
+		{
+			current : null,
+			out : 6,
+			hidden : null
+		},
+		{
+			current : null,
+			out : 14,
+			hidden : false
+		},
+		{
+			current : null,
+			out : 13,
+			hidden : false
+		},
+		{
+			current : null,
+			out: 9,
+			hidden: false
+		},
+		{
+			current : null,
+			out: 12,
+			hidden : false
+		},
+		{
+			current : null,
+			out : 11,
+			hidden : false
+		},
+		{
+			current : null,
+			hidden : true
+		},
+		{
+			current : null,
+			hidden : true
+		},
+		{
+			current : null,
+			hidden : true
+		},
+		{
+			current : null,
+			hidden : true
+		}
+
+	];
 
 	this.connectFirst();
 
 }
 
 TwitterWall.prototype.processTweetData = function(data){
+
+	var _this = this;
 
 	for (var i = 0; i < data.length; i++) {
 		var obj = data[i];
@@ -638,26 +711,82 @@ TwitterWall.prototype.connectFirst = function(){
 
 TwitterWall.prototype.createTweet = function(data){
 
+	var hashRegex = new RegExp('#([^\\s]*)','g');
+	var retweetRegex = new RegExp('RT @([^\\s]*):', 'g');
+	var linksRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+
 	return {
 
 		name : data.user.name,
 
 		username : "@" + data.user.screen_name,
 
-		image : data.user.profile_image_url.replace("_normal", ""),
+		//image : data.user.profile_image_url.replace("_normal", ""),
+		image : data.user.profile_image_url.replace("_normal", "_bigger"),
 
-		text : data.text.replace("#gcardoso", "<b>#gcardoso</b>"),
+		text : data.text.replace(hashRegex, "<em>#$1</em>").replace(retweetRegex, '<strong>RT @$1: </strong>').replace(linksRegex, '<a href="$1" target="_blank">$1</a>'),
 
 		imageVisible : true,
 
 		created_at : new Date(data.created_at).getTime(),
 
-		date : data.created_at
+		date : data.created_at,
+
+		classname : 'tweet' + ((this.list.length % 5)+1).toString()
 
 	};
 
 };
 
 TwitterWall.prototype.showTweet = function(tweet){
+
+	var _this = this;
+
+	this.checkPosition(tweet);
+
 	this.list.push(tweet);
+
+};
+
+TwitterWall.prototype.checkPosition = function(tweet){
+
+	if ( this.list.length > 0 ){
+
+		var curr = (this.list.length-1)%4 + 1;
+		var currPos = this.positions[curr];
+
+		if ( currPos.current != null ){
+
+			var nextOut1 = this.positions[currPos.out-1];
+
+			if ( nextOut1.current != null ){
+
+				var nextOut2 = this.positions[nextOut1.out-1];
+
+				if ( nextOut2.current != null && typeof(nextOut2.out) !== "undefined" ){
+
+					var nextOut3 = this.positions[nextOut2.out-1];
+					nextOut2.current.position = "pos" + nextOut2.out.toString();
+					nextOut3.current = nextOut2.current;
+
+				}
+
+				nextOut1.current.position = "pos" + nextOut1.out.toString();
+				nextOut2.current = nextOut1.current;
+
+			}
+
+			currPos.current.position = "pos" + currPos.out.toString();
+			nextOut1.current = currPos.current;
+
+		}
+
+		this.positions[0].current.position = "pos" + (curr+1).toString();
+		currPos.current = this.positions[0].current;
+
+	}
+
+	this.positions[0].current = tweet;
+	this.positions[0].current.position = "pos1";
+
 };

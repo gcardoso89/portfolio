@@ -23,11 +23,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="204" column="0" selection-start="5541" selection-end="5541" vertical-scroll-proportion="0.0" vertical-offset="2115" max-vertical-offset="3210">
-              <folding />
+            <state line="73" column="0" selection-start="2041" selection-end="2041" vertical-scroll-proportion="0.7808219" vertical-offset="240" max-vertical-offset="3225">
+              <folding>
+                <marker date="1415536339000" expanded="true" signature="1845:1917" placeholder="//..." />
+                <marker date="1415536339000" expanded="true" signature="1948:2036" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,10 +62,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="817" column="20" selection-start="16356" selection-end="16356" vertical-scroll-proportion="0.31912878" vertical-offset="11918" max-vertical-offset="35625">
+            <state line="1683" column="8" selection-start="30742" selection-end="30742" vertical-scroll-proportion="-27.384615" vertical-offset="24533" max-vertical-offset="35670">
               <folding />
             </state>
           </provider>
@@ -85,10 +88,10 @@
         <option value="$USER_HOME$/Downloads/twitter app/public/javascripts/script.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/public/js/functions.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/views/error/404.html" />
         <option value="$PROJECT_DIR$/views/index.html" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -393,20 +396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="561" column="0" selection-start="16223" selection-end="16223" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10020">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="204" column="0" selection-start="5541" selection-end="5541" vertical-scroll-proportion="0.0" vertical-offset="2115" max-vertical-offset="3210">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="51" column="89" selection-start="2737" selection-end="2737" vertical-scroll-proportion="-14.78" vertical-offset="26" max-vertical-offset="5940">
@@ -416,8 +405,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="817" column="20" selection-start="16356" selection-end="16356" vertical-scroll-proportion="0.31912878" vertical-offset="11918" max-vertical-offset="35625">
+        <state line="1683" column="8" selection-start="30742" selection-end="30742" vertical-scroll-proportion="-27.384615" vertical-offset="24533" max-vertical-offset="35670">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="561" column="0" selection-start="16223" selection-end="16223" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10020">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="0" selection-start="2041" selection-end="2041" vertical-scroll-proportion="0.7808219" vertical-offset="240" max-vertical-offset="3225">
+          <folding>
+            <marker date="1415536339000" expanded="true" signature="1845:1917" placeholder="//..." />
+            <marker date="1415536339000" expanded="true" signature="1948:2036" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

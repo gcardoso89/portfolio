@@ -292,7 +292,7 @@ header nav a {
 	float:left;
 	color:#fff;
 	padding:0px 15px;
-	font-size:1.125em;
+	font-size:1.0625em;
 	text-transform: lowercase;
 }
 
@@ -970,7 +970,8 @@ header nav a {
 }
 
 .skills p strong {
-	color: #41969c
+	color: #41969c;
+	font-size: 1.2em;
 }
 
 .quote {
@@ -1679,6 +1680,8 @@ blockquote footer {
 .twitter .logos img{
 	margin:0 30px;
 }
+
+.twitter
 
 
 body > footer {

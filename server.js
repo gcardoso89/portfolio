@@ -64,12 +64,13 @@ app.use('/components', express.static(path.join(__dirname, 'components')));
 //Start a Socket.IO listen
 var sockets = io.listen(server);
 
+/*
 //Set the sockets.io configuration.
 //THIS IS NECESSARY ONLY FOR HEROKU!
 sockets.configure(function () {
 	sockets.set('transports', ['xhr-polling']);
 	sockets.set('polling duration', 3600);
-});
+});*/
 
 //Instantiate the twitter component
 //You will need to get your own key. Don't worry, it's free. But I cannot provide you one

@@ -790,3 +790,26 @@ TwitterWall.prototype.checkPosition = function(tweet){
 	this.positions[0].current.position = "pos1";
 
 };
+
+TwitterWall.prototype.tweetThis = function(e){
+
+	e.preventDefault();
+
+	console.log(e);
+
+	var width  = 575,
+		height = 400,
+		left   = ($(window).width() - width)  / 2,
+		top    = ($(window).height() - height) / 2,
+		url    = e.currentTarget.href + "?text=" + encodeURIComponent("Check out the new @goncalocardo_o’s portfolio, developed using #mongoDB, #AngularJS and #nodejs. #gcardoso"),
+		opts   = 'status=1' +
+			',width='  + width  +
+			',height=' + height +
+			',top='    + top    +
+			',left='   + left;
+
+	window.open(url, 'twitter', opts);
+
+	return false;
+
+};

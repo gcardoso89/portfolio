@@ -10,9 +10,9 @@ var express = require('express')
 	, path = require('path')
 	, util = require('util')
 	, mongo = require('mongodb').MongoClient
-	, jwt = require('jwt-simple');
+	, jwt = require('jwt-simple')
+	, portfolioList = [];
 
-var portfolioList = [];
 
 //Create an express app
 var app = express();
@@ -50,6 +50,20 @@ _.each(watchSymbols, function (v) {
 app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
+app.set('layout', 'layout');
+app.set('partials', {
+	header : 'includes/header',
+	banner : 'pages/banner',
+	me : 'pages/me',
+	profile : 'pages/profile',
+	skills : 'pages/skills',
+	workeducation : 'pages/workeducation',
+	portfolio : 'pages/portfolio',
+	twitterwall : 'pages/twitterwall',
+	contact : 'pages/contact',
+	footer : 'includes/footer'
+});
+//app.enable('view cache');
 app.engine('html', require('hogan-express'));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -122,30 +136,16 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	mongo.connect(mongoUrl, function (err, db) {
 
-		//if(('development' != enviromnent)) db.auth('admin', 'VPSH3mpQp6fH');
+		 var collection = db.collection('portfolio');
+		 collection.find({}).toArray(function (err, docs) {
+			 portfolioList = docs;
+			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token});
+			 db.close();
+		 });
 
-		var collection = db.collection('portfolio');
+	 });
 
-		collection.find({}).toArray(function (err, docs) {
-			//assert.equal(err, null);
-			//assert.equal(4, docs.length);
-			portfolioList = docs;
 
-			for (var i = 0; i < portfolioList.length; i++) {
-				var obj = portfolioList[i];
-				for (var prop in obj) {
-					var col = obj[prop];
-					if (col == "null" || col == 'null' || col == null) portfolioList[i][prop] = null;
-				}
-			}
-
-			res.render('index.html', {portfolio: portfolioList, token: token});
-
-			db.close();
-
-		});
-
-	});
 
 });
 
@@ -172,10 +172,11 @@ app.post('/sendEmail', function(req, res){
 
 	if ( req.body.token == token ){
 
-		app.mailer.send('email',{
+		app.mailer.send('emails/email',{
 			to: 'goncalo.cb.ferreira@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
 			subject: 'Portfolio', // REQUIRED.
-			emailobject: req.body // All additional properties are also passed to the template as local variables.
+			emailobject: req.body, // All additional properties are also passed to the template as local variables.
+			layout : null
 		}, function (err) {
 			if (err) {
 				// handle error
@@ -196,12 +197,12 @@ app.post('/sendEmail', function(req, res){
 
 // Handle 404
 app.use(function(req, res) {
-	res.render('error/404.html', {error: "404 error page"});
+	res.render('error/404.html', {error: "404 error page", layout : null});
 });
 
 // Handle 500
 app.use(function(error, req, res, next) {
-	res.render('error/500.html', {error: "500 error page"});
+	res.render('error/500.html', {error: "500 error page", layout : null});
 });
 
 //Create the server

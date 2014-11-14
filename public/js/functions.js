@@ -27,359 +27,22 @@ gcardosoPortfolioApp.filter('reverse', function() {
 	};
 });
 
+function Portfolio(){
 
-$(function () {
-	_portfolio = new Portfolio();
-	_scrollControl = new ScrollControler();
-	_navigationControl = new Navigation();
-	_profileGallery = new ProfileGallery();
-	_contactForm = new ContactForm();
-});
+	this.projects = _portfolioList;
 
-function Portfolio() {
-	var that = this;
-	this.cont = $('section.portfolio');
-	this.items = $('article', this.cont);
-	this.itemsW = this.items.width();
-	this.itemsArr = this.fillItemsArray(this.items);
-	this.structClass = {
-		item_classname: 'item',
-		image_classname: 'img',
-		info_classname: 'info'
-	};
 
-	this.topExtra = parseInt(this.items.css('margin-top'), 10) + this.items.height() + 10;
-
-	this.struct = {};
-
-	this.win = $(window);
-	this.win.bind('resize.Portfolio', function (e) {
-		that.resizeHandler()
-	});
-	this.resizeHandler();
-
-	this.createScrollbarStructure();
-	this.createStructure();
-
-	this.ci = { obj: null, ind: null };
-
-	this.items._isAnimating = false;
-	this.items.bind('click.Portfolio', function (e) {
-		var obj = $(this);
-		var ind = obj.index() - 1;
-		that.itemClickHandler(obj, ind);
-
-	});
 
 }
 
-Portfolio.prototype.createStructure = function () {
+Portfolio.prototype.show = function(id){
 
-	var that = this;
-
-	this.struct = $('<div class="' + this.structClass.item_classname + '"></div>');
-	this.struct.append('<span></span>');
-	this.struct.append('<div class="' + this.structClass.image_classname + '"><div><img src="" draggable="false" /></div></div>');
-	this.struct.append('<div class="' + this.structClass.info_classname + '"></div>');
-	this.structImage = $('.' + this.structClass.image_classname, this.struct);
-	this.drag = $('div', this.structImage);
-	this.structImg = $('img', this.structImage);
-	this.structImg.bind('dragstart', function (e) {
-		e.preventDefault();
-	});
-	this.structInfo = $('.' + this.structClass.info_classname, this.struct);
-	this.struct.opened = false;
-	this.struct.css({left: this.winW});
-	this.struct.prependTo(this.cont);
-	this.structW = this.structImg.width();
-
-	var bod = $('body');
-	var initX = 0;
-	var posX = 0;
-	this.dragMaxX = this.drag.width() - this.winW;
-
-	function mouseDownHandler(e) {
-		e.preventDefault();
-		//if (!that.draggable) return true;
-		initX = e.clientX;
-		posX = that.drag.position().left;
-		bod.bind('mousemove.Portfolio', mouseMoveHandler);
-		bod.bind('mouseup.Portfolio', mouseUpHandler);
-		bod.bind('mouseleave.Portfolio', mouseUpHandler);
-	}
-
-	function mouseMoveHandler(e) {
-		var clientPosX = e.clientX;
-
-		that.drag.stop(true, false);
-		that.scrollbar.stop(true, false);
-		that.drag.addClass('dragging');
-		var valX = posX - (initX - e.clientX);
-		that.drag.css({ left: valX });
-		that.scrollbar.css({left: -(valX * that.itemsW / that.structW) });
-	}
-
-	function mouseUpHandler(e) {
-		bod.unbind('mousemove.Portfolio', mouseMoveHandler);
-		bod.unbind('mouseup.Portfolio', mouseUpHandler);
-		bod.unbind('mouseleave.Portfolio', mouseUpHandler);
-		var xVal = that.drag.position().left;
-		that.drag.removeClass('dragging');
-
-		that.checkFinalPosition(xVal, that.dragMaxX, that.drag, true);
-		that.checkFinalPosition(that.scrollbar.position().left, that.maxBarX, that.scrollbar);
-
-	}
-
-	this.drag.bind('mousedown.Portfolio', mouseDownHandler);
-
-};
-
-Portfolio.prototype.createScrollbarStructure = function () {
-
-	this.scrollbar = $('<div class="scrollbar"><div><span></span><span class="bar"></span><span></span></div></div>');
-	this.bar = $('.bar', this.scrollbar);
-	this.bar._hasEvent = false;
-
-};
-
-Portfolio.prototype.fillItemsArray = function (listItems) {
-
-	var arr = [];
-
-	for (var i = 0; i < listItems.length; i++) {
-		var parent = listItems.eq(i);
-		var imageObj = $('> figure img', parent);
-		imageObj.bind('dragstart', function (e) {
-			e.preventDefault();
-		});
-		var src = imageObj.attr('src');
-		var bigSrc = imageObj.attr('data-big-image');
-		var info = $('> ul', parent);
-		arr.push({src: src, info: info, fullImg: null, fullImgSrc: bigSrc });
-	}
-	;
-
-	return arr;
-};
-
-Portfolio.prototype.itemClickHandler = function (clickedObject, objectIndex) {
-
-	if (this.items._isAnimating) return true;
-
-	if (this.ci.obj == null && this.ci.ind == null) {
-		this.items._isAnimating = true;
-		clickedObject.addClass('active');
-		this.items.addClass('opened');
-		this.createScrollbar(clickedObject);
-		this.openItem(clickedObject, objectIndex); //Only opens the clicked item
-
-	}
-	else if (objectIndex == this.ci.ind) {
-		return false;
-		//this.closeItem(obj, id, false); //Only closes the clicked item which was open
-	}
-	else {
-		this.items._isAnimating = true;
-		this.items.addClass('opened');
-		this.ci.obj.removeClass('active');
-		clickedObject.addClass('active');
-		this.createScrollbar(clickedObject);
-		this.closeItem(clickedObject, objectIndex, true); //Closes the item which was open and opens the clicked one
-	}
+	console.log(id);
 
 };
 
 
-Portfolio.prototype.closeItem = function (objectToOpen, objectIndex, openItemBoolean) {
-
-	var that = this;
-	var obj = objectToOpen;
-	var ind = objectIndex;
-	var openItem = openItemBoolean;
-
-	this.struct.animate({height: 0, opacity: 0}, 350, 'easeOutQuad');
-	this.ci.obj.animate({marginBottom: 0}, 400, 'easeOutQuad', function (e) {
-
-		if (openItem) {
-			that.openItem(obj, ind);
-		}
-		else {
-			_scrollControl.refreshPositions();
-		}
-	});
-	if (!openItem) {
-		that.ci.obj = null;
-		that.ci.ind = null;
-	}
-};
-
-Portfolio.prototype.openItem = function (objectToOpen, objectIndex) {
-
-	var that = this;
-	var obj = objectToOpen;
-	var ind = objectIndex;
-	var objProp = this.itemsArr[ind];
-
-
-	if (objProp.fullImg == null) {
-		that.structImg.attr('src', objProp.src);
-	}
-	else {
-		this.structImg.attr('src', objProp.fullImg);
-	}
-
-	this.structInfo.html(objProp.info);
-	this.struct.css({left: that.winW, height: 'auto', display: 'block', opacity: 1});
-	var structH = this.struct.height();
-	var mBot = structH + ( ( ind == (this.items.length - 1) ) ? 0 : 40 );
-
-	obj.animate({ marginBottom: mBot }, 600, 'easeOutBounce', function () {
-		that.struct.opened = true;
-		var top = obj.position().top + that.topExtra;
-		that.drag.css({left: 0});
-		that.struct.css({top: top});
-		_scrollControl.refreshPositions();
-		//_scrollControl.scrollable.animate({scrollTop : (obj.offset().top - (_scrollControl.winH/2 - (structH+114)/2 )) - 61/2 }, 400, 'easeOutQuad');
-		_scrollControl.scrollable.animate({scrollTop: obj.offset().top - (_scrollControl.winH / 2 - (structH + 114) / 2 + 25 )}, 400, 'easeOutQuad');
-		that.struct.delay(200).animate({left: 0}, 400, 'easeOutQuad', function () {
-			that.items._isAnimating = false;
-			if (objProp.fullImg == null) {
-				that.optimizeImage(objProp, that.structImg);
-			}
-		});
-	});
-
-	this.ci.obj = obj;
-	this.ci.ind = ind;
-
-};
-
-Portfolio.prototype.resizeHandler = function () {
-
-	this.winW = this.win.width();
-	if (!(typeof(this.drag) === "undefined")) {
-		this.dragMaxX = this.drag.width() - this.winW;
-		this.drag.trigger('mousedown');
-		this.drag.trigger('mouseup');
-		this.resizeScrollbar();
-	}
-	if (this.struct.opened == false) this.struct.css({left: this.winW});
-
-};
-
-Portfolio.prototype.optimizeImage = function (objectArray, object) {
-
-	var obj = objectArray;
-	var objImg = object;
-	var img = new Image();
-
-	img.src = obj.fullImgSrc;
-	img.onload = loadedImage;
-
-	function loadedImage() {
-		obj.fullImg = img.src;
-		objImg.attr('src', obj.fullImg);
-	}
-
-};
-
-Portfolio.prototype.createScrollbar = function (object) {
-
-	var that = this;
-	var obj = object;
-
-	this.scrollbar.css({left: 0});
-	this.scrollbar.appendTo(obj)
-	this.resizeScrollbar();
-
-	var bod = $('body');
-	var initX = 0;
-	var posX = 0;
-
-	if (!this.bar._hasEvent) {
-		this.bar.bind('mousedown.Portfolio', mouseDownHandler);
-		this.bar._hasEvent = true;
-	}
-
-	function mouseDownHandler(e) {
-		e.preventDefault();
-
-		//if (!that.draggable) return true;
-		initX = e.clientX;
-		posX = that.scrollbar.position().left;
-		bod.bind('mousemove.Portfolio', mouseMoveHandler);
-		bod.bind('mouseup.Portfolio', mouseUpHandler);
-		bod.bind('mouseleave.Portfolio', mouseUpHandler);
-	}
-
-	function mouseMoveHandler(e) {
-		that.scrollbar.stop(true, false);
-		that.drag.stop(true, false);
-		that.bar.addClass('dragging');
-		var clientPosX = e.clientX;
-		var valX = posX - (initX - e.clientX);
-		if (valX <= -that.barW || valX >= that.itemsW) {
-			mouseUpHandler();
-			return true;
-		}
-		else {
-			that.scrollbar.css({ left: valX });
-			that.drag.css({left: -(valX * that.structW / that.itemsW) });
-		}
-	}
-
-	function mouseUpHandler(e) {
-		bod.unbind('mousemove.Portfolio', mouseMoveHandler);
-		bod.unbind('mouseup.Portfolio', mouseUpHandler);
-		bod.unbind('mouseleave.Portfolio', mouseUpHandler);
-		that.bar.removeClass('dragging');
-		var xVal = that.scrollbar.position().left;
-
-		that.checkFinalPosition(xVal, that.maxBarX, that.scrollbar);
-		that.checkFinalPosition(that.drag.position().left, that.dragMaxX, that.drag, true);
-	}
-
-
-};
-
-Portfolio.prototype.checkFinalPosition = function (leftValue, maxLeftValue, objectToAnimate, invertedDirection) {
-
-	var obj = objectToAnimate;
-	var maxVal = maxLeftValue;
-	var val = leftValue;
-	var inv = (typeof(invertedDirection) === "undefined") ? false : invertedDirection;
-	obj.stop(true, false);
-	obj.removeClass('dragging');
-
-	if (inv) {
-		if (val >= 0) {
-			obj.animate({ left: 0 }, 700);
-		}
-		else if (Math.abs(val) >= maxVal) {
-			obj.animate({ left: -maxVal }, 700);
-		}
-	}
-	else {
-		if (val <= 0) {
-			obj.animate({ left: 0 }, 700);
-		}
-		else if (val >= maxVal) {
-			obj.animate({ left: maxVal }, 700);
-		}
-	}
-
-};
-
-Portfolio.prototype.resizeScrollbar = function () {
-
-	this.barW = (this.winW * this.itemsW) / this.structW - 3;
-	this.bar.css({left: 0, width: this.barW });
-	this.maxBarX = this.itemsW - this.bar.width() - 6;
-
-};
-
-function ScrollControler() {
+function ScrollControler(){
 
 	var that = this;
 
@@ -388,39 +51,36 @@ function ScrollControler() {
 	this.scrollT = this.scrollable.scrollTop();
 	this.win = $(window);
 	this.winH = this.win.height();
-	this.win.resize(function (e) {
-		that.resizeHandler();
-	});
+	this.win.resize(function(e){ that.resizeHandler(); });
 
 	this.objCon = $('section.contact');
 	this.objCon.posTop = this.objCon.offset().top;
 	this.objCon.hasAnimClass = false;
 
-	this.win.scroll(function (e) {
-		that.scrollHandler()
-	});
+	this.win.scroll(function(e){ that.scrollHandler() });
 
 };
 
-ScrollControler.prototype.scrollHandler = function () {
+ScrollControler.prototype.scrollHandler = function(){
 
 	this.scrollT = this.win.scrollTop();
 
-	if (( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.objCon.height() / 3) ) && !this.objCon.hasAnimClass && this.isAnim) {
+	if ( ( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.objCon.height()/3) ) && !this.objCon.hasAnimClass && this.isAnim){
 		this.objCon.addClass('anim');
 		this.objCon.hasAnimClass = true;
-	}
-
+	};
 
 };
 
-ScrollControler.prototype.refreshPositions = function () {
+ScrollControler.prototype.refreshPositions = function(){
 	this.objCon.posTop = this.objCon.offset().top;
 };
 
-ScrollControler.prototype.resizeHandler = function () {
+ScrollControler.prototype.resizeHandler = function(){
 	this.winH = this.win.height();
 };
+
+
 
 
 function Navigation() {
@@ -794,8 +454,6 @@ TwitterWall.prototype.checkPosition = function(tweet){
 TwitterWall.prototype.tweetThis = function(e){
 
 	e.preventDefault();
-
-	console.log(e);
 
 	var width  = 575,
 		height = 400,

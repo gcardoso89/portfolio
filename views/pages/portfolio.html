@@ -1,0 +1,20 @@
+<script type="text/javascript">
+    var _portfolioList = {{{portfolioString}}};
+</script>
+<section class="portfolio" data-content="portfolio" data-ng-controller="Portfolio as portfolio">
+    <div class="base">
+        <h2>Portfolio <small>click and drag to more detail</small></h2>
+
+
+        <div class="list">
+            {{#portfolio}}
+            <article data-ng-click="portfolio.show('{{_id}}')">
+
+                {{title}}
+                <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
+            </article>
+            {{/portfolio}}
+        </div>
+
+    </div>
+</section>

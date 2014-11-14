@@ -1,0 +1,51 @@
+<script type="text/javascript">
+    $(function () {
+        _scrollControl = new ScrollControler();
+        _contactForm = new ContactForm();
+    });
+</script>
+
+<section class="contact" data-content="contact">
+    <div class="base">
+        <h2>Contact<span> me</span></h2>
+        <div class="network">
+            <a href="http://pt.linkedin.com/pub/gonçalo-cardoso-b-ferreira/2a/b52/728" target="_blank" class="in" title="LinkedIn profile"><i class="icon-linkedin"></i></a>
+            <a href="skype:gcardoso89" class="sk" title="Skype"><i class="icon-skype"></i></a>
+            <a href="mailto:goncalo@gcardoso.net" class="em" title="Email"><i class="icon-mail"></i></a>
+            <a href="docs/GoncaloCardoso_CV_2014_EN.pdf" target="_blank" class="cv" title="CV"><i class="icon-cv"></i></a>
+            <a href="http://www.facebook.com/gon.cardo" target="_blank" class="fb" title="Facebook"><i class="icon-facebook"></i></a>
+            <form>
+                <h3>Write me something</h3>
+                <div class="form">
+                    <div class="ln">
+                        <label for="nameFieldInput" id="nameFieldLabel">Name</label>
+                        <input name="name" type="text" id="nameFieldInput" />
+                        <div class="err"></div>
+                    </div>
+                    <div class="ln">
+                        <label for="companyFieldInput" id="companyFieldLabel">Company</label>
+                        <input name="company" type="text" id="companyFieldInput" />
+                        <div class="err"></div>
+                    </div>
+                    <div class="ln">
+                        <label for="emailFieldInput" id="emailFieldLabel">Email</label>
+                        <input name="email" type="text" id="emailFieldInput" />
+                        <div class="err"></div>
+                    </div>
+                    <div class="ln">
+                        <label for="subjectFieldInput" id="subjectFieldLabel">Subject</label>
+                        <input name="subject" type="text" id="subjectFieldInput" />
+                        <div class="err"></div>
+                    </div>
+                    <div class="ln">
+                        <label for="messageFieldTextarea" id="messageFieldLabel">Message</label>
+                        <textarea name="message" type="text" id="messageFieldTextarea"></textarea>
+                        <div class="err"></div>
+                    </div>
+                    <input type="submit" id="formSubmitButton" value="Send" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>

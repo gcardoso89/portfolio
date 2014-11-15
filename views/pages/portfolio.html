@@ -1,20 +1,120 @@
 <script type="text/javascript">
     var _portfolioList = {{{portfolioString}}};
 </script>
-<section class="portfolio" data-content="portfolio" data-ng-controller="Portfolio as portfolio">
+<section class="portfolio" data-content="portfolio" data-ng-controller="Portfolio as portfolio" data-ng-init="current = portfolio.current">
     <div class="base">
         <h2>Portfolio <small>click and drag to more detail</small></h2>
 
-
         <div class="list">
             {{#portfolio}}
-            <article data-ng-click="portfolio.show('{{_id}}')">
+            <article>
+                <a href="#" data-ng-click="portfolio.show($event, '{{_id}}')">
+                    <div class="info">
+                        <div>
+                            <div>
+                                <h3>{{title}}</h3>
+                                <ul>
+                                    {{#tags}}
+                                        <li>{{.}}</li>
+                                    {{/tags}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-                {{title}}
-                <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
+                    <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
+                </a>
+            </article>
+            <article>
+                <a href="#" data-ng-click="portfolio.show($event, '{{_id}}')">
+                    <div class="info">
+                        <div>
+                            <div>
+                                <h3>{{title}}</h3>
+                                <ul>
+                                    {{#tags}}
+                                    <li>{{.}}</li>
+                                    {{/tags}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
+                </a>
+            </article>
+            <article>
+                <a href="#" data-ng-click="portfolio.show($event, '{{_id}}')">
+                    <div class="info">
+                        <div>
+                            <div>
+                                <h3>{{title}}</h3>
+                                <ul>
+                                    {{#tags}}
+                                    <li>{{.}}</li>
+                                    {{/tags}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
+                </a>
             </article>
             {{/portfolio}}
         </div>
 
     </div>
+
+    <div class="modal" ng-show="portfolio.modal">
+
+        <div class="proj-gallery">
+
+            <ul>
+                <li data-ng-repeat="nav in current.images"><span></span></li>
+            </ul>
+
+            <div class="slider">
+                <img data-ng-src="images/projects/[[image]]" class="img-element" data-ng-repeat="image in current.images" />
+            </div>
+
+        </div>
+
+        <div class="proj-info">
+
+            <div class="main-info">
+                <div class="top">
+                    <div class="type">[[current.type]]</div>
+                    <div class="date">
+                        <span>[[current.date.start]]</span>
+                        <span data-ng-if="current.date.end != null">- [[current.date.end]]</span>
+                    </div>
+                </div>
+                <div class="sep"></div>
+                <div class="tit">[[current.title]]</div>
+                <div class="tags">
+                    <span data-ng-repeat="tag in current.tags">[[tag]]</span>
+                </div>
+                <ul class="topics">
+                    <li data-ng-repeat="topic in current.topics">[[topic]]</li>
+                </ul>
+            </div>
+
+            <div class="sec-info">
+                <div>
+                    <strong class="proj-lbl">client</strong>
+                    <div class="proj-val">[[current.client]]</div>
+                </div>
+                <div>
+                    <strong class="proj-lbl">working as</strong>
+                    <div class="proj-val">[[current.working.as]]</div>
+                    <div class="proj-subval">[[current.working.place]]</div>
+                    <div class="proj-copy">Copyright © All the rights reserved</div>
+                </div>
+                <a class="proj-lk" href="[[current.project_link]]" title="[[current.title]]">[[current.project_link]]</a>
+            </div>
+
+
+        </div>
+
+    </div>
+
 </section>

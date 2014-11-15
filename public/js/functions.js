@@ -27,17 +27,27 @@ gcardosoPortfolioApp.filter('reverse', function() {
 	};
 });
 
-function Portfolio(){
+function Portfolio($scope){
 
-	this.projects = _portfolioList;
+	this.projects = {};
+	this.scope = $scope;
+	this.modal = false;
 
-
+	for (var i = 0; i < _portfolioList.length; i++) {
+		var o = _portfolioList[i];
+		this.projects[o._id] = o;
+		delete this.projects[o._id]._id;
+	}
 
 }
 
-Portfolio.prototype.show = function(id){
+Portfolio.prototype.show = function(e, id){
 
-	console.log(id);
+	e.preventDefault();
+
+	this.modal = true;
+	this.scope.current = this.projects[id];
+
 
 };
 

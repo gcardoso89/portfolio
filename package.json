@@ -14,7 +14,8 @@
 		"underscore" : "1.5.2",
 		"mongodb" : "1.4.19",
 		"express-mailer" : "0.2.3",
-		"jwt-simple" : "0.2.0"
+		"jwt-simple" : "0.2.0",
+		"geoip-native" : "0.0.8"
 	},
 	"main": "server.js"
 }

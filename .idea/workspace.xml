@@ -23,15 +23,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="74" selection-start="2150" selection-end="2150" vertical-scroll-proportion="0.0" vertical-offset="630" max-vertical-offset="3240">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="portfolio.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portfolio.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -41,55 +32,37 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="137" column="34" selection-start="4194" selection-end="4194" vertical-scroll-proportion="0.21917808" vertical-offset="1815" max-vertical-offset="3285">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/layout.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="7" selection-start="2285" selection-end="2285" vertical-scroll-proportion="-29.375" vertical-offset="0" max-vertical-offset="840">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="31" selection-start="386" selection-end="386" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="390">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="functions.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="3" selection-start="2678" selection-end="2678" vertical-scroll-proportion="-11.230769" vertical-offset="113" max-vertical-offset="7170">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="portfolio.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/pages/portfolio.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="60" selection-start="398" selection-end="398" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="homepage.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/homepage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="159" selection-end="159" vertical-scroll-proportion="-18.125" vertical-offset="0" max-vertical-offset="525">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/includes/header.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="31" selection-start="31" selection-end="31" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="420">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="contact.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/pages/contact.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="52" selection-start="1490" selection-end="1490" vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="840">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1076" column="19" selection-start="20013" selection-end="20013" vertical-scroll-proportion="0.4469697" vertical-offset="15668" max-vertical-offset="35595">
+            <state line="47" column="22" selection-start="3010" selection-end="3010" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="7320">
               <folding />
             </state>
           </provider>
@@ -110,14 +83,12 @@
         <option value="$PROJECT_DIR$/node_modules/mongodb/package.json" />
         <option value="$PROJECT_DIR$/views/email.html" />
         <option value="$USER_HOME$/Downloads/twitter app/public/javascripts/script.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/views/error/404.html" />
         <option value="$PROJECT_DIR$/public/css/icons.css" />
         <option value="$PROJECT_DIR$/portfolio.js" />
         <option value="$PROJECT_DIR$/views/portfolio.html" />
         <option value="$PROJECT_DIR$/views/header/header.html" />
         <option value="$PROJECT_DIR$/views/index.html" />
-        <option value="$PROJECT_DIR$/views/layout.html" />
         <option value="$PROJECT_DIR$/views/pages/init.html" />
         <option value="$PROJECT_DIR$/views/pages/me.html" />
         <option value="$PROJECT_DIR$/views/pages/profile.html" />
@@ -125,20 +96,22 @@
         <option value="$PROJECT_DIR$/views/pages/workeducation.html" />
         <option value="$PROJECT_DIR$/views/pages/twitterwall.html" />
         <option value="$PROJECT_DIR$/views/includes/footer.html" />
-        <option value="$PROJECT_DIR$/public/js/functions.js" />
         <option value="$PROJECT_DIR$/views/includes/header.html" />
         <option value="$PROJECT_DIR$/views/pages/contact.html" />
-        <option value="$PROJECT_DIR$/views/homepage.html" />
-        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/public/js/functions.js" />
         <option value="$PROJECT_DIR$/views/pages/portfolio.html" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/views/homepage.html" />
+        <option value="$PROJECT_DIR$/views/layout.html" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="941" />
-    <option name="y" value="130" />
+    <option name="x" value="790" />
+    <option name="y" value="22" />
     <option name="width" value="1767" />
     <option name="height" value="1215" />
   </component>
@@ -242,11 +215,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="node_modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -260,25 +229,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gcardoso" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gcardoso" />
+              <option name="myItemId" value="node_modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="geoip-native" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -332,7 +287,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="941" y="130" width="1767" height="1215" extended-state="0" />
+    <frame x="790" y="22" width="1767" height="1215" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -438,13 +393,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="29" selection-start="358" selection-end="358" vertical-scroll-proportion="0.22408964" vertical-offset="0" max-vertical-offset="1071">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/error/500.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="7" selection-start="101" selection-end="101" vertical-scroll-proportion="0.14005603" vertical-offset="0" max-vertical-offset="1071">
@@ -520,23 +468,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="1841" selection-end="1841" vertical-scroll-proportion="-23.125" vertical-offset="0" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/emails/email.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="9" selection-start="75" selection-end="75" vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="240">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/banner.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="1886" selection-end="1886" vertical-scroll-proportion="-25.625" vertical-offset="0" max-vertical-offset="705">
           <folding />
         </state>
       </provider>
@@ -583,20 +517,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/contact.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="52" selection-start="1490" selection-end="1490" vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="840">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="3" selection-start="2678" selection-end="2678" vertical-scroll-proportion="-11.230769" vertical-offset="113" max-vertical-offset="7170">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/includes/header.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="31" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
@@ -604,37 +524,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/homepage.html">
+    <entry file="file://$PROJECT_DIR$/public/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="159" selection-end="159" vertical-scroll-proportion="-18.125" vertical-offset="0" max-vertical-offset="525">
+        <state line="1229" column="19" selection-start="22564" selection-end="22564" vertical-scroll-proportion="-15.807693" vertical-offset="18024" max-vertical-offset="37260">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/geoip-native/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="74" selection-start="2150" selection-end="2150" vertical-scroll-proportion="0.0" vertical-offset="630" max-vertical-offset="3240">
+        <state line="9" column="19" selection-start="267" selection-end="272" vertical-scroll-proportion="0.12759924" vertical-offset="0" max-vertical-offset="1058">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/portfolio.html">
+    <entry file="file://$PROJECT_DIR$/node_modules/hogan-express/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="60" selection-start="398" selection-end="398" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="375">
+        <state line="2" column="14" selection-start="43" selection-end="43" vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="1005">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="22" selection-start="3010" selection-end="3010" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="7320">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/portfolio.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="18" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1680">
+        <state line="40" column="18" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="1680">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/style.css">
+    <entry file="file://$PROJECT_DIR$/views/homepage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1076" column="19" selection-start="20013" selection-end="20013" vertical-scroll-proportion="0.4469697" vertical-offset="15668" max-vertical-offset="35595">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/contact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="52" selection-start="1490" selection-end="1490" vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="840">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/banner.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="0" selection-start="1886" selection-end="1886" vertical-scroll-proportion="-25.625" vertical-offset="0" max-vertical-offset="705">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/portfolio.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="26" selection-start="949" selection-end="949" vertical-scroll-proportion="0.30812326" vertical-offset="0" max-vertical-offset="1875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="31" selection-start="386" selection-end="386" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="390">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="7" selection-start="2285" selection-end="2285" vertical-scroll-proportion="-29.375" vertical-offset="0" max-vertical-offset="840">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="34" selection-start="4194" selection-end="4194" vertical-scroll-proportion="0.21917808" vertical-offset="1815" max-vertical-offset="3285">
           <folding />
         </state>
       </provider>

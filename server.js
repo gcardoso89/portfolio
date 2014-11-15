@@ -11,6 +11,7 @@ var express = require('express')
 	, util = require('util')
 	, mongo = require('mongodb').MongoClient
 	, jwt = require('jwt-simple')
+	, geoip = require("geoip-native")
 	, portfolioList = [];
 
 
@@ -134,12 +135,14 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 		ip : req.ip
 	}, new Date().toString());
 
+	var ip = geoip.lookup(req.ip);
+
 	mongo.connect(mongoUrl, function (err, db) {
 
 		 var collection = db.collection('portfolio');
 		 collection.find({}).toArray(function (err, docs) {
 			 portfolioList = docs;
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token});
+			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : ip.name + "/" + ip.code});
 			 db.close();
 		 });
 

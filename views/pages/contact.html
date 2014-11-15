@@ -15,34 +15,29 @@
             <a href="docs/GoncaloCardoso_CV_2014_EN.pdf" target="_blank" class="cv" title="CV"><i class="icon-cv"></i></a>
             <a href="http://www.facebook.com/gon.cardo" target="_blank" class="fb" title="Facebook"><i class="icon-facebook"></i></a>
             <form>
-                <h3>Write me something</h3>
                 <div class="form">
+                    <h3>Write me something</h3>
+                    <input name="token" type="hidden" value="{{token}}"/>
+                    <input type="hidden" name="country" value="{{country}}" />
                     <div class="ln">
                         <label for="nameFieldInput" id="nameFieldLabel">Name</label>
-                        <input name="name" type="text" id="nameFieldInput" />
-                        <div class="err"></div>
-                    </div>
-                    <div class="ln">
-                        <label for="companyFieldInput" id="companyFieldLabel">Company</label>
-                        <input name="company" type="text" id="companyFieldInput" />
+                        <input name="name" type="text" placeholder="Name" id="nameFieldInput" />
                         <div class="err"></div>
                     </div>
                     <div class="ln">
                         <label for="emailFieldInput" id="emailFieldLabel">Email</label>
-                        <input name="email" type="text" id="emailFieldInput" />
-                        <div class="err"></div>
-                    </div>
-                    <div class="ln">
-                        <label for="subjectFieldInput" id="subjectFieldLabel">Subject</label>
-                        <input name="subject" type="text" id="subjectFieldInput" />
+                        <input name="email" type="text" placeholder="Email" id="emailFieldInput" />
                         <div class="err"></div>
                     </div>
                     <div class="ln">
                         <label for="messageFieldTextarea" id="messageFieldLabel">Message</label>
-                        <textarea name="message" type="text" id="messageFieldTextarea"></textarea>
+                        <textarea name="message" type="text" placeholder="Message" id="messageFieldTextarea"></textarea>
                         <div class="err"></div>
                     </div>
                     <input type="submit" id="formSubmitButton" value="Send" />
+                </div>
+                <div class="success-block">
+                    <div><em>Thank you!</em><span>We'll be in touch</span></div>
                 </div>
             </form>
 

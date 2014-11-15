@@ -205,20 +205,17 @@ function ContactForm() {
 					required: true,
 					email: true
 				},
-				subject: {
-					required: true
-				},
 				message: {
 					required: true
 				}
 			},
 			messages: {
 				required: 'Please, fill this required field.',
-				email: 'Please, insert a valid email'
+				email: 'Please, insert a valid email.'
 			}
 		}
 
-	})
+	});
 
 	this.submitBtn = $('input[type=submit]', this.cont);
 	this.submitBtn.bind('click.ContactForm', function (e) {
@@ -231,23 +228,36 @@ function ContactForm() {
 
 ContactForm.prototype.sendEmail = function () {
 
-	var _name = $('input[name="name"]', this.cont).val();
-	var _company = $('input[name="company"]', this.cont).val();
-	var _email = $('input[name="email"]', this.cont).val();
-	var _message = $('textarea[name="message"]', this.cont).val();
-	var _subject = $('input[name="subject"]', this.cont).val();
-	var _token = $('input[name="tweetToken"]').val();
+	var _this = this;
 
-	var dataString = 'name=' + _name + '&company=' + _company + '&email=' + _email + '&message=' + _message + '&subject=' + _subject + '&token=' + _token;
+	this.cont.addClass('sending');
+
 
 	$.ajax({
 		type: "POST",
 		url: "/sendEmail",
-		data: dataString,
+		data: this.cont.serialize(),
 		success: function (data) {
-			if(data.success) alert("Email enviado");
+			if(data.success) _this.successSendingEmail();
+			else _this.errorSendingEmail();
+		},
+		error : function(){
+			_this.errorSendingEmail();
 		}
 	});
+
+};
+
+ContactForm.prototype.successSendingEmail = function(){
+
+	this.cont.addClass('success');
+
+};
+
+ContactForm.prototype.errorSendingEmail = function(){
+
+	this.cont.removeClass('sending');
+	this.cont.removeClass('success');
 
 };
 

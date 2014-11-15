@@ -176,6 +176,7 @@ app.post('/sendEmail', function(req, res){
 	if ( req.body.token == token ){
 
 		app.mailer.send('emails/email',{
+			from: 'gcardoso',
 			to: 'goncalo.cb.ferreira@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
 			subject: 'Portfolio', // REQUIRED.
 			emailobject: req.body, // All additional properties are also passed to the template as local variables.

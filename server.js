@@ -126,14 +126,13 @@ if ('development' == enviromnent) {
 	mongoUrl = 'mongodb://localhost:27017/gcardoso';
 }
 
-var token;
 
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
-	token = jwt.encode({
+	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
-	}, new Date().toString());
+	}, 'timesUP32');
 
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
@@ -148,11 +147,13 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	 });
 
-
-
 });
 
 app.post('/getFirstTweets', function(req, res){
+
+	var token = jwt.encode({
+		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
+	}, 'timesUP32');
 
 	if (req.body.token == token){
 		t.search('#gcardoso', function(data) {
@@ -162,18 +163,22 @@ app.post('/getFirstTweets', function(req, res){
 	}
 
 	else {
-		res.json({success:false});
+		res.status(403).end();
 	}
 
 });
 
 app.get('/teste', function (req, res) {
-	res.render('teste.html');
+	res.status(200).end();
 });
 
 app.post('/sendEmail', function(req, res){
 
-	if ( req.body.token == token ){
+	var token = jwt.encode({
+		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
+	}, 'timesUP32');
+
+	if ( req.body.token == token){
 
 		app.mailer.send('emails/email',{
 			from: 'gcardoso',
@@ -183,9 +188,7 @@ app.post('/sendEmail', function(req, res){
 			layout : null
 		}, function (err) {
 			if (err) {
-				// handle error
-				console.log(err);
-				res.json(200, { success : false });
+				res.status(403).end();
 				return;
 			}
 			res.json(200, { success : true });

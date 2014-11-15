@@ -17,9 +17,8 @@ var gcardosoPortfolioApp = angular.module('gcardosoPortfolioApp', ['ngSanitize',
 	$interpolateProvider.endSymbol(']]');
 });
 
-gcardosoPortfolioApp.config(['$controllerProvider', '$animateProvider', function($controllerProvider, $animateProvider) {
+gcardosoPortfolioApp.config(['$controllerProvider', function($controllerProvider) {
 	$controllerProvider.allowGlobals();
-	$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 }]);
 
 gcardosoPortfolioApp.filter('reverse', function() {
@@ -37,17 +36,7 @@ function Portfolio($scope){
 	for (var i = 0; i < _portfolioList.length; i++) {
 		var o = _portfolioList[i];
 		this.projects[o._id] = o;
-
-		var newSliderImages = [];
-
-		for (var n = 0; n < this.projects[o._id].images.length; n++) {
-			var img = this.projects[o._id].images[n];
-			if(n == 0) newSliderImages.push({ src : img, active : true });
-			else newSliderImages.push({ src : img, active : false });
-		}
-
-		this.projects[o._id].images = newSliderImages;
-
+		delete this.projects[o._id]._id;
 	}
 
 }
@@ -56,22 +45,9 @@ Portfolio.prototype.show = function(e, id){
 
 	e.preventDefault();
 
-	this.scope.current = this.projects[id];
 	this.modal = true;
+	this.scope.current = this.projects[id];
 
-};
-
-Portfolio.prototype.hide = function(){
-
-	this.modal = false;
-
-};
-
-Portfolio.prototype.showDetailImage = function(images, item){
-
-	for (var i = 0; i < images.length; i++) {
-		images[i].active = (images[i] == item);
-	}
 
 };
 
@@ -93,7 +69,7 @@ function ScrollControler(){
 
 	this.win.scroll(function(e){ that.scrollHandler() });
 
-}
+};
 
 ScrollControler.prototype.scrollHandler = function(){
 
@@ -275,7 +251,6 @@ ContactForm.prototype.sendEmail = function () {
 ContactForm.prototype.successSendingEmail = function(){
 
 	this.cont.addClass('success');
-	this.cont.removeClass('sending');
 
 };
 

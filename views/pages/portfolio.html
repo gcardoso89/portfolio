@@ -15,48 +15,13 @@
                                 <h3>{{title}}</h3>
                                 <ul>
                                     {{#tags}}
-                                        <li>{{.}}</li>
-                                    {{/tags}}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
-                </a>
-            </article>
-            <article>
-                <a href="#" data-ng-click="portfolio.show($event, '{{_id}}')">
-                    <div class="info">
-                        <div>
-                            <div>
-                                <h3>{{title}}</h3>
-                                <ul>
-                                    {{#tags}}
                                     <li>{{.}}</li>
                                     {{/tags}}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
-                </a>
-            </article>
-            <article>
-                <a href="#" data-ng-click="portfolio.show($event, '{{_id}}')">
-                    <div class="info">
-                        <div>
-                            <div>
-                                <h3>{{title}}</h3>
-                                <ul>
-                                    {{#tags}}
-                                    <li>{{.}}</li>
-                                    {{/tags}}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <figure><img ng-src="images/projects/{{thumbnail}}" /></figure>
+                    <figure><img data-ng-src="images/projects/{{thumbnail}}" /></figure>
                 </a>
             </article>
             {{/portfolio}}
@@ -64,54 +29,62 @@
 
     </div>
 
-    <div class="modal" ng-show="portfolio.modal">
+    <div class="modal-dark" data-ng-show="portfolio.modal" data-ng-click="portfolio.hide()"></div>
 
-        <div class="proj-gallery">
+    <div class="modal" data-ng-show="portfolio.modal">
 
-            <ul>
-                <li data-ng-repeat="nav in current.images"><span></span></li>
-            </ul>
+        <div class="base">
 
-            <div class="slider">
-                <img data-ng-src="images/projects/[[image]]" class="img-element" data-ng-repeat="image in current.images" />
-            </div>
+            <div class="close-modal" data-ng-click="portfolio.hide()">x</div>
 
-        </div>
+            <div class="proj-gallery">
 
-        <div class="proj-info">
-
-            <div class="main-info">
-                <div class="top">
-                    <div class="type">[[current.type]]</div>
-                    <div class="date">
-                        <span>[[current.date.start]]</span>
-                        <span data-ng-if="current.date.end != null">- [[current.date.end]]</span>
-                    </div>
-                </div>
-                <div class="sep"></div>
-                <div class="tit">[[current.title]]</div>
-                <div class="tags">
-                    <span data-ng-repeat="tag in current.tags">[[tag]]</span>
-                </div>
-                <ul class="topics">
-                    <li data-ng-repeat="topic in current.topics">[[topic]]</li>
+                <ul>
+                    <li data-ng-repeat="nav in current.images" data-ng-class="{active: nav.active}" data-ng-click="portfolio.showDetailImage(current.images, nav)"><span></span></li>
                 </ul>
+
+                <div class="slider">
+                    <img data-ng-src="images/projects/[[image.src]]" class="img-element ng-animate-disabled" data-ng-class="{active : image.active }" data-ng-repeat="image in current.images" />
+                </div>
+
             </div>
 
-            <div class="sec-info">
-                <div>
-                    <strong class="proj-lbl">client</strong>
-                    <div class="proj-val">[[current.client]]</div>
-                </div>
-                <div>
-                    <strong class="proj-lbl">working as</strong>
-                    <div class="proj-val">[[current.working.as]]</div>
-                    <div class="proj-subval">[[current.working.place]]</div>
-                    <div class="proj-copy">Copyright © All the rights reserved</div>
-                </div>
-                <a class="proj-lk" href="[[current.project_link]]" title="[[current.title]]">[[current.project_link]]</a>
-            </div>
+            <div class="proj-info">
 
+                <div class="main-info">
+                    <div class="top">
+                        <div class="date">
+                            <span>[[current.date.start]]</span>
+                            <span data-ng-if="current.date.end != null">- [[current.date.end]]</span>
+                        </div>
+                        <div class="type">[[current.type]]</div>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="tit">[[current.title]]</div>
+                    <div class="tags">
+                        <span data-ng-repeat="tag in current.tags">[[tag]]</span>
+                    </div>
+                    <ul class="topics">
+                        <li data-ng-repeat="topic in current.topics">. [[topic]]</li>
+                    </ul>
+                </div>
+
+                <div class="sec-info">
+                    <div>
+                        <strong>client</strong>
+                        <p>[[current.client]]</p>
+                    </div>
+                    <div>
+                        <strong>working as</strong>
+                        <p>[[current.working.as]]</p>
+                        <p class="proj-subval">[[current.working.place]]</p>
+                        <p class="proj-copy">Copyright © All the rights reserved</p>
+                    </div>
+                    <a class="proj-lk" href="[[current.project_link]]" target="_blank" title="[[current.title]]">[[current.project_link]]</a>
+                </div>
+
+
+            </div>
 
         </div>
 

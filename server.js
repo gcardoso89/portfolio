@@ -135,6 +135,8 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 		ip : req.ip
 	}, new Date().toString());
 
+	console.log(req);
+
 	console.log(req.ip);
 
 	var ip = geoip.lookup(req.ip);

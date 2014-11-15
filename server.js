@@ -132,16 +132,10 @@ var token;
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	token = jwt.encode({
-		ip : req.ip
+		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
 	}, new Date().toString());
 
-	console.log(req);
-
-	console.log(req.ip);
-
-	var ip = geoip.lookup(req.ip);
-
-	console.log(ip);
+	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
 	mongo.connect(mongoUrl, function (err, db) {
 

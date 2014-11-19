@@ -11,7 +11,7 @@ var express = require('express')
 	, util = require('util')
 	, mongo = require('mongodb').MongoClient
 	, jwt = require('jwt-simple')
-	, geoip = require("geoip-native")
+	, geoip = require("geoip-lite")
 	, portfolioList = [];
 
 
@@ -101,7 +101,6 @@ var t = new twitter({
 var arr = [];
 
 
-
 //Tell the twitter API to filter on the watchSymbols
 t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 
@@ -114,7 +113,7 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 	});
 });
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
@@ -141,7 +140,7 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 		 var collection = db.collection('portfolio');
 		 collection.find({}).toArray(function (err, docs) {
 			 portfolioList = docs;
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : ip.name + "/" + ip.code});
+			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : ip.country });
 			 db.close();
 		 });
 

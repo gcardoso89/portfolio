@@ -101,7 +101,6 @@ var t = new twitter({
 var arr = [];
 
 
-
 //Tell the twitter API to filter on the watchSymbols
 t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 

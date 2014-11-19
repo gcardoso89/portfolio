@@ -140,6 +140,7 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
+	
 	console.log(ip);
 
 	mongo.connect(mongoUrl, function (err, db) {

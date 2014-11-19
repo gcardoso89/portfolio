@@ -130,18 +130,11 @@ if ('development' == enviromnent) {
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
-	console.log(req);
-	console.log(req.headers["x-forwarded-for"]);
-
-
 	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
 	}, 'timesUP32');
 
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
-
-	
-	console.log(ip);
 
 	mongo.connect(mongoUrl, function (err, db) {
 

@@ -1,0 +1,93 @@
+<script type="text/javascript">
+    var _portfolioList = {{{portfolioString}}};
+</script>
+<section class="portfolio" data-content="portfolio" data-ng-controller="Portfolio as portfolio" data-ng-init="current = portfolio.current">
+    <div class="base">
+        <h2>Portfolio <small>click and drag to more detail</small></h2>
+
+        <div class="list">
+            {{#portfolio}}
+            <article>
+                <a href="#" data-ng-click="portfolio.show($event, '{{_id}}')">
+                    <div class="info">
+                        <div>
+                            <div>
+                                <h3>{{title}}</h3>
+                                <ul>
+                                    {{#tags}}
+                                    <li>{{.}}</li>
+                                    {{/tags}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <figure><img data-ng-src="images/projects/{{thumbnail}}" /></figure>
+                </a>
+            </article>
+            {{/portfolio}}
+        </div>
+
+    </div>
+
+    <div class="modal-dark" data-ng-show="portfolio.modal" data-ng-click="portfolio.hide()"></div>
+
+    <div class="modal" data-ng-show="portfolio.modal">
+
+        <div class="base">
+
+            <div class="close-modal" data-ng-click="portfolio.hide()">x</div>
+
+            <div class="proj-gallery">
+
+                <ul>
+                    <li data-ng-repeat="nav in current.images" data-ng-class="{active: nav.active}" data-ng-click="portfolio.showDetailImage(current.images, nav)"><span></span></li>
+                </ul>
+
+                <div class="slider">
+                    <img data-ng-src="images/projects/[[image.src]]" class="img-element ng-animate-disabled" data-ng-class="{active : image.active }" data-ng-repeat="image in current.images" />
+                </div>
+
+            </div>
+
+            <div class="proj-info">
+
+                <div class="main-info">
+                    <div class="top">
+                        <div class="date">
+                            <span>[[current.date.start]]</span>
+                            <span data-ng-if="current.date.end != null">- [[current.date.end]]</span>
+                        </div>
+                        <div class="type">[[current.type]]</div>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="tit">[[current.title]]</div>
+                    <div class="tags">
+                        <span data-ng-repeat="tag in current.tags">[[tag]]</span>
+                    </div>
+                    <ul class="topics">
+                        <li data-ng-repeat="topic in current.topics">. [[topic]]</li>
+                    </ul>
+                </div>
+
+                <div class="sec-info">
+                    <div>
+                        <strong>client</strong>
+                        <p>[[current.client]]</p>
+                    </div>
+                    <div>
+                        <strong>working as</strong>
+                        <p>[[current.working.as]]</p>
+                        <p class="proj-subval">[[current.working.place]]</p>
+                        <p class="proj-copy">Copyright © All the rights reserved</p>
+                    </div>
+                    <a class="proj-lk" href="[[current.project_link]]" target="_blank" title="[[current.title]]">[[current.project_link]]</a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

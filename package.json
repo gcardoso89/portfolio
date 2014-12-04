@@ -1,0 +1,21 @@
+{
+	"name": "gcardoso",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "supervisor server.js"
+	},
+	"dependencies": {
+		"express": "3.4.8",
+		"hogan-express": "0.5.2",
+		"socket.io": "0.9.16",
+		"stylus" : "0.42.2",
+		"twitter" : "0.2.13",
+		"underscore" : "1.5.2",
+		"mongodb" : "1.4.19",
+		"express-mailer" : "0.2.3",
+		"jwt-simple" : "0.2.0",
+		"geoip-lite" : "1.1.4"
+	},
+	"main": "server.js"
+}

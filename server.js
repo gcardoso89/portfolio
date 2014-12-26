@@ -18,7 +18,7 @@ var express = require('express')
 
 //Create an express app
 var app = express();
-var slack = new Slack('gcardoso', 'n7VUPG8J0XRBUk00IS6RhTre');
+var slack = new Slack('gcardoso', 'bYzrYKddsjbgvIsz10jVzUzk');
 
 mailer.extend(app, {
 	from: 'site@gcardoso.pt',
@@ -185,9 +185,10 @@ app.post('/sendEmail', function(req, res){
 	if ( req.body.token == token){
 
 		slack.send({
-			text: req,
+			text: "@gcardoso " + req.body.name + " (" + req.body.email + ") enviou email com o seguinte texto: " + req.body.message,
 			channel: '#gcardoso-portfolio',
-			username: 'Portfolio'
+			username: 'Portfolio',
+			link_names: 1
 		});
 
 		app.mailer.send('emails/email',{

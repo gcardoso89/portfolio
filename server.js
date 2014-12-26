@@ -12,11 +12,13 @@ var express = require('express')
 	, mongo = require('mongodb').MongoClient
 	, jwt = require('jwt-simple')
 	, geoip = require("geoip-lite")
+	, Slack = require("node-slack")
 	, portfolioList = [];
 
 
 //Create an express app
 var app = express();
+var slack = new Slack('gcardoso', 'n7VUPG8J0XRBUk00IS6RhTre');
 
 mailer.extend(app, {
 	from: 'site@gcardoso.pt',
@@ -136,7 +138,10 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
 	mongo.connect(mongoUrl, function (err, db) {
-
+		if (err) {
+			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country" });
+			return false;
+		}
 		 var collection = db.collection('portfolio');
 		 collection.find({}).toArray(function (err, docs) {
 			 portfolioList = docs;
@@ -178,6 +183,12 @@ app.post('/sendEmail', function(req, res){
 	}, 'timesUP32');
 
 	if ( req.body.token == token){
+
+		slack.send({
+			text: req,
+			channel: '#gcardoso-portfolio',
+			username: 'Portfolio'
+		});
 
 		app.mailer.send('emails/email',{
 			from: 'gcardoso',

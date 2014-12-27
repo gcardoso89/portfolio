@@ -50,7 +50,7 @@ _.each(watchSymbols, function (v) {
 });
 
 //Generic Express setup
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8083);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
@@ -138,14 +138,14 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
 	mongo.connect(mongoUrl, function (err, db) {
-		if (err) {
+		if (err!=null) {
 			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country" });
 			return false;
 		}
 		 var collection = db.collection('portfolio');
 		 collection.find({}).toArray(function (err, docs) {
 			 portfolioList = docs;
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : ip.country });
+			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country" });
 			 db.close();
 		 });
 

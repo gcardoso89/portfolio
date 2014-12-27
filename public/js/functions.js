@@ -18,7 +18,7 @@ var gcardosoPortfolioApp = angular.module('gcardosoPortfolioApp', ['ngSanitize',
 });
 
 gcardosoPortfolioApp.config(['$controllerProvider', '$animateProvider', function($controllerProvider, $animateProvider) {
-	$controllerProvider.allowGlobals();
+	//$controllerProvider.allowGlobals();
 	$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 }]);
 

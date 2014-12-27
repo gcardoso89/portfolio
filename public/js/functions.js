@@ -126,11 +126,12 @@ function Navigation() {
 	this.targetAttr = 'target';
 	this.contAttr = 'content';
 	this.scrollable = $('html, body');
+	this.navItems = $('header nav a');
 	this.buttons.bind('click.Navigation', function (e) {
 		e.preventDefault();
 		that.goToItem($(this))
 	});
-	this.totalH = $('body').height();
+	this.totalH = this.body.height();
 	this.win = $(window);
 	this.win.bind('scroll.Navigation', function (e) {
 		that.scrollHandler()
@@ -139,7 +140,17 @@ function Navigation() {
 	this.openMenuVal = 68;
 	this.closeMenu = $('section.contact');
 	this.closeMenuVal = this.closeMenu.height() - 100;
-};
+
+	this.sections = $('section').not(this.openMenu).not('.quote');
+	this.secTops = [];
+
+	for (var i = 0; i < this.sections.length; i++) {
+		this.secTops.push(this.sections.eq(i).offset().top);
+	}
+
+	this.secTops.push(this.totalH);
+
+}
 
 Navigation.prototype.goToItem = function (obj) {
 
@@ -162,12 +173,22 @@ Navigation.prototype.goToItem = function (obj) {
 
 Navigation.prototype.scrollHandler = function () {
 
+	var current = -1;
 	var valTop = this.win.scrollTop();
 	if (valTop >= this.openMenuVal /*&& valTop <= (_scrollControl.objCon.posTop + this.closeMenuVal)*/)
 		this.body.addClass('opened');
 	else
 		this.body.removeClass('opened');
 
+
+
+	for (var i = 0; i < this.secTops.length; i++) {
+		var obj = this.secTops[i];
+		if ( valTop >= obj-(_scrollControl.winH/2) && valTop < this.secTops[i+1]-(_scrollControl.winH/2)  ) current = i;
+	}
+
+	this.navItems.removeClass('act');
+	if(current != -1) this.navItems.eq(current).addClass('act');
 };
 
 function ProfileGallery() {
@@ -437,6 +458,8 @@ TwitterWall.prototype.createTweet = function(data){
 		created_at : new Date(data.created_at).getTime(),
 
 		date : data.created_at,
+
+		tweeturl : 'http://www.twitter.com/' + data.user.screen_name + '/status/' + data.id_str,
 
 		classname : 'tweet' + ((this.list.length % 5)+1).toString()
 

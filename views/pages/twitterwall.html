@@ -26,7 +26,7 @@
                     <div class="msg" data-ng-bind-html="tweet.text"></div>
                     <div class="img">
                         <div class="pic">
-                            <a href="http://www.twitter.com/[[data.user.screen_name]]"><img data-ng-src="[[tweet.image]]" data-ng-show="[[tweet.imageVisible]]" /></a>
+                            <a href="[[tweet.tweeturl]]" target="_blank"><img data-ng-src="[[tweet.image]]" data-ng-show="[[tweet.imageVisible]]" /></a>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <!--<h2>[[tweet.date]]</h2>-->
                     <div class="img">
                         <div class="pic">
-                            <img data-ng-src="[[tweet.image]]" data-ng-show="[[tweet.imageVisible]]" />
+                            <a href="[[tweet.tweeturl]]" target="_blank"><img data-ng-src="[[tweet.image]]" data-ng-show="[[tweet.imageVisible]]" /></a>
                         </div>
                     </div>
                     <div class="msg" data-ng-bind-html="tweet.text"></div>

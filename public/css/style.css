@@ -1233,6 +1233,7 @@ blockquote footer {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	margin-bottom: 5px;
 }
 
 .portfolio article li:first-child{

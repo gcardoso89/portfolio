@@ -141,15 +141,16 @@ function Navigation() {
 	this.closeMenuVal = this.closeMenu.height() - 100;
 };
 
-Navigation.prototype.goToItem = function (object) {
+Navigation.prototype.goToItem = function (obj) {
 
 	this.scrollable.stop(true, false);
 	var that = this;
-	var obj = object;
 	var href = obj.attr('href');
 	var tar = obj.attr('data-' + this.targetAttr);
 	var goTo = $('[data-' + this.contAttr + '="' + tar + '"]').eq(0);
 	var posGoTo;
+
+	ga('send', 'pageview', '/' + obj.text().toLowerCase());
 
 	if (goTo.attr('data-center') == "true") posGoTo = goTo.offset().top - (_scrollControl.winH / 2 - goTo.outerHeight() / 2);
 	else posGoTo = goTo.offset().top;

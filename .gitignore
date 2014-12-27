@@ -29,5 +29,5 @@ node_modules
 
 # PHPStorm
 .idea
-.idea/
+.idea/*
 .DS_Store

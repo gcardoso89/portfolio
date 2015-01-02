@@ -229,8 +229,17 @@ app.post('/outwebook', function(req, res){
 
 		switch ( req.body.trigger_word.toLocaleLowerCase() ){
 
-			case 'socket reconnect':
-				sockets.socket.connect();
+			case 'socket':
+				switch (req.body.text.toLocaleLowerCase()){
+					case 'socket reconnect':
+						sockets.socket.connect();
+						break;
+
+					case 'socket disconnect':
+						sockets.socket.disconnect();
+						break;
+				}
+
 				break;
 
 			case 'offline':

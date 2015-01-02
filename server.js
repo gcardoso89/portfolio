@@ -213,6 +213,14 @@ app.post('/sendEmail', function(req, res){
 
 });
 
+app.post('/gooffline', function(req, res){
+
+	console.log(req);
+
+	res.status(200).end();
+
+});
+
 // Handle 404
 app.use(function(req, res) {
 	res.render('error/404.html', {error: "404 error page", layout : null});

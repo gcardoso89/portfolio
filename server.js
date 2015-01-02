@@ -132,7 +132,10 @@ var isOffline = false;
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
-	if ( isOffline ) res.status(500).end();
+	if ( isOffline ) {
+		res.status(500).end();
+		return true;
+	}
 
 	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress

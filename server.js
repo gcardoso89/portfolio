@@ -135,7 +135,7 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 	if ( isOffline ) {
 		res.status(500);
 		res.render('error/500.html', {error: "500 error page", layout : null});
-		res.end();	
+		res.end();
 		return true;
 	}
 
@@ -224,6 +224,8 @@ app.post('/sendEmail', function(req, res){
 app.post('/outwebook', function(req, res){
 
 	if (req.body.token == 'wZt3MhUdJVv85rydSQ5tdBBe'){
+
+		console.log(req.body);
 
 		switch ( req.body.trigger_word.toLocaleLowerCase() ){
 

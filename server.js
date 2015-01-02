@@ -127,9 +127,12 @@ if ('development' == enviromnent) {
 	mongoUrl = 'mongodb://localhost:27017/gcardoso';
 }
 
+var isOffline = false;
 
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
+
+	if ( isOffline ) res.status(500).end();
 
 	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
@@ -215,9 +218,29 @@ app.post('/sendEmail', function(req, res){
 
 app.post('/gooffline', function(req, res){
 
-	console.log(req);
+	if (req.body.token == 'bVGyUnarUGdnOfNBFaQIA4MI'){
 
-	res.status(200).end();
+		switch (req.body.text.toLocaleLowerCase()){
+
+			case 'offline yes':
+				isOffline = true;
+				break;
+
+			case 'offline no':
+				isOffline = false;
+				break;
+
+			default:
+				isOffline = true;
+				break;
+
+		}
+		res.status(200).end();
+	}
+
+	else {
+		res.status(403).end();
+	}
 
 });
 

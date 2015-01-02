@@ -89,6 +89,15 @@ sockets.configure(function () {
 	//sockets.set('polling duration', 3600);
 });
 
+sockets.on('disconnect', function(){
+	slack.send({
+		text: "@gcardoso Os sockets estão em baixo. Reconnectar pff",
+		channel: '#gcardoso-portfolio',
+		username: 'Portfolio',
+		link_names: 1
+	});
+});
+
 //Instantiate the twitter component
 //You will need to get your own key. Don't worry, it's free. But I cannot provide you one
 //since it will instantiate a connection on my behalf and will drop all other streaming connections.

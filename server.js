@@ -133,7 +133,9 @@ var isOffline = false;
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
 	if ( isOffline ) {
-		res.status(500).end();
+		res.status(500);
+		res.render('error/500.html', {error: "500 error page", layout : null});
+		res.end();	
 		return true;
 	}
 
@@ -219,23 +221,32 @@ app.post('/sendEmail', function(req, res){
 
 });
 
-app.post('/gooffline', function(req, res){
+app.post('/outwebook', function(req, res){
 
-	if (req.body.token == 'bVGyUnarUGdnOfNBFaQIA4MI'){
+	if (req.body.token == 'wZt3MhUdJVv85rydSQ5tdBBe'){
 
-		switch (req.body.text.toLocaleLowerCase()){
+		switch ( req.body.trigger_word.toLocaleLowerCase() ){
 
-			case 'offline yes':
-				isOffline = true;
+			case 'socket reconnect':
+				sockets.socket.connect();
 				break;
 
-			case 'offline no':
-				isOffline = false;
-				break;
+			case 'offline':
+				switch (req.body.text.toLocaleLowerCase()){
 
-			default:
-				isOffline = true;
-				break;
+					case 'offline yes':
+						isOffline = true;
+						break;
+
+					case 'offline no':
+						isOffline = false;
+						break;
+
+					default:
+						isOffline = true;
+						break;
+
+				}
 
 		}
 		res.status(200).end();

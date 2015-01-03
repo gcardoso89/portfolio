@@ -1340,7 +1340,7 @@ blockquote footer {
 .portfolio .proj-gallery ul {
 	height: 62px;
 	text-align: center;
-	width: 682px;
+	width: 100%;
 	margin-top: 30px;
 }
 
@@ -1419,7 +1419,6 @@ blockquote footer {
 }
 
 .portfolio .proj-info .top {
-	padding-top: 49px;
 	padding-bottom: 4px;
 }
 
@@ -1471,13 +1470,14 @@ blockquote footer {
 	padding:0px 5px;
 	white-space: nowrap;
 	margin-left: 5px;
+	margin-bottom: 5px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
 
-.portfolio .proj-info .tags span:first-child{
-	margin-left: 0;
+.portfolio .proj-info .tags{
+	margin-left: -5px;
 }
 
 .portfolio .proj-info .topics {
@@ -1485,7 +1485,8 @@ blockquote footer {
 }
 
 .portfolio .main-info {
-	height: 393px;
+	height: 344px;
+	padding-top: 49px;
 }
 
 .portfolio .proj-info .topics li {
@@ -2852,6 +2853,103 @@ body > footer .button p {
 
 	.balloon {
 		background-image: url(../images/balloon1024.png);
+	}
+
+	.base{
+		width: auto;
+	}
+
+	section, body > footer {
+		min-width: inherit;
+	}
+
+	.work .meters{
+		display: none;
+	}
+
+	.work .timeline{
+		float:none;
+		margin:0 auto;
+	}
+
+	.work .blc{
+		position: relative;
+	}
+
+	.work figure{
+		top : -120px;
+		margin-left: 90px;
+	}
+
+	.portfolio .modal .base{
+		width: auto;
+	}
+
+	.portfolio .proj-gallery{
+		width: 65%;
+	}
+
+	.portfolio .proj-info{
+		margin-right: 0;
+		width: 35%;
+	}
+
+	.portfolio .close-modal{
+		right: 20px;
+		left: auto;
+		margin-left: 0;
+	}
+
+}
+
+@media all and (min-width: 769px) and (max-width: 850px){
+
+	.portfolio article h3 {
+		font-size:1.375em;
+	}
+
+	.portfolio article li{
+		font-size:0.8125em;
+	}
+
+}
+
+@media all and (max-width: 768px){
+	.portfolio article{
+		width: 50%;
+	}
+
+	.portfolio > .base{
+		max-width: 635px;
+	}
+
+	.portfolio .proj-info .sep,
+	.portfolio .proj-info .top{
+		display: none;
+	}
+
+	.portfolio .proj-info .tit{
+		padding-top:0;
+	}
+
+	.portfolio .main-info{
+		height: 314px;
+	}
+
+	.portfolio .modal{
+		height: 570px;
+	}
+
+	.portfolio .slider{
+		height: 478px;
+	}
+
+	.portfolio .slider img{
+		max-height: 100%;
+	}
+
+	.portfolio .proj-info{
+		height: 570px;
 	}
 
 }

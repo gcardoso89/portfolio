@@ -90,8 +90,11 @@ function ScrollControler(){
 	this.objCon = $('section.contact');
 	this.objCon.posTop = this.objCon.offset().top;
 	this.objCon.hasAnimClass = false;
+	this.objConLks = $('.network > a', this.objCon);
 
 	this.win.scroll(function(e){ that.scrollHandler() });
+
+	this.resizeHandler();
 
 }
 
@@ -99,10 +102,10 @@ ScrollControler.prototype.scrollHandler = function(){
 
 	this.scrollT = this.win.scrollTop();
 
-	if ( ( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.objCon.height()/3) ) && !this.objCon.hasAnimClass && this.isAnim){
+	if ( ( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.winH/2) ) && !this.objCon.hasAnimClass && this.isAnim){
 		this.objCon.addClass('anim');
 		this.objCon.hasAnimClass = true;
-	};
+	}
 
 };
 
@@ -111,7 +114,30 @@ ScrollControler.prototype.refreshPositions = function(){
 };
 
 ScrollControler.prototype.resizeHandler = function(){
+
+	var _this = this;
+
 	this.winH = this.win.height();
+	this.winW = this.win.width();
+
+	this.refreshPositions();
+
+	if ( this.winW < 902 ){
+		this.objConLks.css({marginLeft:-((902-this.winW)/2) } );
+	}
+	else {
+		this.objConLks.css({marginLeft:0});
+	}
+
+	this.objCon.removeClass('anim');
+
+	clearTimeout(this.timeOut);
+
+	this.timeOut = setTimeout(function(){
+		_this.objCon.hasAnimClass = false;
+		_this.scrollHandler();
+	},100);
+
 };
 
 
@@ -129,12 +155,15 @@ function Navigation() {
 	this.navItems = $('header nav a');
 	this.buttons.bind('click.Navigation', function (e) {
 		e.preventDefault();
-		that.goToItem($(this))
+		that.goToItem($(this));
 	});
 	this.totalH = this.body.height();
 	this.win = $(window);
 	this.win.bind('scroll.Navigation', function (e) {
-		that.scrollHandler()
+		that.scrollHandler();
+	});
+	this.win.bind('resize.Navigation', function (e) {
+		that.resizeHandler();
 	});
 	this.openMenu = $('section.banner');
 	this.openMenuVal = 68;
@@ -147,6 +176,8 @@ function Navigation() {
 	for (var i = 0; i < this.sections.length; i++) {
 		this.secTops.push(this.sections.eq(i).offset().top);
 	}
+
+	this.resizeHandler();
 
 	this.secTops.push(this.totalH);
 
@@ -173,6 +204,7 @@ Navigation.prototype.goToItem = function (obj) {
 
 Navigation.prototype.scrollHandler = function () {
 
+	var _this = this;
 	var current = -1;
 	var valTop = this.win.scrollTop();
 	if (valTop >= this.openMenuVal /*&& valTop <= (_scrollControl.objCon.posTop + this.closeMenuVal)*/)
@@ -180,15 +212,20 @@ Navigation.prototype.scrollHandler = function () {
 	else
 		this.body.removeClass('opened');
 
-
-
 	for (var i = 0; i < this.secTops.length; i++) {
 		var obj = this.secTops[i];
-		if ( valTop >= obj-(_scrollControl.winH/2) && valTop < this.secTops[i+1]-(_scrollControl.winH/2)  ) current = i;
+		if ( valTop >= obj-(_this.winH/2) && valTop < this.secTops[i+1]-(_this.winH/2)  ) current = i;
 	}
 
 	this.navItems.removeClass('act');
 	if(current != -1) this.navItems.eq(current).addClass('act');
+};
+
+Navigation.prototype.resizeHandler = function(){
+	this.winW = this.win.width();
+	this.winH = this.win.height();
+	this.openMenuVal = (this.winW > 900) ? 68 : 0;
+	this.scrollHandler();
 };
 
 function ProfileGallery() {

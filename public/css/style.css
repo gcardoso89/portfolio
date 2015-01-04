@@ -366,7 +366,7 @@ header nav a.act{
 	position: absolute;
 	top: 33.375em;
 	left: 0;
-	width: 532px; /*top:534px;left:0px;width:532px;*/
+	width: 52%; /*top:534px;left:0px;width:532px;*/
 }
 
 .banner .button a {
@@ -748,7 +748,7 @@ header nav a.act{
 }
 
 .greetings {
-	padding: 125px 0px 125px 0px;
+	padding: 7.8125em 0 7.8125em;
 	background: #fff
 }
 
@@ -762,12 +762,16 @@ header nav a.act{
 }
 
 .greetings figure {
-	width: 554px;
-	height: 779px;
-	margin-left: 46px; /*background:url(../images/pic_greetings.jpg) no-repeat left top;*/
+	width: 34.625em;
+	height: 29.9375em;
+	margin-left: 2.875em; /*background:url(../images/pic_greetings.jpg) no-repeat left top;*/
 	position: absolute;
 	left: 50%;
-	top: 70px;
+	top: 4.375em;
+}
+
+.greetings figure img{
+	max-width: 100%;
 }
 
 .g_hi {
@@ -848,8 +852,8 @@ header nav a.act{
 .profile {
 	background: #161616;
 	color: #fff;
-	padding: 110px 0px;
 	position: relative;
+	height: 41.25em;
 }
 
 .profile > div:after {
@@ -861,12 +865,15 @@ header nav a.act{
 }
 
 .profile figure {
-	position: absolute;
-	width: 814px;
-	height: 660px;
+	width: 50.875em;
+	height: 41.25em;
 	left: 50%;
-	bottom: 0px;
-	margin-left: -751px;
+	bottom: 0;
+	margin-left: -46.9375em;
+	z-index: 1;
+	float: left;
+	position: relative;
+	margin-bottom: -6.975em;
 }
 
 .profile figure img {
@@ -874,7 +881,7 @@ header nav a.act{
 	left: 0;
 	top: 0;
 	display: none;
-	height: 100%;
+	max-width: 100%;
 }
 
 .profile figure img:first-child {
@@ -882,15 +889,18 @@ header nav a.act{
 }
 
 .profile .info {
-	margin-left: 625px;
+	margin-left: 39.0625em;
+	position: relative;
+	z-index: 2;
+	padding: 6.875em 0 0;
 }
 
 .profile h2 + h3 {
-	margin-top: 65px;
+	margin-top: 4.0625em;
 }
 
 .profile h3 {
-	margin-top: 40px;
+	margin-top: 2.5em;
 }
 
 .profile p {
@@ -1112,19 +1122,19 @@ blockquote footer {
 }
 
 .work article:first-child {
-	width: 610px;
+	width: 96.22%;
 }
 
 .work article:first-child + article {
-	width: 560px;
+	width: 88.33%;
 }
 
 .work article:first-child + article + article {
-	width: 588px;
+	width: 92.74%;
 }
 
 .work article:first-child + article + article + article {
-	width: 540px;
+	width: 95.17%;
 }
 
 .work figure {
@@ -1370,6 +1380,7 @@ blockquote footer {
 
 .portfolio .proj-gallery {
 	float: left;
+	width: 682px;
 }
 
 .portfolio .proj-gallery .slider img{
@@ -1577,7 +1588,8 @@ textarea {
 
 .contact .network {
 	background: url(../images/bg_network.gif) no-repeat center 0px;
-	width: 902px;
+	width: 100%;
+	max-width: 902px;
 	position: relative;
 	margin: 0 auto;
 	padding-top: 497px;
@@ -1594,6 +1606,10 @@ textarea {
 	background: #41969c;
 	border-radius: 80px;
 	opacity: 0;
+}
+
+.no-anim .contact .network > a{
+	opacity: 1;
 }
 
 .contact.anim .network > a {
@@ -2371,10 +2387,10 @@ body > footer .button p {
 	}
 	41.67% {
 		left: 294px;
-		top: 181px;
+		top: 107px;
 	}
 	50% {
-		left: 195px;
+		left: 294px;
 		top: 231px;
 	}
 	58.33% {
@@ -2619,10 +2635,10 @@ body > footer .button p {
 	}
 	41.67% {
 		left: 294px;
-		top: 181px;
+		top: 107px;
 	}
 	50% {
-		left: 195px;
+		left: 294px;
 		top: 231px;
 	}
 	58.33% {
@@ -2859,7 +2875,11 @@ body > footer .button p {
 		width: auto;
 	}
 
-	section, body > footer {
+	.greetings{
+		font-size:0.9em;
+	}
+
+	section, body > footer, header {
 		min-width: inherit;
 	}
 
@@ -2886,12 +2906,12 @@ body > footer .button p {
 	}
 
 	.portfolio .proj-gallery{
-		width: 65%;
+		width: 66%;
 	}
 
 	.portfolio .proj-info{
+		width: 34%;
 		margin-right: 0;
-		width: 35%;
 	}
 
 	.portfolio .close-modal{
@@ -2899,6 +2919,199 @@ body > footer .button p {
 		left: auto;
 		margin-left: 0;
 	}
+
+
+	.profile .info{
+		margin-left:61%;
+	}
+
+	.profile figure{
+		margin-left:-73.33%;
+	}
+
+	.contact .base{
+		padding:0px;
+	}
+
+	.contact h2{
+		margin-left:32px;
+	}
+
+}
+
+@media all and (max-width: 900px) {
+
+	header {
+		height: 50px;
+	}
+
+	header nav {
+		margin-top: 5px;
+	}
+
+	header .lg-small {
+		margin-top: 0px;
+	}
+
+	header .lg {
+		margin-top: -100px;
+	}
+
+	body.opened {
+		margin-top: 50px;
+	}
+
+	header nav a{
+		padding:0 12px;
+	}
+
+	.banner .base {
+		font-size: 0.8em;
+	}
+
+	.balloon {
+		background-image: url(../images/balloon900.png);
+	}
+
+	.greetings{
+		font-size:0.8em;
+	}
+
+	.profile{
+		font-size:0.85em;
+	}
+
+	.contact .network > a.cv {
+		left: 641px;
+		top: 389px;
+	}
+
+	.profile .info{
+		padding:50px 0 0;
+		font-size:1.15em;
+		margin-left:58%;
+	}
+
+	.profile h2{
+		margin-bottom: 0;
+	}
+
+	.profile h2 + h3{
+		margin-top: 40px;
+	}
+
+	@-webkit-keyframes CV {
+
+		0% {
+			left: 51px;
+			top: 27px;
+			opacity: 1;
+		}
+		10% {
+			left: -26px;
+			top: 89px;
+		}
+		20% {
+			left: 108px;
+			top: 135px;
+		}
+		30% {
+			left: -31px;
+			top: 220px;
+		}
+		40% {
+			left: 171px;
+			top: 290px;
+		}
+		50% {
+			left: 195px;
+			top: 181px;
+		}
+		60% {
+			left: 294px;
+			top: 231px;
+		}
+		70% {
+			left: 429px;
+			top: 227px;
+		}
+		80% {
+			left: 513px;
+			top: 344px;
+			text-indent: -100px;
+		}
+		90% {
+			left: 641px;
+			top: 389px;
+			-webkit-transform: translate3d(0, 0, 0) scale(0.225);
+			text-indent: 0px;
+		}
+		100% {
+			left: 641px;
+			top: 389px;
+			-webkit-transform: translate3d(0, 0, 0) scale(1);
+			text-indent: 0px;
+			opacity: 1;
+		}
+
+	}
+
+	@keyframes CV {
+
+		0% {
+			left: 51px;
+			top: 27px;
+			opacity: 1;
+		}
+		10% {
+			left: -26px;
+			top: 89px;
+		}
+		20% {
+			left: 108px;
+			top: 135px;
+		}
+		30% {
+			left: -31px;
+			top: 220px;
+		}
+		40% {
+			left: 171px;
+			top: 290px;
+		}
+		50% {
+			left: 195px;
+			top: 181px;
+		}
+		60% {
+			left: 294px;
+			top: 231px;
+		}
+		70% {
+			left: 429px;
+			top: 227px;
+		}
+		80% {
+			left: 513px;
+			top: 344px;
+			text-indent: -100px;
+		}
+		90% {
+			left: 641px;
+			top: 389px;
+			transform: translate3d(0, 0, 0) scale(0.225);
+			text-indent: 0px;
+		}
+		100% {
+			left: 641px;
+			top: 389px;
+			transform: translate3d(0, 0, 0) scale(1);
+			text-indent: 0px;
+			opacity: 1;
+		}
+
+	}
+
 
 }
 
@@ -2915,6 +3128,55 @@ body > footer .button p {
 }
 
 @media all and (max-width: 768px){
+
+	.greetings{
+		font-size:0.9em;
+		padding:6.25em 0;
+	}
+
+	.greetings figure {
+		position: static;
+		width: 100%;
+		text-align: center;
+		margin-left: 0;
+	}
+
+	.greetings figure img{
+		display: inline;
+	}
+
+	.greetings .text{
+		margin:0 auto 40px;
+	}
+
+	.profile{
+		height: auto;
+		font-size:0.7em;
+	}
+
+	.work .timeline{
+		width: 470px;
+	}
+
+	.profile .info{
+		margin-left:0;
+		width: 100%;
+		font-size:1.3em;
+		padding:80px 0 80px;
+		text-align: center;
+	}
+
+	.profile h2 + h3{
+		margin-top:30px;
+	}
+
+	.profile figure{
+		float:right;
+		margin-bottom: 0;
+		left:20%;
+		display: none;
+	}
+
 	.portfolio article{
 		width: 50%;
 	}
@@ -2933,15 +3195,15 @@ body > footer .button p {
 	}
 
 	.portfolio .main-info{
-		height: 314px;
+		height: 284px;
 	}
 
 	.portfolio .modal{
-		height: 570px;
+		height: 540px;
 	}
 
 	.portfolio .slider{
-		height: 478px;
+		height: 448px;
 	}
 
 	.portfolio .slider img{
@@ -2949,7 +3211,132 @@ body > footer .button p {
 	}
 
 	.portfolio .proj-info{
-		height: 570px;
+		height: 540px;
+	}
+
+	.contact .network > a.fb {
+		left: 576px;
+		top: -21px;
+	}
+
+
+	@-webkit-keyframes Facebook {
+
+		0% {
+			left: 51px;
+			top: 27px;
+			opacity: 1;
+		}
+		10% {
+			left: -26px;
+			top: 89px;
+		}
+		20% {
+			left: 108px;
+			top: 135px;
+		}
+		30% {
+			left: 147px;
+			top: 27px;
+		}
+		40% {
+			left: 195px;
+			top: 181px;
+		}
+		50% {
+			left: 294px;
+			top: 107px;
+		}
+		60% {
+			left: 294px;
+			top: 231px;
+		}
+		70% {
+			left: 429px;
+			top: 227px;
+
+		}
+		80% {
+			left: 501px;
+			top: 116px;
+			text-indent: -100px;
+
+		}
+		90% {
+			left: 576px;
+			top: -21px;
+			-webkit-transform: translate3d(0, 0, 0) scale(0.225);
+			text-indent: 0px;
+
+		}
+		100% {
+			left: 576px;
+			top: -21px;
+			-webkit-transform: translate3d(0, 0, 0) scale(1);
+			text-indent: 0px;
+			opacity: 1;
+		}
+
+	}
+
+
+	@keyframes Facebook {
+
+		0% {
+			left: 51px;
+			top: 27px;
+			opacity: 1;
+		}
+		10% {
+			left: -26px;
+			top: 89px;
+		}
+		20% {
+			left: 108px;
+			top: 135px;
+		}
+		30% {
+			left: 147px;
+			top: 27px;
+		}
+		40% {
+			left: 195px;
+			top: 181px;
+		}
+		50% {
+			left: 294px;
+			top: 107px;
+		}
+		60% {
+			left: 294px;
+			top: 231px;
+		}
+		70% {
+			left: 429px;
+			top: 227px;
+
+		}
+		80% {
+			left: 501px;
+			top: 116px;
+			text-indent: -100px;
+
+		}
+		90% {
+			left: 576px;
+			top: -21px;
+			transform: translate3d(0, 0, 0) scale(0.225);
+			text-indent: 0px;
+
+		}
+		100% {
+			left: 576px;
+			top: -21px;
+			transform: translate3d(0, 0, 0) scale(1);
+			text-indent: 0px;
+			opacity: 1;
+		}
+
 	}
 
 }

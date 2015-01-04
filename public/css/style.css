@@ -3139,6 +3139,10 @@ body > footer .button p {
 
 @media all and (max-width: 768px){
 
+	.opened header nav{
+		display: none;
+	}
+
 	.banner .base{
 		font-size: 0.8em;
 	}

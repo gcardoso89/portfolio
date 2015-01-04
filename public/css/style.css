@@ -952,7 +952,7 @@ header nav a.act{
 .skills p {
 	margin-top: 20px;
 	font-size: 3.6875em;
-	line-height: 1.1em;
+	line-height: 1.1;
 	font-weight: 600;
 	text-transform: lowercase
 }
@@ -2861,6 +2861,16 @@ body > footer .button p {
 	}
 }
 
+@media all and (max-height: 660px){
+	.banner .base {
+		font-size: 0.8em;
+	}
+
+	.balloon {
+		background-image: url(../images/balloon900.png);
+	}
+}
+
 @media all and (max-width: 1024px) {
 
 	.banner .base {
@@ -3129,6 +3139,49 @@ body > footer .button p {
 
 @media all and (max-width: 768px){
 
+	.banner .base{
+		font-size: 0.8em;
+	}
+
+	.banner .button{
+		display: none;
+	}
+
+	.balloon {
+		background-image: url(../images/balloon900.png);
+		left: 50%;
+	}
+
+	.balloon.big{
+		margin-left:-18.875em;
+	}
+
+	.balloon.med {
+		top: 350px;
+		margin-left: -210px;
+	}
+
+	.balloon.small {
+		top: 420px;
+		margin-left: -150px;
+	}
+
+	.banner figure{
+		left:0;
+		margin:410px 0 0;
+		width: 100%;
+		height: auto;
+		text-align: center;
+		float: left;
+		position: static;
+	}
+
+	.banner figure img{
+		max-width: 500px;
+		width: 100%;
+		display: inline;
+	}
+
 	.greetings{
 		font-size:0.9em;
 		padding:6.25em 0;
@@ -3176,6 +3229,14 @@ body > footer .button p {
 		margin-bottom: 0;
 		left:20%;
 		display: none;
+	}
+
+	.skills ul{
+		font-size:1.25em;
+	}
+
+	.skills p{
+		font-size:2.8125em;
 	}
 
 	.portfolio article{
@@ -3344,8 +3405,27 @@ body > footer .button p {
 
 @media all and (max-width: 480px){
 
-	.greetings{
-		font-size:0.7em;
+	.banner .base{
+		font-size:0.6em;
+	}
+
+	.banner figure{
+		margin: 310px 0 -2px;
+	}
+
+	.balloon {
+		background-image: url(../images/balloon768.png);
+		left: 50%;
+	}
+
+	.balloon.med {
+		top: 267px;
+		margin-left: -143px;
+	}
+
+	.balloon.small {
+		top: 318px;
+		margin-left: -90px;
 	}
 
 	.greetings .g_an{
@@ -3365,7 +3445,6 @@ body > footer .button p {
 		font-size:0.6em;
 	}
 }
-
 
 @media all and (max-width: 340px){
 	.greetings{

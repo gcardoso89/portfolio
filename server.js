@@ -124,7 +124,7 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 	});
 });
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.65';
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.2';
 
 var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 

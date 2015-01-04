@@ -18,7 +18,7 @@ var gcardosoPortfolioApp = angular.module('gcardosoPortfolioApp', ['ngSanitize',
 });
 
 gcardosoPortfolioApp.config(['$controllerProvider', '$animateProvider', function($controllerProvider, $animateProvider) {
-	$controllerProvider.allowGlobals();
+	//$controllerProvider.allowGlobals();
 	$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 }]);
 
@@ -90,8 +90,11 @@ function ScrollControler(){
 	this.objCon = $('section.contact');
 	this.objCon.posTop = this.objCon.offset().top;
 	this.objCon.hasAnimClass = false;
+	this.objConLks = $('.network > a', this.objCon);
 
 	this.win.scroll(function(e){ that.scrollHandler() });
+
+	this.resizeHandler();
 
 }
 
@@ -99,10 +102,10 @@ ScrollControler.prototype.scrollHandler = function(){
 
 	this.scrollT = this.win.scrollTop();
 
-	if ( ( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.objCon.height()/3) ) && !this.objCon.hasAnimClass && this.isAnim){
+	if ( ( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.winH/2) ) && !this.objCon.hasAnimClass && this.isAnim){
 		this.objCon.addClass('anim');
 		this.objCon.hasAnimClass = true;
-	};
+	}
 
 };
 
@@ -111,7 +114,30 @@ ScrollControler.prototype.refreshPositions = function(){
 };
 
 ScrollControler.prototype.resizeHandler = function(){
+
+	var _this = this;
+
 	this.winH = this.win.height();
+	this.winW = this.win.width();
+
+	this.refreshPositions();
+
+	if ( this.winW < 902 ){
+		this.objConLks.css({marginLeft:-((902-this.winW)/2) } );
+	}
+	else {
+		this.objConLks.css({marginLeft:0});
+	}
+
+	this.objCon.removeClass('anim');
+
+	clearTimeout(this.timeOut);
+
+	this.timeOut = setTimeout(function(){
+		_this.objCon.hasAnimClass = false;
+		_this.scrollHandler();
+	},100);
+
 };
 
 
@@ -126,30 +152,47 @@ function Navigation() {
 	this.targetAttr = 'target';
 	this.contAttr = 'content';
 	this.scrollable = $('html, body');
+	this.navItems = $('header nav a');
 	this.buttons.bind('click.Navigation', function (e) {
 		e.preventDefault();
-		that.goToItem($(this))
+		that.goToItem($(this));
 	});
-	this.totalH = $('body').height();
+	this.totalH = this.body.height();
 	this.win = $(window);
 	this.win.bind('scroll.Navigation', function (e) {
-		that.scrollHandler()
+		that.scrollHandler();
+	});
+	this.win.bind('resize.Navigation', function (e) {
+		that.resizeHandler();
 	});
 	this.openMenu = $('section.banner');
 	this.openMenuVal = 68;
 	this.closeMenu = $('section.contact');
 	this.closeMenuVal = this.closeMenu.height() - 100;
-};
 
-Navigation.prototype.goToItem = function (object) {
+	this.sections = $('section').not(this.openMenu).not('.quote');
+	this.secTops = [];
+
+	for (var i = 0; i < this.sections.length; i++) {
+		this.secTops.push(this.sections.eq(i).offset().top);
+	}
+
+	this.resizeHandler();
+
+	this.secTops.push(this.totalH);
+
+}
+
+Navigation.prototype.goToItem = function (obj) {
 
 	this.scrollable.stop(true, false);
 	var that = this;
-	var obj = object;
 	var href = obj.attr('href');
 	var tar = obj.attr('data-' + this.targetAttr);
 	var goTo = $('[data-' + this.contAttr + '="' + tar + '"]').eq(0);
 	var posGoTo;
+
+	ga('send', 'pageview', '/' + obj.text().toLowerCase());
 
 	if (goTo.attr('data-center') == "true") posGoTo = goTo.offset().top - (_scrollControl.winH / 2 - goTo.outerHeight() / 2);
 	else posGoTo = goTo.offset().top;
@@ -161,12 +204,28 @@ Navigation.prototype.goToItem = function (object) {
 
 Navigation.prototype.scrollHandler = function () {
 
+	var _this = this;
+	var current = -1;
 	var valTop = this.win.scrollTop();
 	if (valTop >= this.openMenuVal /*&& valTop <= (_scrollControl.objCon.posTop + this.closeMenuVal)*/)
 		this.body.addClass('opened');
 	else
 		this.body.removeClass('opened');
 
+	for (var i = 0; i < this.secTops.length; i++) {
+		var obj = this.secTops[i];
+		if ( valTop >= obj-(_this.winH/2) && valTop < this.secTops[i+1]-(_this.winH/2)  ) current = i;
+	}
+
+	this.navItems.removeClass('act');
+	if(current != -1) this.navItems.eq(current).addClass('act');
+};
+
+Navigation.prototype.resizeHandler = function(){
+	this.winW = this.win.width();
+	this.winH = this.win.height();
+	this.openMenuVal = (this.winW > 900) ? 68 : 0;
+	this.scrollHandler();
 };
 
 function ProfileGallery() {
@@ -436,6 +495,8 @@ TwitterWall.prototype.createTweet = function(data){
 		created_at : new Date(data.created_at).getTime(),
 
 		date : data.created_at,
+
+		tweeturl : 'http://www.twitter.com/' + data.user.screen_name + '/status/' + data.id_str,
 
 		classname : 'tweet' + ((this.list.length % 5)+1).toString()
 

@@ -50,7 +50,7 @@ _.each(watchSymbols, function (v) {
 });
 
 //Generic Express setup
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8083);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
@@ -89,6 +89,15 @@ sockets.configure(function () {
 	//sockets.set('polling duration', 3600);
 });
 
+sockets.on('disconnect', function(){
+	slack.send({
+		text: "@gcardoso Os sockets estão em baixo. Reconnectar pff",
+		channel: '#gcardoso-portfolio',
+		username: 'Portfolio',
+		link_names: 1
+	});
+});
+
 //Instantiate the twitter component
 //You will need to get your own key. Don't worry, it's free. But I cannot provide you one
 //since it will instantiate a connection on my behalf and will drop all other streaming connections.
@@ -115,7 +124,7 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 	});
 });
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.2';
 
 var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
@@ -127,9 +136,17 @@ if ('development' == enviromnent) {
 	mongoUrl = 'mongodb://localhost:27017/gcardoso';
 }
 
+var isOffline = false;
 
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
+
+	if ( isOffline ) {
+		res.status(500);
+		res.render('error/500.html', {error: "500 error page", layout : null});
+		res.end();
+		return true;
+	}
 
 	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
@@ -138,14 +155,14 @@ app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
 	mongo.connect(mongoUrl, function (err, db) {
-		if (err) {
+		if (err!=null) {
 			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country" });
 			return false;
 		}
 		 var collection = db.collection('portfolio');
 		 collection.find({}).toArray(function (err, docs) {
 			 portfolioList = docs;
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : ip.country });
+			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country" });
 			 db.close();
 		 });
 
@@ -205,6 +222,54 @@ app.post('/sendEmail', function(req, res){
 			res.json(200, { success : true });
 		});
 
+	}
+
+	else {
+		res.status(403).end();
+	}
+
+});
+
+app.post('/outwebook', function(req, res){
+
+	if (req.body.token == 'wZt3MhUdJVv85rydSQ5tdBBe'){
+
+		console.log(req.body);
+
+		switch ( req.body.trigger_word.toLocaleLowerCase() ){
+
+			case 'socket':
+				switch (req.body.text.toLocaleLowerCase()){
+					case 'socket reconnect':
+						sockets.socket.connect();
+						break;
+
+					case 'socket disconnect':
+						sockets.socket.disconnect();
+						break;
+				}
+
+				break;
+
+			case 'offline':
+				switch (req.body.text.toLocaleLowerCase()){
+
+					case 'offline yes':
+						isOffline = true;
+						break;
+
+					case 'offline no':
+						isOffline = false;
+						break;
+
+					default:
+						isOffline = true;
+						break;
+
+				}
+
+		}
+		res.status(200).end();
 	}
 
 	else {

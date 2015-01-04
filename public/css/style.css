@@ -3348,6 +3348,10 @@ body > footer .button p {
 		font-size:0.7em;
 	}
 
+	.greetings .g_an{
+		margin-left:.3em;
+	}
+
 }
 
 @media all and (max-width: 390px){
@@ -3364,12 +3368,7 @@ body > footer .button p {
 
 
 @media all and (max-width: 340px){
-
 	.greetings{
-		font-size:0.5em;
-	}
-
-	.greetings .g_an{
-		margin-left:0;
+		font-size:0.55em;
 	}
 }

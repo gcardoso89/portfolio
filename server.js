@@ -141,6 +141,8 @@ var isOffline = false;
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
 
+	console.log(process.env.GCARDOSO_OUTWEBOOK_TOKEN);
+
 	if ( isOffline ) {
 		res.status(500);
 		res.render('error/500.html', {error: "500 error page", layout : null});
@@ -232,7 +234,7 @@ app.post('/sendEmail', function(req, res){
 
 app.post('/outwebook', function(req, res){
 
-	if (req.body.token == 'wZt3MhUdJVv85rydSQ5tdBBe'){
+	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN){
 
 		console.log(req.body);
 

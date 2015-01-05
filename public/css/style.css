@@ -889,10 +889,10 @@ header nav a.act{
 }
 
 .profile .info {
-	margin-left: 39.0625em;
 	position: relative;
 	z-index: 2;
 	padding: 6.875em 0 0;
+	float:right;
 }
 
 .profile h2 + h3 {
@@ -2921,11 +2921,6 @@ body > footer .button p {
 		margin-left: 0;
 	}
 
-
-	.profile .info{
-		margin-left:61%;
-	}
-
 	.profile figure{
 		margin-left:-73.33%;
 	}
@@ -3000,7 +2995,6 @@ body > footer .button p {
 	.profile .info{
 		padding:50px 0 0;
 		font-size:1.15em;
-		margin-left:58%;
 	}
 
 	.profile h2{
@@ -3245,12 +3239,17 @@ body > footer .button p {
 		padding-left: 50px;
 	}
 
+	.profile .base{
+		padding:80px 32px;
+	}
+
 	.profile .info{
 		margin-left:0;
 		width: 100%;
 		font-size:1.3em;
-		padding:80px 0 80px;
+		padding:0;
 		text-align: center;
+		float:none
 	}
 
 	.profile h2 + h3{
@@ -3258,10 +3257,44 @@ body > footer .button p {
 	}
 
 	.profile figure{
-		float:right;
-		margin-bottom: 0;
-		left:20%;
-		display: none;
+		float:none;
+		margin:0 auto 70px auto;
+		position:relative;
+		left:0;
+		width: 300px;
+		height: 300px;
+		-webkit-border-radius: 150px;
+		-moz-border-radius: 150px;
+		border-radius: 150;
+		border:2px solid #000;
+		overflow:hidden;
+	}
+
+	.profile figure img{
+		max-width: inherit;
+		max-height: 300px;
+		left: 50%;
+		margin-left: -62%;
+	}
+
+	.profile h2{
+		margin-bottom:40px;
+	}
+
+	.profile p, .profile h3{
+		display: inline;
+	}
+
+	.profile h3{
+		margin-right:5px;
+	}
+
+	.profile p:after{
+		content:".";
+		visibility: hidden;
+		display: block;
+		height:30px;
+		clear:both;
 	}
 
 	.portfolio article{
@@ -3544,6 +3577,7 @@ body > footer .button p {
 
 	.greetings .g_an{
 		margin-left:.3em;
+		margin-right: -10px;
 	}
 
 }
@@ -3558,6 +3592,26 @@ body > footer .button p {
 	.greetings{
 		font-size:0.7em;
 	}
+}
+
+@media all and (max-width: 374px){
+
+	.profile figure {
+		width: 252px;
+		height: 252px;
+		-webkit-border-radius: 124px;
+		-moz-border-radius: 124px;
+		border-radius: 124px;
+	}
+
+	.profile figure img{
+		max-height: 252px;
+	}
+
+	.skills p{
+		font-size:3.125em;
+	}
+
 }
 
 

@@ -18,7 +18,7 @@ var express = require('express')
 
 //Create an express app
 var app = express();
-var slack = new Slack('gcardoso', 'bYzrYKddsjbgvIsz10jVzUzk');
+var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
 
 mailer.extend(app, {
 	from: 'site@gcardoso.pt',
@@ -126,7 +126,7 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.2';
 
-var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
+var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
 var enviromnent = app.get('env');
 
@@ -140,8 +140,6 @@ var isOffline = false;
 
 //Our only route! Render it with the current watchList
 app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
-
-	console.log(process.env.GCARDOSO_OUTWEBOOK_TOKEN);
 
 	if ( isOffline ) {
 		res.status(500);

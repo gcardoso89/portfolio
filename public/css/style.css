@@ -889,10 +889,10 @@ header nav a.act{
 }
 
 .profile .info {
-	margin-left: 39.0625em;
 	position: relative;
 	z-index: 2;
 	padding: 6.875em 0 0;
+	float:right;
 }
 
 .profile h2 + h3 {
@@ -959,7 +959,8 @@ header nav a.act{
 
 .skills p strong {
 	color: #41969c;
-	font-size: 1.2em;
+	font-size: 1.3em;
+	line-height: 0.8;
 }
 
 .quote {
@@ -2861,16 +2862,6 @@ body > footer .button p {
 	}
 }
 
-@media all and (max-height: 660px){
-	.banner .base {
-		font-size: 0.8em;
-	}
-
-	.balloon {
-		background-image: url(../images/balloon900.png);
-	}
-}
-
 @media all and (max-width: 1024px) {
 
 	.banner .base {
@@ -2930,11 +2921,6 @@ body > footer .button p {
 		margin-left: 0;
 	}
 
-
-	.profile .info{
-		margin-left:61%;
-	}
-
 	.profile figure{
 		margin-left:-73.33%;
 	}
@@ -2947,6 +2933,16 @@ body > footer .button p {
 		margin-left:32px;
 	}
 
+}
+
+@media all and (max-height: 660px){
+	.banner .base {
+		font-size: 0.8em;
+	}
+
+	.balloon {
+		background-image: url(../images/balloon900.png);
+	}
 }
 
 @media all and (max-width: 900px) {
@@ -2999,7 +2995,6 @@ body > footer .button p {
 	.profile .info{
 		padding:50px 0 0;
 		font-size:1.15em;
-		margin-left:58%;
 	}
 
 	.profile h2{
@@ -3125,7 +3120,13 @@ body > footer .button p {
 
 }
 
-@media all and (min-width: 769px) and (max-width: 850px){
+@media all and (max-width: 850px){
+	.quote{
+		font-size:0.8em;
+	}
+}
+
+@media all and (max-width: 850px) and (min-width: 769px) {
 
 	.portfolio article h3 {
 		font-size:1.375em;
@@ -3137,7 +3138,26 @@ body > footer .button p {
 
 }
 
+@media all and (max-width: 800px){
+
+
+	.skills ul{
+		font-size:1.25em;
+	}
+
+	.skills p{
+		font-size:2.8125em;
+	}
+
+}
+
+
+
 @media all and (max-width: 768px){
+
+	.quote{
+		font-size:0.7em;
+	}
 
 	.opened header nav{
 		display: none;
@@ -3145,6 +3165,7 @@ body > footer .button p {
 
 	.banner .base{
 		font-size: 0.8em;
+		padding:0px;
 	}
 
 	.banner .button{
@@ -3178,6 +3199,7 @@ body > footer .button p {
 		text-align: center;
 		float: left;
 		position: static;
+		font-size:0;
 	}
 
 	.banner figure img{
@@ -3217,12 +3239,17 @@ body > footer .button p {
 		padding-left: 50px;
 	}
 
+	.profile .base{
+		padding:80px 32px;
+	}
+
 	.profile .info{
 		margin-left:0;
 		width: 100%;
 		font-size:1.3em;
-		padding:80px 0 80px;
+		padding:0;
 		text-align: center;
+		float:none
 	}
 
 	.profile h2 + h3{
@@ -3230,18 +3257,44 @@ body > footer .button p {
 	}
 
 	.profile figure{
-		float:right;
-		margin-bottom: 0;
-		left:20%;
-		display: none;
+		float:none;
+		margin:0 auto 70px auto;
+		position:relative;
+		left:0;
+		width: 300px;
+		height: 300px;
+		-webkit-border-radius: 150px;
+		-moz-border-radius: 150px;
+		border-radius: 150;
+		border:2px solid #000;
+		overflow:hidden;
 	}
 
-	.skills ul{
-		font-size:1.25em;
+	.profile figure img{
+		max-width: inherit;
+		max-height: 300px;
+		left: 50%;
+		margin-left: -62%;
 	}
 
-	.skills p{
-		font-size:2.8125em;
+	.profile h2{
+		margin-bottom:40px;
+	}
+
+	.profile p, .profile h3{
+		display: inline;
+	}
+
+	.profile h3{
+		margin-right:5px;
+	}
+
+	.profile p:after{
+		content:".";
+		visibility: hidden;
+		display: block;
+		height:30px;
+		clear:both;
 	}
 
 	.portfolio article{
@@ -3408,7 +3461,45 @@ body > footer .button p {
 
 }
 
+@media all and (max-width: 680px){
+
+
+	.skills{
+		background: none;
+	}
+
+}
+
+
 @media all and (max-width: 570px){
+
+	.skills .dev, .skills .pro{
+		float:none;
+		text-align: center;
+	}
+
+	.skills .pro li, .skills .pro p{
+		text-align:center;
+	}
+
+	.skills h2, .skills .pro h2{
+		display: inline-block;
+		float: none;
+	}
+
+	.skills .dev{
+		padding-bottom: 65px;
+		border-bottom: 1px solid #dfdfdf;
+		margin-bottom: 60px;
+	}
+
+	.skills ul{
+		font-size: 1.4375em;
+	}
+
+	.skills p{
+		font-size: 3.6875em;
+	}
 
 	.work figure{
 		display: none;
@@ -3418,10 +3509,45 @@ body > footer .button p {
 		display: none;
 	}
 
+	.work h2{
+		margin-bottom: 0;
+	}
+
 	.work article{
 		width: 100%!important;
 	}
 
+}
+
+@media all and (max-width: 570px) and (min-width: 500px) {
+
+	.portfolio article h3 {
+		font-size:1.375em;
+	}
+
+	.portfolio article li{
+		font-size:0.8125em;
+	}
+
+}
+
+@media all and (max-width: 544px){
+	.work .timeline{
+		width: 100%;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+}
+
+@media all and (max-width: 500px){
+	.portfolio .list{
+		max-width: 310px;
+		margin:0 auto;
+	}
+	.portfolio article{
+		width: 100%;
+	}
 }
 
 @media all and (max-width: 480px){
@@ -3451,9 +3577,43 @@ body > footer .button p {
 
 	.greetings .g_an{
 		margin-left:.3em;
+		margin-right: -10px;
 	}
 
 }
+
+@media all and (max-width: 470px){
+	.greetings{
+		font-size:0.75em;
+	}
+}
+
+@media all and (max-width: 420px){
+	.greetings{
+		font-size:0.7em;
+	}
+}
+
+@media all and (max-width: 374px){
+
+	.profile figure {
+		width: 252px;
+		height: 252px;
+		-webkit-border-radius: 124px;
+		-moz-border-radius: 124px;
+		border-radius: 124px;
+	}
+
+	.profile figure img{
+		max-height: 252px;
+	}
+
+	.skills p{
+		font-size:3.125em;
+	}
+
+}
+
 
 @media all and (max-width: 390px){
 	.greetings{

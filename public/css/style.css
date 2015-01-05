@@ -1067,7 +1067,7 @@ blockquote footer {
 	font-weight: 600;
 	position: absolute;
 	left: -52px;
-	top: 13px;
+	top: 5px;
 }
 
 .work article h3 {
@@ -3213,7 +3213,8 @@ body > footer .button p {
 	}
 
 	.work .timeline{
-		width: 470px;
+		width: 430px;
+		padding-left: 50px;
 	}
 
 	.profile .info{
@@ -3403,6 +3404,22 @@ body > footer .button p {
 			opacity: 1;
 		}
 
+	}
+
+}
+
+@media all and (max-width: 570px){
+
+	.work figure{
+		display: none;
+	}
+
+	.work article .line span{
+		display: none;
+	}
+
+	.work article{
+		width: 100%!important;
 	}
 
 }

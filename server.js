@@ -15,8 +15,7 @@ var express = require('express')
 	, Slack = require("node-slack")
 	, portfolioList = [];
 
-//Teste
-//Create an express app
+//Create an express app!
 var app = express();
 var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
 

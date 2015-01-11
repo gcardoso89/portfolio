@@ -483,22 +483,22 @@ TwitterWall.prototype.createTweet = function(data){
 
 	return {
 
-		name : data.user.name,
+		name : data.name,
 
-		username : "@" + data.user.screen_name,
+		username : data.username,
 
 		//image : data.user.profile_image_url.replace("_normal", ""),
-		image : data.user.profile_image_url.replace("_normal", "_bigger"),
+		image : data.image,
 
 		text : data.text.replace(hashRegex, "<em>#$1</em>").replace(retweetRegex, '<strong>RT @$1: </strong>').replace(linksRegex, '<a href="$1" target="_blank">$1</a>'),
 
 		imageVisible : true,
 
-		created_at : new Date(data.created_at).getTime(),
+		created_at : data.created_at,
 
-		date : data.created_at,
+		date : data.date,
 
-		tweeturl : 'http://www.twitter.com/' + data.user.screen_name + '/status/' + data.id_str,
+		tweeturl : data.tweeturl,
 
 		classname : 'tweet' + ((this.list.length % 5)+1).toString()
 

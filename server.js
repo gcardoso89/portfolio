@@ -18,7 +18,7 @@ var express = require('express')
 
 //Create an express app
 var app = express();
-var slack = new Slack('gcardoso', 'bYzrYKddsjbgvIsz10jVzUzk');
+var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
 
 mailer.extend(app, {
 	from: 'site@gcardoso.pt',
@@ -50,7 +50,7 @@ _.each(watchSymbols, function (v) {
 });
 
 //Generic Express setup
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8084);
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8083);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
@@ -111,22 +111,49 @@ var t = new twitter({
 
 var arr = [];
 
+function processTweetData(tweets){
+
+	var newArr = [];
+
+	for (var i = 0; i < tweets.length; i++) {
+
+		var data = tweets[i];
+
+		newArr.push({
+
+			name : data.user.name,
+			username : '@' + data.user.screen_name,
+			image : data.user.profile_image_url.replace("_normal", "_bigger"),
+			text : data.text,
+			imageVisible : true,
+			created_at : new Date(data.created_at).getTime(),
+			date : data.created_at,
+			tweeturl : 'http://www.twitter.com/' + data.user.screen_name + '/status/' + data.id_str
+
+		});
+
+	}
+
+	return newArr;
+
+}
 
 //Tell the twitter API to filter on the watchSymbols
 t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 
 	//We have a connection. Now watch the 'data' event for incomming tweets.
-	stream.on('data', function (tweet) {
+	stream.on('data', function (data) {
+
 		//Make sure it was a valid tweet
-		if (tweet.text !== undefined) {
-			sockets.sockets.emit('data', [tweet]);
+		if (data.text !== undefined) {
+			sockets.sockets.emit('data', processTweetData([data]));
 		}
 	});
 });
 
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
-var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
+var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
 var enviromnent = app.get('env');
 
@@ -179,7 +206,7 @@ app.post('/getFirstTweets', function(req, res){
 	if (req.body.token == token){
 		t.search('#gcardoso', function(data) {
 			var newData = _.sortBy(data.statuses, function(o){ return new Date(o.created_at) });
-			res.json({success:true, tweets: newData})
+			res.json({success:true, tweets: processTweetData(newData) });
 		});
 	}
 
@@ -232,7 +259,7 @@ app.post('/sendEmail', function(req, res){
 
 app.post('/outwebook', function(req, res){
 
-	if (req.body.token == 'wZt3MhUdJVv85rydSQ5tdBBe'){
+	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN){
 
 		console.log(req.body);
 

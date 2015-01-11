@@ -173,10 +173,6 @@ function Navigation() {
 	this.sections = $('section').not(this.openMenu).not('.quote');
 	this.secTops = [];
 
-	for (var i = 0; i < this.sections.length; i++) {
-		this.secTops.push(this.sections.eq(i).offset().top);
-	}
-
 	this.resizeHandler();
 
 	this.secTops.push(this.totalH);
@@ -207,10 +203,16 @@ Navigation.prototype.scrollHandler = function () {
 	var _this = this;
 	var current = -1;
 	var valTop = this.win.scrollTop();
-	if (valTop >= this.openMenuVal /*&& valTop <= (_scrollControl.objCon.posTop + this.closeMenuVal)*/)
+	if (valTop >= this.openMenuVal)
 		this.body.addClass('opened');
 	else
 		this.body.removeClass('opened');
+
+	this.secTops = [];
+
+	for (var z = 0; z < this.sections.length; z++) {
+		this.secTops.push(this.sections.eq(z).offset().top);
+	}
 
 	for (var i = 0; i < this.secTops.length; i++) {
 		var obj = this.secTops[i];
@@ -575,5 +577,17 @@ TwitterWall.prototype.tweetThis = function(e){
 	window.open(url, 'twitter', opts);
 
 	return false;
+
+};
+
+
+$.fn.smallMenu = function(){
+
+	var menu = $(this);
+
+	menu.bind('click.smallMenu', function(){
+		if (menu.hasClass('active')) menu.removeClass('active');
+		else menu.addClass('active');
+	});
 
 };

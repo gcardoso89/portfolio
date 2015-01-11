@@ -50,7 +50,7 @@ _.each(watchSymbols, function (v) {
 });
 
 //Generic Express setup
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8083);
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8084);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
@@ -124,7 +124,7 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 	});
 });
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.2';
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
 var mongoUrl = 'mongodb://admin:VPSH3mpQp6fH@'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 

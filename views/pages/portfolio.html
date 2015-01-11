@@ -1,9 +1,9 @@
-<script type="text/javascript">
-    var _portfolioList = {{{portfolioString}}};
-</script>
 <section class="portfolio" data-content="portfolio" data-ng-controller="Portfolio as portfolio" data-ng-init="current = portfolio.current">
+    <script type="text/javascript">
+        var _portfolioList = {{{portfolioString}}};
+    </script>
     <div class="base">
-        <h2>Portfolio <small>click and drag to more detail</small></h2>
+        <h2>Portfolio <small>click to more detail</small></h2>
 
         <div class="list">
             {{#portfolio}}
@@ -44,7 +44,7 @@
                 </ul>
 
                 <div class="slider">
-                    <img data-ng-src="images/projects/[[image.src]]" class="img-element ng-animate-disabled" data-ng-class="{active : image.active }" data-ng-repeat="image in current.images" />
+                    <figure data-ng-repeat="image in current.images" class="img-element ng-animate-disabled" data-ng-class="{active : image.active }"><img data-ng-src="images/projects/[[image.src]]" /></figure>
                 </div>
 
             </div>

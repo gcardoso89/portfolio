@@ -47,3 +47,12 @@
 .icon-cv:before {
 	content: "\e607";
 }
+.icon-menu:before {
+	content: "\e609";
+}
+.icon-cancel:before {
+	content: "\e60a";
+}
+.icon-menu2:before {
+	content: "\e608";
+}

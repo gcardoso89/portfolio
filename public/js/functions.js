@@ -117,8 +117,13 @@ ScrollControler.prototype.resizeHandler = function(){
 
 	var _this = this;
 
-	this.winH = this.win.height();
-	this.winW = this.win.width();
+	var newW = this.win.width();
+	var newH = this.win.height();
+
+	if (this.winW == newW && this.winH == newH) return false;
+
+	this.winH = newH;
+	this.winW = newW;
 
 	this.refreshPositions();
 

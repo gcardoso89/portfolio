@@ -3636,6 +3636,11 @@ body > footer .button p {
 		width: 100%!important;
 	}
 
+	.contact form{
+		left:50%;
+		margin-left: -285px;
+	}
+
 }
 
 @media all and (max-width: 570px) and (min-width: 500px) {
@@ -3719,6 +3724,11 @@ body > footer .button p {
 	.greetings{
 		font-size:0.7em;
 	}
+
+	.contact form .form{
+		width: 290px;
+	}
+
 }
 
 @media all and (max-width: 374px){

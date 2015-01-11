@@ -21,13 +21,13 @@ var app = express();
 var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
 
 mailer.extend(app, {
-	from: 'site@gcardoso.pt',
+	from: 'portfolio@gcardoso.pt',
 	host: 'smtp.gcardoso.pt', // hostname
 	secureConnection: false, // use SSL
 	port: 25, // port for secure SMTP
 	transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
 	auth: {
-		user: 'site@gcardoso.pt',
+		user: 'portfolio@gcardoso.pt',
 		pass: 'timesUP32'
 	}
 });
@@ -228,6 +228,7 @@ app.post('/sendEmail', function(req, res){
 	}, 'timesUP32');
 
 	if ( req.body.token == token){
+
 
 		slack.send({
 			text: "@gcardoso " + req.body.name + " (" + req.body.email + ") enviou email com o seguinte texto: " + req.body.message,

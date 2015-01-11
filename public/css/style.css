@@ -3449,6 +3449,16 @@ body > footer .button p {
 		top: -21px;
 	}
 
+	body > footer .button{
+		width: 90px;
+		left: 50%;
+		margin-left: -211px;
+	}
+
+	body > footer figure{
+		margin-left: -240px;
+	}
+
 
 	@-webkit-keyframes Facebook {
 
@@ -3641,6 +3651,37 @@ body > footer .button p {
 		margin-left: -285px;
 	}
 
+	.contact .network > a,.contact.anim .network > a{
+		-webkit-animation: none;
+		animation:none;
+		-webkit-transform: none;
+		-moz-transform: none;
+		-ms-transform: none;
+		-o-transform: none;
+		transform: none;
+		opacity: 1;
+		text-indent: 0;
+	}
+
+	.contact .network > a.em {
+		left: 271px;
+		top: 371px;
+	}
+
+	.contact .network > a.cv {
+		left: 512px;
+		top: 344px;
+	}
+
+	.contact .network > a.fb {
+		left: 500px;
+		top: 116px;
+	}
+
+	body > footer h3 {
+		font-size: 4.375em;
+	}
+
 }
 
 @media all and (max-width: 570px) and (min-width: 500px) {
@@ -3710,6 +3751,24 @@ body > footer .button p {
 	.greetings .g_an{
 		margin-left:.3em;
 		margin-right: -10px;
+	}
+
+	body > footer > div{
+		min-height: 741px;
+	}
+
+	body > footer .button{
+		margin-left: -45px;
+	}
+
+	body > footer figure{
+		width: 100%;
+		height: auto;
+		margin-left: -50%;
+	}
+
+	body > footer img{
+		max-width: 100%;
 	}
 
 }

@@ -13,40 +13,21 @@ var express = require('express')
 	, jwt = require('jwt-simple')
 	, geoip = require("geoip-lite")
 	, Slack = require("node-slack")
+	, envVariables = require("./gcardoso/env-variables")
 	, portfolioList = [];
 
+
+
+/**
+ * ---------------
+ * ----- APP -----
+ * ---------------
+ * */
 //Create an express app!
 var app = express();
-var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
-
-mailer.extend(app, {
-	from: 'portfolio@gcardoso.pt',
-	host: 'smtp.gcardoso.pt', // hostname
-	secureConnection: false, // use SSL
-	port: 25, // port for secure SMTP
-	transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
-	auth: {
-		user: 'portfolio@gcardoso.pt',
-		pass: 'timesUP32'
-	}
-});
 
 //Create the HTTP server with the express app as an argument
 var server = http.createServer(app);
-
-// Twitter symbols array
-var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
-
-//This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
-var watchList = {
-	total: 0,
-	symbols: {}
-};
-
-//Set the watch symbols to zero.
-_.each(watchSymbols, function (v) {
-	watchList.symbols[v] = 0;
-});
 
 //Generic Express setup
 app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8083);
@@ -78,35 +59,61 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
-//Start a Socket.IO listen
-var sockets = io.listen(server);
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.65';
+
+/**
+ * --------------------
+ * ----- MONGO DB -----
+ * --------------------
+ * */
+
+var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
+
+var enviromnent = app.get('env');
+
+// development only
+if (enviromnent == 'development') {
+	app.use(express.errorHandler());
+	mongoUrl = 'mongodb://localhost:27017/gcardoso';
+	envVariables();
+}
 
 
-//Set the sockets.io configuration.
-//THIS IS NECESSARY ONLY FOR HEROKU!
-sockets.configure(function () {
-	sockets.set('transports', ['xhr-polling']);
-	//sockets.set('polling duration', 3600);
+
+
+/**
+ * -----------------------------
+ * ----- SLACK INTEGRATION -----
+ * -----------------------------
+ * */
+
+var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
+
+
+
+
+/**
+ * ------------------------
+ * ----- TWITTER WALL -----
+ * ------------------------
+ * */
+// Twitter symbols array
+var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
+//This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
+var watchList = {
+	total: 0,
+	symbols: {}
+};
+//Set the watch symbols to zero.
+_.each(watchSymbols, function (v) {
+	watchList.symbols[v] = 0;
 });
 
-sockets.on('disconnect', function(){
-	slack.send({
-		text: "@gcardoso Os sockets estão em baixo. Reconnectar pff",
-		channel: '#gcardoso-portfolio',
-		username: 'Portfolio',
-		link_names: 1
-	});
-});
-
-//Instantiate the twitter component
-//You will need to get your own key. Don't worry, it's free. But I cannot provide you one
-//since it will instantiate a connection on my behalf and will drop all other streaming connections.
-//Check out: https://dev.twitter.com/
 var t = new twitter({
-	consumer_key: 'XHHh0St57xEb0uZ6zlVxAzgFv',           // <--- FILL ME IN
-	consumer_secret: 'qxbmnjQau0W6ofQsJeByRuIi2iGMFLW2aJMNd5aXjnTZ4Ic8tU',        // <--- FILL ME IN
-	access_token_key: '93891411-DtXySlEpuTNnM09dUEjb0aHnoj6mBrXb0gPQAgz87',       // <--- FILL ME IN
-	access_token_secret: 'mEegi29Ivz0eZJHDxwxURk32wMqbWf0CxgUJvBqWimf2g'     // <--- FILL ME IN
+	consumer_key: process.env.TWITTER_CONSUMER_KEY,
+	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 var arr = [];
@@ -151,17 +158,52 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 	});
 });
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.65';
+//Start a Socket.IO listen
+var sockets = io.listen(server);
+sockets.configure(function () {
+	sockets.set('transports', ['xhr-polling']);
+	//sockets.set('polling duration', 3600);
+});
 
-var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
+sockets.on('disconnect', function(){
+	slack.send({
+		text: "@gcardoso Os sockets estão em baixo. Reconnectar pff",
+		channel: '#gcardoso-portfolio',
+		username: 'Portfolio',
+		link_names: 1
+	});
+});
 
-var enviromnent = app.get('env');
 
-// development only
-if ('development' == enviromnent) {
-	app.use(express.errorHandler());
-	mongoUrl = 'mongodb://localhost:27017/gcardoso';
-}
+
+/**
+ * -----------------------------
+ * ----- EMAIL INTEGRATION -----
+ * -----------------------------
+ * */
+
+mailer.extend(app, {
+	from: 'portfolio@gcardoso.pt',
+	host: 'smtp.gcardoso.pt', // hostname
+	secureConnection: false, // use SSL
+	port: 25, // port for secure SMTP
+	transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
+	auth: {
+		user: 'portfolio@gcardoso.pt',
+		pass: process.env.GCARDOSO_EMAIL_PASSWORD
+	}
+});
+
+
+
+
+
+/**
+ * --------------------
+ * ----- ROUTES -------
+ * --------------------
+ * */
+
 
 var isOffline = false;
 
@@ -227,7 +269,6 @@ app.post('/sendEmail', function(req, res){
 	}, 'timesUP32');
 
 	if ( req.body.token == token){
-
 
 		slack.send({
 			text: "@gcardoso " + req.body.name + " (" + req.body.email + ") enviou email com o seguinte texto: " + req.body.message,

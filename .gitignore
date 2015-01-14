@@ -31,3 +31,6 @@ node_modules
 .idea
 .idea/workspace.xml
 .DS_Store
+
+# Gcardoso keys
+gcardoso/env-variables.js

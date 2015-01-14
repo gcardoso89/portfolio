@@ -13,7 +13,6 @@ var express = require('express')
 	, jwt = require('jwt-simple')
 	, geoip = require("geoip-lite")
 	, Slack = require("node-slack")
-	, envVariables = require("./gcardoso/env-variables")
 	, portfolioList = [];
 
 
@@ -75,10 +74,8 @@ var enviromnent = app.get('env');
 if (enviromnent == 'development') {
 	app.use(express.errorHandler());
 	mongoUrl = 'mongodb://localhost:27017/gcardoso';
-	envVariables();
+	require("./gcardoso/env-variables")();
 }
-
-
 
 
 /**

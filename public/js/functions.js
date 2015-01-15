@@ -359,6 +359,8 @@ function TwitterWall($scope, $timeout){
 	this.scope = $scope;
 	this.timeOut = $timeout;
 
+	this.isMobile = mobilecheck();
+
 	this.socket = null;
 
 	this.positions = [
@@ -430,13 +432,12 @@ function TwitterWall($scope, $timeout){
 
 	];
 
-	this.connectFirst();
+	if (!this.isMobile) this.connectFirst();
+	else this.mobileScreen = true;
 
 }
 
 TwitterWall.prototype.processTweetData = function(data){
-
-	var _this = this;
 
 	for (var i = 0; i < data.length; i++) {
 		var obj = data[i];

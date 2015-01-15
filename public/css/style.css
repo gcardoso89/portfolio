@@ -1971,40 +1971,38 @@ textarea {
 
 .twitter{
 	background: #41969c;
-	padding: 90px 0px 90px 0px;
+	padding: 70px 0px 90px 0px;
 	height:630px;
 }
 
-.twitter h3{
+.twitter h2:before{
+	display: none;
+}
+
+.twitter h2{
 	color:#fff;
-	font-size:1.875em;
-	text-align: center;
 	display: block;
-	font-weight: normal;
-	font-family: "Source Sans Pro", sans-serif;
-	height: 40px;
-	line-height: 40px;
-	overflow: hidden;
-}
-
-.twitter h3 em{
-	text-indent: -9999px;
-	display: block;
-	float: left;
-	clear: both;
-}
-
-.twitter .logos{
-	padding-top:20px;
 	text-align: center;
+	margin-bottom: 20px;
+	font-size:2.25em;
 }
 
-.twitter .logos img{
-	margin:0 30px;
+.twitter h3{
+	color:#afe4e8;
+	display: block;
+	text-align: center;
+	margin-bottom: 50px;
+	line-height: 1.4;
+	padding:0 40px;
 }
 
 .twitter .base{
 	position: relative;
+}
+
+.tweet-list{
+	position: relative;
+	top:-20px;
 }
 
 .tweet {
@@ -2137,87 +2135,87 @@ textarea {
 }
 
 .tweet.pos1{
-	top: 432px;
+	top: 60px;
 	margin-left: -157px;
 }
 
 .tweet.pos2{
-	top: 148px;
+	top: -100px;
 	margin-left: 200px;
 }
 
 .tweet.pos3{
-	top: 194px;
-	margin-left: -537px;
+	top: -110px;
+	margin-left: -510px;
 }
 
 .tweet.pos4{
-	top: 426px;
+	top: 212px;
 	margin-left: 279px;
 }
 
 .tweet.pos5{
-	top: 447px;
+	top: 170px;
 	margin-left: -611px;
 }
 
 .tweet.pos6{
-	top: 318px;
+	top: 104px;
 	margin-left: -1001px;
 }
 
 .tweet.pos7{
-	top: -38px;
+	top: -252px;
 	margin-left: -884px;
 }
 
 .tweet.pos8{
-	top: -28px;
+	top: -242px;
 	margin-left: 573px;
 }
 
 .tweet.pos9{
-	top: 241px;
+	top: 27px;
 	margin-left: 704px;
 }
 
 .tweet.pos10{
-	top: 530px;
+	top: 316px;
 	margin-left: 708px;
 }
 
 .tweet.pos11{
-	top: 450px;
+	top: 236px;
 	margin-left: 1202px;
 	opacity: 0;
 }
 
 .tweet.pos12{
-	top: 320px;
+	top: 106px;
 	margin-left: 1150px;
 	opacity: 0;
 }
 
 .tweet.pos13{
-	top: 60px;
+	top: -154px;
 	margin-left: -1340px;
 	opacity: 0;
 }
 
 .tweet.pos14{
-	top: 334px;
+	top: 120px;
 	margin-left: -1120px;
 	opacity: 0;
 }
 
 .tweet-bt{
-	position: absolute;
-	top:215px;
-	left:50%;
-	margin-left:-52px;
 	width:104px;
 	text-align: center;
 	color:#fff;
+	margin:0 auto;
+	position: relative;
+	z-index: 10;
+	cursor: pointer;
 }
 
 .tweet-bt span{
@@ -2229,24 +2227,40 @@ textarea {
 	text-decoration: none;
 	color:#fff;
 	background: #000;
-	font-size:4.0em;
+	font-size:1.325em;
 	-webkit-border-radius: 52px;
 	-moz-border-radius: 52px;
 	border-radius: 52px;
 	width:104px;
 	height:104px;
 	margin-bottom: 5px;
-	line-height: 104px;
 	text-align: center;
+	font-weight:700;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding-top:20px;
 }
 
-.tweet-bt a:hover{
+.tweet-bt:hover a, .tweet-bt a:hover{
 	color: #41969c;
 	background: #fff;
 }
 
 .tweet-bt a i{
-	line-height: 104px;
+	font-size:1.5em;
+}
+
+.tweet-bt:hover + .big-tweet{
+	display: block;
+}
+
+.big-tweet{
+	display: none;
+	top:0;
+	left:50%;
+	margin-left:-120px;
+	height: 116px;
 }
 
 body > footer {

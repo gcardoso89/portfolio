@@ -205,7 +205,7 @@ mailer.extend(app, {
 var isOffline = false;
 
 //Our only route! Render it with the current watchList
-app.get('/', express.basicAuth('gcardoso89', 'timesUP32'), function (req, res) {
+app.get('/', function (req, res) {
 
 	if ( isOffline ) {
 		res.status(500);

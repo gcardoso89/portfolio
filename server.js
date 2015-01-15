@@ -255,10 +255,6 @@ app.post('/getFirstTweets', function(req, res){
 
 });
 
-app.get('/teste', function (req, res) {
-	res.status(200).end();
-});
-
 app.post('/sendEmail', function(req, res){
 
 	var token = jwt.encode({

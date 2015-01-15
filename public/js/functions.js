@@ -184,7 +184,7 @@ Navigation.prototype.goToItem = function (obj) {
 
 	this.scrollable.stop(true, false);
 	var that = this;
-	var href = obj.attr('href');
+	var href = obj.attr('href').replace("#",'/');
 	var tar = obj.attr('data-' + this.targetAttr);
 	var goTo = $('[data-' + this.contAttr + '="' + tar + '"]').eq(0);
 	var posGoTo;

@@ -173,14 +173,10 @@ function Navigation() {
 	this.openMenu = $('section.banner');
 	this.openMenuVal = 68;
 	this.closeMenu = $('section.contact');
-	this.closeMenuVal = this.closeMenu.height() - 100;
 
 	this.sections = $('section').not(this.openMenu).not('.quote');
-	this.secTops = [];
 
 	this.resizeHandler();
-
-	this.secTops.push(this.totalH);
 
 }
 
@@ -198,7 +194,6 @@ Navigation.prototype.goToItem = function (obj) {
 	if (goTo.attr('data-center') == "true") posGoTo = goTo.offset().top - (_scrollControl.winH / 2 - goTo.outerHeight() / 2);
 	else posGoTo = goTo.offset().top;
 
-	//history.pushState({}, "gcardoso - Front End Developer" , href)
 	this.scrollable.animate({ scrollTop: posGoTo - 48 }, 1800, 'easeInOutQuint');
 
 };
@@ -213,25 +208,30 @@ Navigation.prototype.scrollHandler = function () {
 	else
 		this.body.removeClass('opened');
 
-	this.secTops = [];
-
-	for (var z = 0; z < this.sections.length; z++) {
-		this.secTops.push(this.sections.eq(z).offset().top);
-	}
-
 	for (var i = 0; i < this.secTops.length; i++) {
 		var obj = this.secTops[i];
 		if ( valTop >= obj-(_this.winH/2) && valTop < this.secTops[i+1]-(_this.winH/2)  ) current = i;
 	}
 
 	this.navItems.removeClass('act');
+
 	if(current != -1) this.navItems.eq(current).addClass('act');
 };
 
 Navigation.prototype.resizeHandler = function(){
+
 	this.winW = this.win.width();
 	this.winH = this.win.height();
 	this.openMenuVal = (this.winW > 900) ? 68 : 0;
+
+	this.secTops = [];
+
+	for (var z = 0; z < this.sections.length; z++) {
+		this.secTops.push(this.sections.eq(z).offset().top);
+	}
+
+	this.secTops.push(this.totalH);
+
 	this.scrollHandler();
 };
 

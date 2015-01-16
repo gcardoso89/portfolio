@@ -95,7 +95,8 @@ var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
  * ------------------------
  * */
 // Twitter symbols array
-var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
+//var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
+var watchSymbols = ['#gcardoso','@goncalocardo_o'];
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
 	total: 0,

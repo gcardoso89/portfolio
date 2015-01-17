@@ -209,15 +209,15 @@ var isOffline = false;
 app.get('/', function (req, res) {
 
 	if ( isOffline ) {
-		res.status(500);
-		res.render('error/500.html', {error: "500 error page", layout : null});
+		res.status(200);
+		res.render('error.html', {error: "500", layout : null});
 		res.end();
 		return true;
 	}
 
 	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
-	}, 'timesUP32');
+	}, process.env.GCARDOSO_EMAIL_PASSWORD);
 
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
@@ -241,7 +241,7 @@ app.post('/getFirstTweets', function(req, res){
 
 	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
-	}, 'timesUP32');
+	}, process.env.GCARDOSO_EMAIL_PASSWORD);
 
 	if (req.body.token == token){
 		t.search('#gcardoso', function(data) {
@@ -260,7 +260,7 @@ app.post('/sendEmail', function(req, res){
 
 	var token = jwt.encode({
 		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
-	}, 'timesUP32');
+	}, process.env.GCARDOSO_EMAIL_PASSWORD);
 
 	if ( req.body.token == token){
 
@@ -296,8 +296,6 @@ app.post('/sendEmail', function(req, res){
 app.post('/outwebook', function(req, res){
 
 	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN){
-
-		console.log(req.body);
 
 		switch ( req.body.trigger_word.toLocaleLowerCase() ){
 
@@ -343,12 +341,12 @@ app.post('/outwebook', function(req, res){
 
 // Handle 404
 app.use(function(req, res) {
-	res.render('error/404.html', {error: "404 error page", layout : null});
+	res.render('error.html', {error: "404", layout : null});
 });
 
 // Handle 500
 app.use(function(error, req, res, next) {
-	res.render('error/500.html', {error: "500 error page", layout : null});
+	res.render('error.html', {error: "500", layout : null});
 });
 
 //Create the server

@@ -432,8 +432,12 @@ function TwitterWall($scope, $timeout){
 
 	];
 
+	/*
 	if (!this.isMobile) this.connectFirst();
 	else this.mobileScreen = true;
+	*/
+
+	this.connectFirst();
 
 }
 

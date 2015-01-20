@@ -223,6 +223,12 @@ app.get('/', function (req, res) {
 
 	mongo.connect(mongoUrl, function (err, db) {
 		if (err!=null) {
+			slack.send({
+				text: "@gcardoso Erro no acesso à BD" + err,
+				channel: '#gcardoso-portfolio',
+				username: 'Portfolio',
+				link_names: 1
+			});
 			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country" });
 			return false;
 		}

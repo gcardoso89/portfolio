@@ -55,8 +55,8 @@ function Portfolio($scope){
 Portfolio.prototype.show = function(e, id){
 
 	e.preventDefault();
-
 	this.scope.current = this.projects[id];
+	ga('send', 'event', 'Portfolio', this.projects[id].title);
 	this.modal = true;
 
 };
@@ -572,6 +572,8 @@ TwitterWall.prototype.checkPosition = function(tweet){
 TwitterWall.prototype.tweetThis = function(e){
 
 	e.preventDefault();
+
+	ga('send', 'event', 'Twitter', 'Carregou no botão do Twitter');
 
 	var width  = 575,
 		height = 400,

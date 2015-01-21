@@ -1474,6 +1474,8 @@ blockquote footer {
 	height: 600px;
 	color: #161616;
 	padding: 0px 25px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	margin-right: 32px;
 }

@@ -398,6 +398,16 @@ header nav a.act{
 	overflow: hidden;
 }
 
+.banner .css-nominee{
+	width: 80px;
+	height: 96px;
+	position: absolute;
+	top: 130px;
+	right: 0;
+	z-index: 10;
+	background: url(../images/award-nominee-cssda-80-r.png) no-repeat left top;
+}
+
 .banner .base {
 	position: relative;
 	height: 47.375em;
@@ -1474,6 +1484,8 @@ blockquote footer {
 	height: 600px;
 	color: #161616;
 	padding: 0px 25px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	margin-right: 32px;
 }
@@ -3017,6 +3029,17 @@ body > footer .button p {
 
 	.balloon {
 		background-image: url(../images/balloon900.png);
+	}
+}
+
+@media all and (max-width: 915px) {
+
+	.banner .css-nominee{
+		top:80px;
+	}
+
+	body.opened {
+		margin-top: 50px;
 	}
 }
 

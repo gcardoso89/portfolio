@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.65';
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
 /**
  * --------------------
@@ -222,9 +222,9 @@ app.get('/', function (req, res) {
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
 	mongo.connect(mongoUrl, function (err, db) {
-		if (err!=null) {
+		if (err!=null && enviromnent != 'development') {
 			slack.send({
-				text: "@gcardoso Erro no acesso à BD" + err,
+				text: "@gcardoso Erro no acesso à BD - " + err,
 				channel: '#gcardoso-portfolio',
 				username: 'Portfolio',
 				link_names: 1

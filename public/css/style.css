@@ -396,13 +396,14 @@ header nav a.act{
 .banner {
 	background: #41969c;
 	overflow: hidden;
+	position: relative;
 }
 
 .banner .css-nominee{
 	width: 80px;
 	height: 96px;
 	position: absolute;
-	top: 130px;
+	top: 180px;
 	right: 0;
 	z-index: 10;
 	background: url(../images/award-nominee-cssda-80-r.png) no-repeat left top;
@@ -3035,7 +3036,7 @@ body > footer .button p {
 @media all and (max-width: 915px) {
 
 	.banner .css-nominee{
-		top:80px;
+		top:180px;
 	}
 
 	body.opened {

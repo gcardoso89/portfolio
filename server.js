@@ -69,6 +69,7 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
 var enviromnent = app.get('env');
+var analytics = (enviromnent != 'development');
 
 // development only
 if (enviromnent == 'development') {
@@ -210,7 +211,7 @@ app.get('/', function (req, res) {
 
 	if ( isOffline ) {
 		res.status(200);
-		res.render('error.html', {error: "500", layout : null});
+		res.render('error.html', {error: "500", layout : null, analytics : analytics});
 		res.end();
 		return true;
 	}
@@ -229,13 +230,13 @@ app.get('/', function (req, res) {
 				username: 'Portfolio',
 				link_names: 1
 			});
-			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country" });
+			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country", analytics : analytics });
 			return false;
 		}
 		 var collection = db.collection('portfolio');
 		 collection.find({}).toArray(function (err, docs) {
 			 portfolioList = docs;
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country" });
+			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country", analytics : analytics });
 			 db.close();
 		 });
 
@@ -347,12 +348,12 @@ app.post('/outwebook', function(req, res){
 
 // Handle 404
 app.use(function(req, res) {
-	res.render('error.html', {error: "404", layout : null});
+	res.render('error.html', {error: "404", layout : null, analytics : analytics});
 });
 
 // Handle 500
 app.use(function(error, req, res, next) {
-	res.render('error.html', {error: "500", layout : null});
+	res.render('error.html', {error: "500", layout : null, analytics : analytics});
 });
 
 //Create the server

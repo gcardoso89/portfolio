@@ -1232,6 +1232,14 @@ blockquote footer {
 	margin-top:-15px;
 }
 
+.portfolio .list:after{
+	content:".";
+	clear:both;
+	visibility: hidden;
+	display: block;
+	height: 0;
+}
+
 .portfolio article{
 	width:33.3333%;
 	-webkit-box-sizing : border-box;
@@ -1324,11 +1332,11 @@ blockquote footer {
 }
 
 .portfolio .modal{
-	-webkit-transition: all 0.6s ease-out;
-	-moz-transition: all 0.6s ease-out;
-	-ms-transition: all 0.6s ease-out;
-	-o-transition: all 0.6s ease-out;
-	transition: all 0.6s ease-out;
+	-webkit-transition: -webkit-transform 0.6s ease-out, top 0.6s ease-out;
+	-moz-transition: -moz-transform 0.6s ease-out, top 0.6s ease-out;
+	-ms-transition: -ms-transform 0.6s ease-out, top 0.6s ease-out;
+	-o-transition: -o-transform 0.6s ease-out, top 0.6s ease-out;
+	transition: transform 0.6s ease-out, top 0.6s ease-out;
 }
 
 .portfolio .modal.ng-hide{
@@ -1379,7 +1387,8 @@ blockquote footer {
 	height: 600px;
 	background: #fff;
 	position: absolute;
-	top: 120px;
+	top: 0px;
+	margin-top:120px;
 	left: 0;
 	width: 100%;
 	z-index: 10;
@@ -1403,6 +1412,7 @@ blockquote footer {
 	font-weight: 700;
 	margin-left:450px;
 	z-index: 10;
+	-webkit-backface-visibility: hidden;
 }
 
 .portfolio .slider figure {

@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.65';
 
 /**
  * --------------------

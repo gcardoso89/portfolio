@@ -28,11 +28,26 @@ gcardosoPortfolioApp.filter('reverse', function() {
 	};
 });
 
-function Portfolio($scope){
+function Portfolio($scope, $element){
+
+	var _this = this;
 
 	this.projects = {};
 	this.scope = $scope;
 	this.modal = false;
+	this.win = $(window);
+	this.block = $element;
+	this.modalObj = $('.modal', this.block);
+
+	this.winW = null;
+
+	this.win.bind("scroll.Portfolio", function(e){
+		_this.scrollHandler();
+	});
+
+	this.win.bind("resize.Portfolio", function(e){
+		_this.resizeHandler(true);
+	});
 
 	for (var i = 0; i < _portfolioList.length; i++) {
 		var o = _portfolioList[i];
@@ -50,6 +65,12 @@ function Portfolio($scope){
 
 	}
 
+	this.resizeHandler(false);
+
+	this.win.bind('load.Portfolio', function(e){
+		_this.resizeHandler(false);
+	});
+
 }
 
 Portfolio.prototype.show = function(e, id){
@@ -58,6 +79,8 @@ Portfolio.prototype.show = function(e, id){
 	this.scope.current = this.projects[id];
 	ga('send', 'event', 'Portfolio', this.projects[id].title);
 	this.modal = true;
+
+	this.resizeHandler(false);
 
 };
 
@@ -75,6 +98,32 @@ Portfolio.prototype.showDetailImage = function(images, item){
 
 };
 
+Portfolio.prototype.scrollHandler = function(){
+
+	var vTop = this.win.scrollTop();
+
+	if ( vTop >= this.blockTop && ( vTop <= (this.blockTop + this.blockH - this.modalH - 120 - 60) ) ){
+		this.modalObj.css({top : vTop - this.blockTop});
+	}
+
+};
+
+Portfolio.prototype.resizeHandler = function(isResize){
+
+	var newW = this.win.width();
+
+	if ( this.winW == newW && isResize ) return false;
+
+	this.winW = newW;
+	this.blockH = this.block.outerHeight();
+	this.modalH = this.modalObj.height();
+	this.blockTop = this.block.offset().top;
+
+	if (isResize) this.modalObj.css({top : 0 });
+
+	this.scrollHandler();
+
+};
 
 function ScrollControler(){
 

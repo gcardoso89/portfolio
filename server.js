@@ -125,6 +125,8 @@ function processTweetData(tweets){
 
 		var data = tweets[i];
 
+		if(data.user.screen_name == "seedupio") continue;
+
 		newArr.push({
 
 			name : data.user.name,

@@ -6,7 +6,7 @@
 	height: 126px;
 	text-indent: -666em;
 	overflow: hidden;
-	z-index: 10;
+	z-index: 5;
 
 	-webkit-transition: all 1s ease;
     transition: all 1s ease; 
@@ -53,34 +53,34 @@
 
 /* NOMINEE */
 
-#awwwards.nominee.black a{
-	background-image: url(../images/ribbons/awwwards_nominee_black.png);
+#awwwards.honorable.black a{
+	background-image: url(../images/ribbons/awwwards_honorable_black.png);
 }
-#awwwards.nominee.silver a{
-	background-image: url(../images/ribbons/awwwards_nominee_silver.png);
+#awwwards.honorable.silver a{
+	background-image: url(../images/ribbons/awwwards_honorable_silver.png);
 }
-#awwwards.nominee.white a{
-	background-image: url(../images/ribbons/awwwards_nominee_white.png);
+#awwwards.honorable.white a{
+	background-image: url(../images/ribbons/awwwards_honorable_white.png);
 }
-#awwwards.nominee.green a{
-	background-image: url(../images/ribbons/awwwards_nominee_green.png);
+#awwwards.honorable.green a{
+	background-image: url(../images/ribbons/awwwards_honorable_green.png);
 }
 
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2),	only screen and (min-device-pixel-ratio: 1.5) {
 
 	/* NOMINEE */
 
-	#awwwards.nominee.black a{
-		background-image: url(../images/ribbons/awwwards_nominee_black@2x.png);
+	#awwwards.honorable.black a{
+		background-image: url(../images/ribbons/awwwards_honorable_black@2x.png);
 	}
-	#awwwards.nominee.silver a{
-		background-image: url(../images/ribbons/awwwards_nominee_silver@2x.png);
+	#awwwards.honorable.silver a{
+		background-image: url(../images/ribbons/awwwards_honorable_silver@2x.png);
 	}
-	#awwwards.nominee.white a{
-		background-image: url(../images/ribbons/awwwards_nominee_white@2x.png);
+	#awwwards.honorable.white a{
+		background-image: url(../images/ribbons/awwwards_honorable_white@2x.png);
 	}
-	#awwwards.nominee.green a{
-		background-image: url(../images/ribbons/awwwards_nominee_green@2x.png);
+	#awwwards.honorable.green a{
+		background-image: url(../images/ribbons/awwwards_honorable_green@2x.png);
 	}
 
 }

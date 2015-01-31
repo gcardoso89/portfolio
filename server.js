@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.1.65';
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
 /**
  * --------------------
@@ -96,8 +96,8 @@ var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
  * ------------------------
  * */
 // Twitter symbols array
-//var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
-var watchSymbols = ['#gcardoso','@goncalocardo_o'];
+var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
+//var watchSymbols = ['#gcardoso','@goncalocardo_o'];
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
 	total: 0,
@@ -225,13 +225,15 @@ app.get('/', function (req, res) {
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
 	mongo.connect(mongoUrl, function (err, db) {
-		if (err!=null && enviromnent != 'development') {
-			slack.send({
-				text: "@gcardoso Erro no acesso à BD - " + err,
-				channel: '#gcardoso-portfolio',
-				username: 'Portfolio',
-				link_names: 1
-			});
+		if (err!=null ) {
+			if ( enviromnent != 'development' ){
+				slack.send({
+					text: "@gcardoso Erro no acesso à BD - " + err,
+					channel: '#gcardoso-portfolio',
+					username: 'Portfolio',
+					link_names: 1
+				});
+			}
 			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country", analytics : analytics });
 			return false;
 		}

@@ -2016,7 +2016,7 @@ textarea {
 	text-align: center;
 	margin-bottom: 50px;
 	line-height: 1.4;
-	padding:0 40px;
+	padding:0 20px;
 }
 
 .twitter .base{
@@ -2280,9 +2280,9 @@ textarea {
 
 .big-tweet{
 	display: none;
-	top:0;
-	left:50%;
-	margin-left:-120px;
+	bottom: 150px;
+	left: 50%;
+	margin-left: -120px;
 	height: 116px;
 }
 
@@ -3270,17 +3270,23 @@ body > footer .button p {
 
 	.ic-menu{
 		display: block;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 
 	header nav{
 		width: 200px;
-		position: absolute;
+		position: fixed;
 		top:50px;
 		right: -240px;
 		padding: 20px;
 		background: #161616;
 		margin:0;
-		height: auto;
+		height: 100%;
 		-webkit-transition: right 0.6s ease-out;
 		-moz-transition: right 0.6s ease-out;
 		-ms-transition: right 0.6s ease-out;

@@ -881,6 +881,7 @@ header nav a.act{
 	font-size: 3.1875em;
 	display: inline-block;
 	margin-left: 0.3141em;
+	margin-right:-10px;
 }
 
 .g_24 {
@@ -3385,6 +3386,7 @@ body > footer .button p {
 
 	.greetings .text{
 		margin:0 auto 40px;
+		overflow: hidden;
 	}
 
 	.profile{
@@ -3411,7 +3413,8 @@ body > footer .button p {
 	}
 
 	.profile h2 + h3{
-		margin-top:30px;
+		margin-top:29px;
+
 	}
 
 	.profile figure{
@@ -3423,7 +3426,7 @@ body > footer .button p {
 		height: 300px;
 		-webkit-border-radius: 150px;
 		-moz-border-radius: 150px;
-		border-radius: 150;
+		border-radius: 150px;
 		border:2px solid #000;
 		overflow:hidden;
 	}
@@ -3433,6 +3436,7 @@ body > footer .button p {
 		max-height: 300px;
 		left: 50%;
 		margin-left: -62%;
+		z-index:1;
 	}
 
 	.profile h2{

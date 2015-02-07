@@ -29,8 +29,6 @@
 
             <div class="tweet" data-ng-animate="animate" data-ng-class="[tweet.classname,tweet.position]" data-ng-repeat="tweet in twitter.list | reverse | limitTo : 14">
                 <div data-ng-if="tweet.classname == 'tweet1' || tweet.classname == 'tweet3' || tweet.classname == 'tweet4'">
-                    <!--<h1>[[tweet.name]] - [[tweet.username]]</h1>-->
-                    <!--<h2>[[tweet.date]]</h2>-->
                     <div class="msg" data-ng-bind-html="tweet.text"></div>
                     <div class="img">
                         <div class="pic">
@@ -39,8 +37,6 @@
                     </div>
                 </div>
                 <div data-ng-if="tweet.classname == 'tweet2' || tweet.classname == 'tweet5'">
-                    <!--<h1>[[tweet.name]] - [[tweet.username]]</h1>-->
-                    <!--<h2>[[tweet.date]]</h2>-->
                     <div class="img">
                         <div class="pic">
                             <a href="[[tweet.tweeturl]]" target="_blank"><img data-ng-src="[[tweet.image]]" data-ng-show="[[tweet.imageVisible]]" /></a>

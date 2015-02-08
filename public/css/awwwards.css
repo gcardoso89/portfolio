@@ -51,6 +51,13 @@
     transform: rotate(-90deg); 
 }
 
+.ie7 #awwwards.bottom.right,
+.ie8 #awwwards.bottom.right,
+.ie9 #awwwards.bottom.right{
+	right:auto;
+	left:0;
+}
+
 /* NOMINEE */
 
 #awwwards.honorable.black a{

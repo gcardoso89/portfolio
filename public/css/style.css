@@ -1106,6 +1106,12 @@ blockquote footer {
 	white-space: nowrap;
 }
 
+.ie7 .work .meters span,
+.ie8 .work .meters span,
+.ie9 .work .meters span{
+	display: none;
+}
+
 .work .timeline {
 	float: right;
 	width: 634px;

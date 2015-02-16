@@ -69,7 +69,7 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
 
 var enviromnent = app.get('env');
-var analytics = (enviromnent != 'development');
+var production = (enviromnent != 'development');
 
 // development only
 if (enviromnent == 'development') {
@@ -146,6 +146,8 @@ function processTweetData(tweets){
 
 }
 
+
+
 //Tell the twitter API to filter on the watchSymbols
 t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 
@@ -157,6 +159,11 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 			sockets.sockets.emit('data', processTweetData([data]));
 		}
 	});
+
+	stream.on('error', function(error) {
+		console.log(error);
+	});
+
 });
 
 //Start a Socket.IO listen
@@ -208,12 +215,22 @@ mailer.extend(app, {
 
 var isOffline = false;
 
+/*-- Redirect --*/
+app.all(/.*/, function(req, res, next) {
+	var host = req.header("host");
+	if (host.match(/^www\..*/i)) {
+		next();
+	} else {
+		res.redirect(301, "http://www." + host);
+	}
+});
+
 //Our only route! Render it with the current watchList
 app.get('/', function (req, res) {
 
 	if ( isOffline ) {
 		res.status(200);
-		res.render('error.html', {error: "500", layout : null, analytics : analytics});
+		res.render('error.html', {error: "500", layout : null, production : production});
 		res.end();
 		return true;
 	}
@@ -234,13 +251,13 @@ app.get('/', function (req, res) {
 					link_names: 1
 				});
 			}
-			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country", analytics : analytics });
+			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country", production : production });
 			return false;
 		}
 		 var collection = db.collection('portfolio');
 		 collection.find({}).toArray(function (err, docs) {
-			 portfolioList = docs;
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country", analytics : analytics });
+			 portfolioList = docs.reverse();
+			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country", production : production });
 			 db.close();
 		 });
 
@@ -352,12 +369,12 @@ app.post('/outwebook', function(req, res){
 
 // Handle 404
 app.use(function(req, res) {
-	res.render('error.html', {error: "404", layout : null, analytics : analytics});
+	res.render('error.html', {error: "404", layout : null, production : production});
 });
 
 // Handle 500
 app.use(function(error, req, res, next) {
-	res.render('error.html', {error: "500", layout : null, analytics : analytics});
+	res.render('error.html', {error: "500", layout : null, production : production});
 });
 
 //Create the server

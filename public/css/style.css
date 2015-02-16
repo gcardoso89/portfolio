@@ -491,6 +491,28 @@ header nav a.act{
 	animation-timing-function: ease-out, linear;
 }
 
+.balloon.animOut {
+
+	-webkit-transform: scale(1) translate3d(0, 0, 0);
+	-moz-transform: scale(1) translate3d(0, 0, 0);
+	-ms-transform: scale(1) translate3d(0, 0, 0);
+	-o-transform: scale(1) translate3d(0, 0, 0);
+	transform: scale(1) translate3d(0, 0, 0);
+
+	-webkit-animation-name: balloonOut;
+	-moz-animation-name: balloonOut;
+	-o-animation-name: balloonOut;
+	animation-name: balloonOut;
+	-webkit-animation-iteration-count: 1;
+	-moz-animation-iteration-count: 1;
+	-o-animation-iteration-count: 1;
+	animation-iteration-count: 1;
+	-webkit-animation-timing-function: ease-out;
+	-moz-animation-timing-function: ease-out;
+	-o-animation-timing-function: ease-out;
+	animation-timing-function: ease-out;
+}
+
 
 .balloon.small {
 	width: 2.625em;
@@ -509,6 +531,17 @@ header nav a.act{
 	-o-animation-delay: 0.20s, 0.4s;
 	animation-duration: 0.2s, 20s;
 	animation-delay: 0.20s, 0.4s;
+}
+
+.balloon.small.animOut {
+	-webkit-animation-duration: 0.2s;
+	-webkit-animation-delay: 0.20s;
+	-moz-animation-duration: 0.2s;
+	-moz-animation-delay: 0.20s;
+	-o-animation-duration: 0.2s;
+	-o-animation-delay: 0.20s;
+	animation-duration: 0.2s;
+	animation-delay: 0.20s;
 }
 
 .balloon.med {
@@ -530,6 +563,18 @@ header nav a.act{
 	animation-delay: 0.40s, 0.5s;
 }
 
+
+.balloon.med.animOut {
+	-webkit-animation-duration: 0.2s;
+	-webkit-animation-delay: 0.40s;
+	-moz-animation-duration: 0.2s;
+	-moz-animation-delay: 0.40s;
+	-o-animation-duration: 0.2s;
+	-o-animation-delay: 0.40s;
+	animation-duration: 0.2s;
+	animation-delay: 0.40s;
+}
+
 .balloon.big {
 	margin-left: -34.5em;
 	top: 2.4375em;
@@ -546,6 +591,17 @@ header nav a.act{
 	-o-animation-delay: 0.50s, 1.1s;
 	animation-duration: 0.35s, 9s;
 	animation-delay: 0.50s, 1.1s;
+}
+
+.balloon.big.animOut {
+	-webkit-animation-duration: 0.35s;
+	-webkit-animation-delay: 0.50s;
+	-moz-animation-duration: 0.35s;
+	-moz-animation-delay: 0.50s;
+	-o-animation-duration: 0.35s;
+	-o-animation-delay: 0.50s;
+	animation-duration: 0.35s;
+	animation-delay: 0.50s;
 }
 
 .balloon.big > div {
@@ -1339,11 +1395,11 @@ blockquote footer {
 }
 
 .portfolio .modal{
-	-webkit-transition: -webkit-transform 0.6s ease-out, top 0.6s ease-out;
-	-moz-transition: -moz-transform 0.6s ease-out, top 0.6s ease-out;
-	-ms-transition: -ms-transform 0.6s ease-out, top 0.6s ease-out;
-	-o-transition: -o-transform 0.6s ease-out, top 0.6s ease-out;
-	transition: transform 0.6s ease-out, top 0.6s ease-out;
+	-webkit-transition: -webkit-transform 0.6s ease-out;
+	-moz-transition: -moz-transform 0.6s ease-out;
+	-ms-transition: -ms-transform 0.6s ease-out;
+	-o-transition: -o-transform 0.6s ease-out;
+	transition: transform 0.6s ease-out;
 }
 
 .portfolio .modal.ng-hide{
@@ -2850,6 +2906,16 @@ body > footer .button p {
 	}
 }
 
+@-webkit-keyframes balloonOut {
+	from {
+		-webkit-transform: scale(1) translateX(5px);
+	}
+	to {
+		-webkit-transform: scale(0) translateX(5px);
+	}
+}
+
+
 @-webkit-keyframes balloonFloating {
 	0% {
 		-webkit-transform: rotate(0deg) translateX(5px) rotate(0deg);
@@ -2912,6 +2978,16 @@ body > footer .button p {
 		transform: scale(1) translateX(5px);
 	}
 }
+
+@keyframes balloonOut {
+	from {
+		transform: scale(1) translateX(5px);
+	}
+	to {
+		transform: scale(0) translateX(5px);
+	}
+}
+
 
 @keyframes balloonFloating {
 	0% {

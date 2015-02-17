@@ -29,7 +29,7 @@ var app = express();
 var server = http.createServer(app);
 
 //Generic Express setup
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8083);
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8084);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
@@ -216,14 +216,18 @@ mailer.extend(app, {
 var isOffline = false;
 
 /*-- Redirect --*/
-app.all(/.*/, function(req, res, next) {
-	var host = req.header("host");
-	if (host.match(/^www\..*/i)) {
-		next();
-	} else {
-		res.redirect(301, "http://www." + host);
-	}
-});
+
+if (production){
+	app.all(/.*/, function(req, res, next) {
+		var host = req.header("host");
+		if (host.match(/^www\..*/i)) {
+			next();
+		} else {
+			res.redirect(301, "http://www." + host);
+		}
+	});
+}
+
 
 //Our only route! Render it with the current watchList
 app.get('/', function (req, res) {

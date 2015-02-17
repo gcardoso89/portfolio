@@ -161,7 +161,12 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 	});
 
 	stream.on('error', function(error) {
-		console.log(error);
+		slack.send({
+			text: "@gcardoso Erro na conexão do Twitter - " + error,
+			channel: '#gcardoso-portfolio',
+			username: 'Portfolio',
+			link_names: 1
+		});
 	});
 
 });

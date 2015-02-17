@@ -1636,12 +1636,13 @@ blockquote footer {
 }
 
 .portfolio .proj-info .topics {
-	margin-top: 25px;
+	margin-top: 20px;
 }
 
 .portfolio .main-info {
-	height: 344px;
+	min-height: 324px;
 	padding-top: 49px;
+	padding-bottom:20px;
 }
 
 .portfolio .proj-info .topics li {
@@ -1666,6 +1667,12 @@ blockquote footer {
 	color:#161616;
 	text-decoration: underline;
 	font-weight: 700;
+}
+
+.portfolio .sec-info .proj-lk small{
+	text-decoration: none;
+	margin-right: 6px;
+	display: inline-block;
 }
 
 .portfolio .sec-info .proj-lk:hover{

@@ -162,7 +162,7 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 
 	stream.on('error', function(error) {
 		slack.send({
-			text: "@gcardoso Erro na conexão do Twitter - " + error,
+			text: "@gcardoso Erro na conexão do Twitter. Erro: " + error,
 			channel: '#gcardoso-portfolio',
 			username: 'Portfolio',
 			link_names: 1

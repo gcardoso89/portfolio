@@ -33,6 +33,10 @@ app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8084);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
+
+var enviromnent = app.get('env');
+var production = (enviromnent != 'development');
+
 app.set('partials', {
 	header : 'includes/header',
 	banner : 'pages/banner',
@@ -44,6 +48,9 @@ app.set('partials', {
 	twitterwall : 'pages/twitterwall',
 	contact : 'pages/contact',
 	footer : 'includes/footer'
+});
+app.locals({
+	production : production
 });
 //app.enable('view cache');
 app.engine('html', require('hogan-express'));
@@ -67,9 +74,6 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
  * */
 
 var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
-
-var enviromnent = app.get('env');
-var production = (enviromnent != 'development');
 
 // development only
 if (enviromnent == 'development') {
@@ -233,13 +237,33 @@ if (production){
 	});
 }
 
+var db = null;
+mongo.connect(mongoUrl, function (err, database) {
+	if (err!=null ) {
+		if ( enviromnent != 'development' ){
+			slack.send({
+				text: "@gcardoso Erro no acesso à BD - " + err,
+				channel: '#gcardoso-portfolio',
+				username: 'Portfolio',
+				link_names: 1
+			});
+		}
+		portfolioList = [];
+	}
+	var collection = database.collection('portfolio');
+	collection.find({}).toArray(function (err, docs) {
+		portfolioList = docs.reverse();
+	});
+	db = database;
+});
+
 
 //Our only route! Render it with the current watchList
 app.get('/', function (req, res) {
 
 	if ( isOffline ) {
 		res.status(200);
-		res.render('error.html', {error: "500", layout : null, production : production});
+		res.render('error.html', {error: "500", layout : null });
 		res.end();
 		return true;
 	}
@@ -250,28 +274,30 @@ app.get('/', function (req, res) {
 
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
-	mongo.connect(mongoUrl, function (err, db) {
-		if (err!=null ) {
-			if ( enviromnent != 'development' ){
-				slack.send({
-					text: "@gcardoso Erro no acesso à BD - " + err,
-					channel: '#gcardoso-portfolio',
-					username: 'Portfolio',
-					link_names: 1
-				});
+	res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country" });
+
+
+});
+
+app.get('/portfolio/:url', function(req, res, next){
+
+	if ( db != null ){
+		var collection = db.collection('portfolio');
+		collection.find({ url : req.param('url') }).toArray(function (err, docs) {
+			console.log(docs);
+			if (docs.length == 0){
+				res.status(404);
+				next();
 			}
-			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country", production : production });
-			return false;
-		}
-		 var collection = db.collection('portfolio');
-		 collection.find({}).toArray(function (err, docs) {
-			 portfolioList = docs.reverse();
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country", production : production });
-			 db.close();
-		 });
-
-	 });
-
+			else{
+				res.render('pages/project_detail', { project : docs[0] });
+			}
+		});
+	}
+	else {
+		res.status(404);
+		next();
+	}
 });
 
 app.post('/getFirstTweets', function(req, res){
@@ -378,12 +404,13 @@ app.post('/outwebook', function(req, res){
 
 // Handle 404
 app.use(function(req, res) {
-	res.render('error.html', {error: "404", layout : null, production : production});
+	res.status(404);
+	res.render('error.html', {error: "404", layout : null});
 });
 
 // Handle 500
 app.use(function(error, req, res, next) {
-	res.render('error.html', {error: "500", layout : null, production : production});
+	res.render('error.html', {error: "500", layout : null});
 });
 
 //Create the server

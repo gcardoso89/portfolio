@@ -1,27 +1,28 @@
 <header>
+
     <script type="text/javascript">
         $(function () {
-            _navigationControl = new Navigation();
+            {{^project}} _navigationControl = new Navigation(); {{/project}}
             $('.ic-menu').smallMenu();
         });
     </script>
     <div class="base">
         <div class="lg-cont">
-            <a href="/" class="lg-small" data-target="initial"><img src="images/logo-small.png" /></a>
-            <a href="/" class="lg" data-target="initial"><img alt="Gonçalo Cardoso - Front End Developer" src="images/logo.png" /></a>
+            <a href="/" class="lg-small" data-target="initial"><img src="/images/logo-small.png" /></a>
+            <a href="/" class="lg" data-target="initial"><img alt="Gonçalo Cardoso - Front End Developer" src="/images/logo.png" /></a>
         </div>
         <div class="ic-menu">
             <i class="icon-menu"></i>
             <i class="icon-cancel"></i>
         </div>
         <nav>
-            <a href="#greetings" data-target="greetings">Me</a>
-            <a href="#profile" data-target="profile">Profile</a>
-            <a href="#skills" data-target="skills">Skills</a>
-            <a href="#work-education" data-target="workandeducation">Work & Education</a>
-            <a href="#portfolio" data-target="portfolio">Portfolio</a>
-            <a href="#twitter-wall" data-target="twitter-wall">Twitter Wall</a>
-            <a href="#contacts" data-target="contact">Contacts</a>
+            <a href="/#greetings" data-target="greetings">Me</a>
+            <a href="/#profile" data-target="profile">Profile</a>
+            <a href="/#skills" data-target="skills">Skills</a>
+            <a href="/#work-education" data-target="workandeducation">Work & Education</a>
+            <a href="/#portfolio" {{#project}}class="act"{{/project}} data-target="portfolio">Portfolio</a>
+            <a href="/#twitter-wall" data-target="twitter-wall">Twitter Wall</a>
+            <a href="/#contacts" data-target="contact">Contacts</a>
         </nav>
     </div>
 </header>

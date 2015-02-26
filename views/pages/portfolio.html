@@ -8,7 +8,7 @@
         <div class="list">
             {{#portfolio}}
             <article>
-                <a href="#" data-ng-click="portfolio.show($event, '{{_id}}')">
+                <a href="/portfolio/{{url}}" {{! data-ng-click="portfolio.show($event, '{{_id}}')" }} >
                     <div class="info">
                         <div>
                             <div>
@@ -28,7 +28,7 @@
         </div>
 
     </div>
-
+    {{!
     <div class="modal-dark" data-ng-show="portfolio.modal" data-ng-click="portfolio.hide()"></div>
 
     <div class="modal" data-ng-show="portfolio.modal">
@@ -89,5 +89,6 @@
         </div>
 
     </div>
+    }}
 
 </section>

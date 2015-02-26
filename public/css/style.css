@@ -1683,6 +1683,159 @@ blockquote footer {
 	display: none;
 }
 
+.detail-banner{
+	padding:50px 0 0 0;
+	text-align: center;
+}
+
+.detail-banner figure{
+	text-align: center;
+	font-size: 0;
+}
+
+.detail-banner figure img{
+	display: inline;
+	max-width: 100%;
+}
+
+.detail-banner h1{
+	font-size:4.125em;
+	color: #3c969d;
+	margin-bottom: 15px;
+}
+
+.detail-banner h2{
+	font-weight: 300;
+	text-transform: none;
+	line-height: 1.3;
+	font-size:2.0em;
+	max-width: 80%;
+	margin:0 auto 20px;
+}
+
+.detail-banner h3{
+	font-size:1.125em;
+	color:#808080;
+	font-weight: 300;
+	margin-bottom: 0;
+}
+
+.detail-banner h2:before{
+	content:"";
+	display: none;
+}
+
+.detail-main .top{
+	padding-bottom: 50px;
+}
+
+
+.detail-main .top:after{
+	content:".";
+	clear: both;
+	visibility: hidden;
+	display: block;
+	height: 0;
+}
+
+.detail-main .tags{
+	text-align: left;
+	float: left;
+	max-width: 50%;
+}
+
+.detail-main .tags li{
+	display: inline-block;
+	background: #fff;
+	color:#3c969d;
+	text-transform: uppercase;
+	font-size:1.275em;
+	font-weight: 700;
+	padding:0px 0.36em;
+	white-space: nowrap;
+	margin-left: 0.36em;
+	margin-bottom: 0.45em;
+	-webkit-border-radius: 0.215em;
+	-moz-border-radius: 0.215em;
+	border-radius: 0.215em;
+}
+
+.detail-main .tags li:first-child{
+	margin-left: 0;
+}
+
+.detail-main{
+	color: #fff;
+	padding:50px 0;
+	background: #3c969d;
+}
+
+.detail-main h3{
+	color:#fff;
+	font-weight: 700;
+	text-transform: none;
+	font-size: 1.3125em;
+}
+
+.main-features{
+	font-size:1.125em;
+	line-height: 1.4;
+	position: relative;
+	display: table;
+	width: 100%;
+}
+
+.main-features li, .main-features p{
+	padding-bottom: 5px;
+}
+
+.main-features a{
+	color:#fff;
+	text-decoration: underline;
+}
+
+.main-features a:hover{
+	text-decoration: none;
+}
+
+.social-bar{
+	float: right;
+	text-align: center;
+	padding:0;
+	margin:-20px 0 0 0;
+}
+
+.social-bar *{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 7px;
+}
+
+
+.detail-main .col{
+	width: 33%;
+	display: table-cell;
+	border-left:1px solid #59a6ac;
+	padding:0 30px;
+}
+
+.detail-main .col:first-child{
+	padding-left:0;
+	border-left:0;
+}
+
+.detail-main .col-right{
+	float: right;
+	text-align: right;
+	width: 50%;
+
+
+}
+
+.detail-main p + h3{
+	padding-top:28px;
+}
+
 /*---------- CONTACT FORM --------*/
 
 ::-webkit-input-placeholder {

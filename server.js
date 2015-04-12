@@ -290,7 +290,7 @@ app.get('/portfolio/:url', function(req, res, next){
 				next();
 			}
 			else{
-				res.render('pages/project_detail', { project : docs[0] });
+				res.render('pages/project_detail', { project : docs[0], partials : { projectTemplate : 'projects/' + docs[0].template } });
 			}
 		});
 	}

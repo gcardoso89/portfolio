@@ -226,8 +226,14 @@ var isOffline = false;
 
 if (production){
 	app.get('/*', function(req, res, next) {
-		if (req.headers.host.match(/^www/) == null ) res.redirect('http://www.' + req.headers.host + req.url, 301);
-		else next();
+		if (req.headers.host.match(/^www/) == null ){
+			console.log("entrou no redirect");
+			res.redirect(301, 'http://www.' + req.headers.host + req.url);
+		}
+		else {
+			console.log("não entrou no redirect");
+			next();
+		}
 	});
 }
 

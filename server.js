@@ -227,8 +227,10 @@ if (production){
 		var host = req.header("host");
 		var url = ( req.url || req.url.length > 1 ) ? req.url : "";
 		if (host.match(/^www\..*/i)) {
+			console.log("SEM REDIRECT : http://www." + host + url.toString());
 			next();
 		} else {
+			console.log("COM REDIRECT : http://www." + host + url.toString());
 			res.redirect(301, "http://www." + host + url.toString());
 		}
 	});

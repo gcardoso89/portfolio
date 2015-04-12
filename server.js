@@ -225,10 +225,11 @@ var isOffline = false;
 if (production){
 	app.all(/.*/, function(req, res, next) {
 		var host = req.header("host");
+		var url = req.url;
 		if (host.match(/^www\..*/i)) {
 			next();
 		} else {
-			res.redirect(301, "http://www." + host);
+			res.redirect(301, "http://www." + host + url);
 		}
 	});
 }

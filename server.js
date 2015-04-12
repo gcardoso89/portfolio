@@ -226,6 +226,10 @@ if (production){
 	app.all(/.*/, function(req, res, next) {
 		var host = req.header("host");
 		var url = ( req.url || req.url.length > 1 ) ? req.url : "";
+		console.log( req.host );
+		console.log( req.url );
+		console.log( "http://www." + host + url.toString() );
+		console.log( host.match(/www\..*/i) );
 		if (host.match(/www\..*/i)) {
 			next();
 		} else {
@@ -238,7 +242,7 @@ if (production){
 //Our only route! Render it with the current watchList
 app.get('/', function (req, res) {
 
-	if ( isOffline ) {
+	if ( isOffline ) {x
 		res.status(200);
 		res.render('error.html', {error: "500", layout : null, production : production});
 		res.end();

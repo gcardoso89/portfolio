@@ -58,8 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
-express.vhost('gcardoso.l', app);
-express.vhost('www.gcardoso.l', app);
+
 
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
@@ -226,15 +225,10 @@ var isOffline = false;
 /*-- Redirect --*/
 
 if (production){
-	app.all('/*', function(req, res, next) {
-		if ( req.headers ){
-			if (req.headers.host.match(/^www/) !== null ) {
-				next();
-			} else {
-				res.redirect(301, 'http://www.' + req.headers.host + req.url);
-			}
-		}
-	})
+	app.get('/*', function(req, res, next) {
+		if (req.headers.host.match(/^www/) == null ) res.redirect('http://www.' + req.headers.host + req.url, 301);
+		else next();
+	});
 }
 
 

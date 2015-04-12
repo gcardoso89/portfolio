@@ -226,6 +226,7 @@ if (production){
 	app.all(/.*/, function(req, res, next) {
 		var host = req.header("host");
 		var url = req.url;
+		console.log(host + url);
 		if (host.match(/^www\..*/i)) {
 			next();
 		} else {

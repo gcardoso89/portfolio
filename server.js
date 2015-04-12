@@ -233,7 +233,7 @@ if (production){
 		if ( host.match(/^www\..*/i) != null ) {
 			next();
 		} else {
-			res.redirect(301, "http://www." + host + url.toString());
+			res.redirect(301, "http://www." + host);
 		}
 	});
 }

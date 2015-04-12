@@ -225,7 +225,7 @@ var isOffline = false;
 if (production){
 	app.all(/.*/, function(req, res, next) {
 		var host = req.header("host");
-		var url = req.url;
+		var url = ( req.url ) ? req.url : "";
 		console.log("http://www." + host + url);
 		if (host.match(/^www\..*/i)) {
 			next();

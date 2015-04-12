@@ -228,7 +228,7 @@ if (production){
 	app.get('/*', function(req, res, next) {
 		if (req.headers.host.match(/^www/) == null ){
 			console.log("entrou no redirect");
-			res.redirect(301, 'http://www.' + req.headers.host + "/");
+			res.redirect(301, 'http://www.' + req.headers.host + "/teste");
 		}
 		else {
 			console.log("não entrou no redirect");

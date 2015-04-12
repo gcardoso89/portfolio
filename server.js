@@ -226,12 +226,9 @@ if (production){
 	app.all(/.*/, function(req, res, next) {
 		var host = req.header("host");
 		var url = ( req.url || req.url.length > 1 ) ? req.url : "";
-		console.log(host.match(/^www\..*/i));
-		if (host.match(/^www\..*/i)) {
-			console.log("SEM REDIRECT : http://www." + host + url.toString());
+		if (host.match(/www\..*/i)) {
 			next();
 		} else {
-			console.log("COM REDIRECT : http://www." + host + url.toString());
 			res.redirect(301, "http://www." + host + url.toString());
 		}
 	});

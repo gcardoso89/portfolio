@@ -230,7 +230,7 @@ if (production){
 		console.log( req.url );
 		console.log( "http://www." + host + url.toString() );
 		console.log( host.match(/^www\..*/i) );
-		if ( host.match(/^www\..*/i) != null ) {
+		if ( host.match(/^www\..*/i) ) {
 			next();
 		} else {
 			res.redirect(301, "http://www." + host);

@@ -226,11 +226,11 @@ if (production){
 	app.all(/.*/, function(req, res, next) {
 		var host = req.header("host");
 		var url = req.url;
-		console.log(req);
+		console.log("http://www." + host + url);
 		if (host.match(/^www\..*/i)) {
 			next();
 		} else {
-			res.redirect(301, "http://www." + host + url);
+			res.redirect(301, "http://www." + host + url.toString());
 		}
 	});
 }

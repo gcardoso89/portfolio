@@ -1400,6 +1400,7 @@ blockquote footer {
 	-ms-transition: -ms-transform 0.3s ease-out;
 	-o-transition: -o-transform 0.3s ease-out;
 	transition: transform 0.3s ease-out;
+	will-change:top;
 }
 
 .portfolio .modal.ng-hide{

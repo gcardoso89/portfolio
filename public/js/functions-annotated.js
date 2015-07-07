@@ -12,23 +12,23 @@ window.mobilecheck = function () {
 	return check;
 };
 
-var gcardosoPortfolioApp = angular.module('gcardosoPortfolioApp', ['ngSanitize','ngAnimate'], ['$interpolateProvider', function($interpolateProvider){
+var gcardosoPortfolioApp = angular.module('gcardosoPortfolioApp', ['ngSanitize', 'ngAnimate'], ['$interpolateProvider', function ($interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 }]);
 
-gcardosoPortfolioApp.config(['$controllerProvider', '$animateProvider', function($controllerProvider, $animateProvider) {
+gcardosoPortfolioApp.config(['$controllerProvider', '$animateProvider', function ($controllerProvider, $animateProvider) {
 	//$controllerProvider.allowGlobals();
 	$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 }]);
 
-gcardosoPortfolioApp.filter('reverse', function() {
-	return function(items) {
+gcardosoPortfolioApp.filter('reverse', function () {
+	return function (items) {
 		return items.slice().reverse();
 	};
 });
 
-function Portfolio($scope, $element){
+function Portfolio($scope, $element) {
 
 	var _this = this;
 
@@ -41,11 +41,11 @@ function Portfolio($scope, $element){
 
 	this.winW = null;
 
-	this.win.bind("scroll.Portfolio", function(e){
+	this.win.bind("scroll.Portfolio", function (e) {
 		_this.scrollHandler();
 	});
 
-	this.win.bind("resize.Portfolio", function(e){
+	this.win.bind("resize.Portfolio", function (e) {
 		_this.resizeHandler(true);
 	});
 
@@ -57,8 +57,8 @@ function Portfolio($scope, $element){
 
 		for (var n = 0; n < this.projects[o._id].images.length; n++) {
 			var img = this.projects[o._id].images[n];
-			if(n == 0) newSliderImages.push({ src : img, active : true });
-			else newSliderImages.push({ src : img, active : false });
+			if (n == 0) newSliderImages.push({ src: img, active: true });
+			else newSliderImages.push({ src: img, active: false });
 		}
 
 		this.projects[o._id].images = newSliderImages;
@@ -67,13 +67,13 @@ function Portfolio($scope, $element){
 
 	this.resizeHandler(false);
 
-	this.win.bind('load.Portfolio', function(e){
+	this.win.bind('load.Portfolio', function (e) {
 		_this.resizeHandler(false);
 	});
 
 }
 
-Portfolio.prototype.show = function(e, id){
+Portfolio.prototype.show = function (e, id) {
 
 	e.preventDefault();
 	this.scope.current = this.projects[id];
@@ -84,13 +84,13 @@ Portfolio.prototype.show = function(e, id){
 
 };
 
-Portfolio.prototype.hide = function(){
+Portfolio.prototype.hide = function () {
 
 	this.modal = false;
 
 };
 
-Portfolio.prototype.showDetailImage = function(images, item){
+Portfolio.prototype.showDetailImage = function (images, item) {
 
 	for (var i = 0; i < images.length; i++) {
 		images[i].active = (images[i] == item);
@@ -98,34 +98,42 @@ Portfolio.prototype.showDetailImage = function(images, item){
 
 };
 
-Portfolio.prototype.scrollHandler = function(){
+Portfolio.prototype.scrollHandler = function () {
 
 	var vTop = this.win.scrollTop();
 
-	if ( vTop >= this.blockTop && ( vTop <= (this.blockTop + this.blockH - this.modalH - 120 - 60) ) ){
-		this.modalObj.css({top : vTop - this.blockTop});
+	if (vTop >= this.blockTop && ( vTop <= (this.blockTop + this.blockH - this.modalH - 120 - 60) )) {
+		var valueToSet = vTop - this.blockTop;
+		/*this.modalObj.css({
+			'-webkit-transform' : 'translateY('+valueToSet+'px)',
+			'-moz-transform' : 'translateY('+valueToSet+'px)',
+			'-ms-transform' : 'translateY('+valueToSet+'px)',
+			'-o-transform' : 'translateY('+valueToSet+'px)',
+			'transform' : 'translateY('+valueToSet+'px)'
+		});*/
+		this.modalObj.css({top : valueToSet});
 	}
 
 };
 
-Portfolio.prototype.resizeHandler = function(isResize){
+Portfolio.prototype.resizeHandler = function (isResize) {
 
 	var newW = this.win.width();
 
-	if ( this.winW == newW && isResize ) return false;
+	if (this.winW == newW && isResize) return false;
 
 	this.winW = newW;
 	this.blockH = this.block.outerHeight();
 	this.modalH = this.modalObj.height();
 	this.blockTop = this.block.offset().top;
 
-	if (isResize) this.modalObj.css({top : 0 });
+	if (isResize) this.modalObj.css({top: 0 });
 
 	this.scrollHandler();
 
 };
 
-function ScrollControler(){
+function ScrollControler() {
 
 	var that = this;
 
@@ -134,35 +142,39 @@ function ScrollControler(){
 	this.scrollT = this.scrollable.scrollTop();
 	this.win = $(window);
 	this.winH = this.win.height();
-	this.win.resize(function(e){ that.resizeHandler(); });
+	this.win.resize(function (e) {
+		that.resizeHandler();
+	});
 
 	this.objCon = $('section.contact');
 	this.objCon.posTop = this.objCon.offset().top;
 	this.objCon.hasAnimClass = false;
 	this.objConLks = $('.network > a', this.objCon);
 
-	this.win.scroll(function(e){ that.scrollHandler() });
+	this.win.scroll(function (e) {
+		that.scrollHandler()
+	});
 
 	this.resizeHandler();
 
 }
 
-ScrollControler.prototype.scrollHandler = function(){
+ScrollControler.prototype.scrollHandler = function () {
 
 	this.scrollT = this.win.scrollTop();
 
-	if ( ( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.winH/2) ) && !this.objCon.hasAnimClass && this.isAnim){
+	if (( this.scrollT + this.winH ) >= ( this.objCon.posTop + (this.winH / 2) ) && !this.objCon.hasAnimClass && this.isAnim) {
 		this.objCon.addClass('anim');
 		this.objCon.hasAnimClass = true;
 	}
 
 };
 
-ScrollControler.prototype.refreshPositions = function(){
+ScrollControler.prototype.refreshPositions = function () {
 	this.objCon.posTop = this.objCon.offset().top;
 };
 
-ScrollControler.prototype.resizeHandler = function(){
+ScrollControler.prototype.resizeHandler = function () {
 
 	var _this = this;
 
@@ -176,25 +188,23 @@ ScrollControler.prototype.resizeHandler = function(){
 
 	this.refreshPositions();
 
-	if ( this.winW < 902 ){
-		this.objConLks.css({marginLeft:-((902-this.winW)/2) } );
+	if (this.winW < 902) {
+		this.objConLks.css({marginLeft: -((902 - this.winW) / 2) });
 	}
 	else {
-		this.objConLks.css({marginLeft:0});
+		this.objConLks.css({marginLeft: 0});
 	}
 
 	this.objCon.removeClass('anim');
 
 	clearTimeout(this.timeOut);
 
-	this.timeOut = setTimeout(function(){
+	this.timeOut = setTimeout(function () {
 		_this.objCon.hasAnimClass = false;
 		_this.scrollHandler();
-	},100);
+	}, 100);
 
 };
-
-
 
 
 function Navigation() {
@@ -233,7 +243,7 @@ Navigation.prototype.goToItem = function (obj) {
 
 	this.scrollable.stop(true, false);
 	var that = this;
-	var href = obj.attr('href').replace("#",'/');
+	var href = obj.attr('href').replace("#", '/');
 	var tar = obj.attr('data-' + this.targetAttr);
 	var goTo = $('[data-' + this.contAttr + '="' + tar + '"]').eq(0);
 	var posGoTo;
@@ -259,15 +269,15 @@ Navigation.prototype.scrollHandler = function () {
 
 	for (var i = 0; i < this.secTops.length; i++) {
 		var obj = this.secTops[i];
-		if ( valTop >= obj-(_this.winH/2) && valTop < this.secTops[i+1]-(_this.winH/2)  ) current = i;
+		if (valTop >= obj - (_this.winH / 2) && valTop < this.secTops[i + 1] - (_this.winH / 2)) current = i;
 	}
 
 	this.navItems.removeClass('act');
 
-	if(current != -1) this.navItems.eq(current).addClass('act');
+	if (current != -1) this.navItems.eq(current).addClass('act');
 };
 
-Navigation.prototype.resizeHandler = function(){
+Navigation.prototype.resizeHandler = function () {
 
 	this.winW = this.win.width();
 	this.winH = this.win.height();
@@ -377,24 +387,24 @@ ContactForm.prototype.sendEmail = function () {
 		url: "/sendEmail",
 		data: this.cont.serialize(),
 		success: function (data) {
-			if(data.success) _this.successSendingEmail();
+			if (data.success) _this.successSendingEmail();
 			else _this.errorSendingEmail();
 		},
-		error : function(){
+		error: function () {
 			_this.errorSendingEmail();
 		}
 	});
 
 };
 
-ContactForm.prototype.successSendingEmail = function(){
+ContactForm.prototype.successSendingEmail = function () {
 
 	this.cont.addClass('success');
 	this.cont.removeClass('sending');
 
 };
 
-ContactForm.prototype.errorSendingEmail = function(){
+ContactForm.prototype.errorSendingEmail = function () {
 
 	this.cont.removeClass('sending');
 	this.cont.removeClass('success');
@@ -402,7 +412,7 @@ ContactForm.prototype.errorSendingEmail = function(){
 };
 
 
-function TwitterWall($scope, $timeout){
+function TwitterWall($scope, $timeout) {
 
 	this.list = [];
 	this.scope = $scope;
@@ -415,82 +425,82 @@ function TwitterWall($scope, $timeout){
 	this.positions = [
 
 		{
-			current : null
+			current: null
 		},
 		{
-			current : null,
-			out : 8,
-			hidden : false
+			current: null,
+			out: 8,
+			hidden: false
 		},
 		{
-			current : null,
-			out : 7,
-			hidden : false
+			current: null,
+			out: 7,
+			hidden: false
 		},
 		{
-			current : null,
-			out : 10,
-			hidden : false
+			current: null,
+			out: 10,
+			hidden: false
 		},
 		{
-			current : null,
-			out : 6,
-			hidden : null
+			current: null,
+			out: 6,
+			hidden: null
 		},
 		{
-			current : null,
-			out : 14,
-			hidden : false
+			current: null,
+			out: 14,
+			hidden: false
 		},
 		{
-			current : null,
-			out : 13,
-			hidden : false
+			current: null,
+			out: 13,
+			hidden: false
 		},
 		{
-			current : null,
+			current: null,
 			out: 9,
 			hidden: false
 		},
 		{
-			current : null,
+			current: null,
 			out: 12,
-			hidden : false
+			hidden: false
 		},
 		{
-			current : null,
-			out : 11,
-			hidden : false
+			current: null,
+			out: 11,
+			hidden: false
 		},
 		{
-			current : null,
-			hidden : true
+			current: null,
+			hidden: true
 		},
 		{
-			current : null,
-			hidden : true
+			current: null,
+			hidden: true
 		},
 		{
-			current : null,
-			hidden : true
+			current: null,
+			hidden: true
 		},
 		{
-			current : null,
-			hidden : true
+			current: null,
+			hidden: true
 		}
 
 	];
 
 	/*
-	if (!this.isMobile) this.connectFirst();
-	else this.mobileScreen = true;
-	*/
+	 if (!this.isMobile) this.connectFirst();
+	 else this.mobileScreen = true;
+	 */
 
 	this.connectFirst();
 
 }
 
-TwitterWall.prototype.processTweetData = function(data){
+TwitterWall.prototype.processTweetData = function (data) {
 
 	for (var i = 0; i < data.length; i++) {
 		var obj = data[i];
@@ -501,28 +511,28 @@ TwitterWall.prototype.processTweetData = function(data){
 
 };
 
-TwitterWall.prototype.connectFirst = function(){
+TwitterWall.prototype.connectFirst = function () {
 
 	var _this = this;
 
 	$.ajax({
 
-		url : '/getFirstTweets',
+		url: '/getFirstTweets',
 
-		type : 'POST',
+		type: 'POST',
 
-		dataType : 'json',
+		dataType: 'json',
 
-		data : { token : $('#tweetToken').val() },
+		data: { token: $('#tweetToken').val() },
 
-		success : function(res){
+		success: function (res) {
 
-			if (res.success){
+			if (res.success) {
 
 				_this.processTweetData(res.tweets);
 
 				_this.socket = io.connect(window.location.hostname);
-				_this.socket.on('data', function(data) {
+				_this.socket.on('data', function (data) {
 					_this.processTweetData(data);
 				});
 
@@ -534,38 +544,38 @@ TwitterWall.prototype.connectFirst = function(){
 
 };
 
-TwitterWall.prototype.createTweet = function(data){
+TwitterWall.prototype.createTweet = function (data) {
 
-	var hashRegex = new RegExp('#([^\\s]*)','g');
+	var hashRegex = new RegExp('#([^\\s]*)', 'g');
 	var retweetRegex = new RegExp('RT @([^\\s]*):', 'g');
 	var linksRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
 	return {
 
-		name : data.name,
+		name: data.name,
 
-		username : data.username,
+		username: data.username,
 
 		//image : data.user.profile_image_url.replace("_normal", ""),
-		image : data.image,
+		image: data.image,
 
-		text : data.text.replace(hashRegex, "<em>#$1</em>").replace(retweetRegex, '<strong>RT @$1: </strong>').replace(linksRegex, '<a href="$1" target="_blank">$1</a>'),
+		text: data.text.replace(hashRegex, "<em>#$1</em>").replace(retweetRegex, '<strong>RT @$1: </strong>').replace(linksRegex, '<a href="$1" target="_blank">$1</a>'),
 
-		imageVisible : true,
+		imageVisible: true,
 
-		created_at : data.created_at,
+		created_at: data.created_at,
 
-		date : data.date,
+		date: data.date,
 
-		tweeturl : data.tweeturl,
+		tweeturl: data.tweeturl,
 
-		classname : 'tweet' + ((this.list.length % 5)+1).toString()
+		classname: 'tweet' + ((this.list.length % 5) + 1).toString()
 
 	};
 
 };
 
-TwitterWall.prototype.showTweet = function(tweet){
+TwitterWall.prototype.showTweet = function (tweet) {
 
 	var _this = this;
 
@@ -575,24 +585,24 @@ TwitterWall.prototype.showTweet = function(tweet){
 
 };
 
-TwitterWall.prototype.checkPosition = function(tweet){
+TwitterWall.prototype.checkPosition = function (tweet) {
 
-	if ( this.list.length > 0 ){
+	if (this.list.length > 0) {
 
-		var curr = (this.list.length-1)%4 + 1;
+		var curr = (this.list.length - 1) % 4 + 1;
 		var currPos = this.positions[curr];
 
-		if ( currPos.current != null ){
+		if (currPos.current != null) {
 
-			var nextOut1 = this.positions[currPos.out-1];
+			var nextOut1 = this.positions[currPos.out - 1];
 
-			if ( nextOut1.current != null ){
+			if (nextOut1.current != null) {
 
-				var nextOut2 = this.positions[nextOut1.out-1];
+				var nextOut2 = this.positions[nextOut1.out - 1];
 
-				if ( nextOut2.current != null && typeof(nextOut2.out) !== "undefined" ){
+				if (nextOut2.current != null && typeof(nextOut2.out) !== "undefined") {
 
-					var nextOut3 = this.positions[nextOut2.out-1];
+					var nextOut3 = this.positions[nextOut2.out - 1];
 					nextOut2.current.position = "pos" + nextOut2.out.toString();
 					nextOut3.current = nextOut2.current;
 
@@ -608,7 +618,7 @@ TwitterWall.prototype.checkPosition = function(tweet){
 
 		}
 
-		this.positions[0].current.position = "pos" + (curr+1).toString();
+		this.positions[0].current.position = "pos" + (curr + 1).toString();
 		currPos.current = this.positions[0].current;
 
 	}
@@ -618,22 +628,22 @@ TwitterWall.prototype.checkPosition = function(tweet){
 
 };
 
-TwitterWall.prototype.tweetThis = function(e){
+TwitterWall.prototype.tweetThis = function (e) {
 
 	e.preventDefault();
 
 	ga('send', 'event', 'Twitter', 'Carregou no botão do Twitter');
 
-	var width  = 575,
+	var width = 575,
 		height = 400,
-		left   = ($(window).width() - width)  / 2,
-		top    = ($(window).height() - height) / 2,
-		url    = e.currentTarget.href + "?text=" + encodeURIComponent("Check out the new @goncalocardo_o’s portfolio, developed using #mongoDB, #AngularJS and #nodejs. #gcardoso"),
-		opts   = 'status=1' +
-			',width='  + width  +
+		left = ($(window).width() - width) / 2,
+		top = ($(window).height() - height) / 2,
+		url = e.currentTarget.href + "?text=" + encodeURIComponent("Check out the new @goncalocardo_o’s portfolio, developed using #mongoDB, #AngularJS and #nodejs. #gcardoso"),
+		opts = 'status=1' +
+			',width=' + width +
 			',height=' + height +
-			',top='    + top    +
-			',left='   + left;
+			',top=' + top +
+			',left=' + left;
 
 	window.open(url, 'twitter', opts);
 
@@ -642,11 +652,11 @@ TwitterWall.prototype.tweetThis = function(e){
 };
 
 
-$.fn.smallMenu = function(){
+$.fn.smallMenu = function () {
 
 	var menu = $(this);
 
-	menu.bind('click.smallMenu', function(){
+	menu.bind('click.smallMenu', function () {
 		if (menu.hasClass('active')) menu.removeClass('active');
 		else menu.addClass('active');
 	});

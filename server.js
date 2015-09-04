@@ -29,7 +29,7 @@ var app = express();
 var server = http.createServer(app);
 
 //Generic Express setup
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8084);
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
@@ -65,7 +65,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
+
+
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 /**
  * --------------------
@@ -227,12 +229,14 @@ var isOffline = false;
 /*-- Redirect --*/
 
 if (production){
-	app.all(/.*/, function(req, res, next) {
-		var host = req.header("host");
-		if (host.match(/^www\..*/i)) {
+	app.get('/*', function(req, res, next) {
+		if (req.headers.host.match(/^www/) == null ){
+			console.log("entrou no redirect");
+			res.redirect(301, 'http://www.' + req.headers.host);
+		}
+		else {
+			console.log("não entrou no redirect");
 			next();
-		} else {
-			res.redirect(301, "http://www." + host);
 		}
 	});
 }
@@ -261,7 +265,7 @@ mongo.connect(mongoUrl, function (err, database) {
 //Our only route! Render it with the current watchList
 app.get('/', function (req, res) {
 
-	if ( isOffline ) {
+	if ( isOffline ) {x
 		res.status(200);
 		res.render('error.html', {error: "500", layout : null });
 		res.end();

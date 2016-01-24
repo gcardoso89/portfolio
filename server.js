@@ -409,7 +409,10 @@ function allowDomain(domain){
 			}
 		} else {
 			var domainCollection = db.collection('domain');
-			domainCollection.update({ name : domain }, { allow : true });
+			console.log(domain);
+			domainCollection.update({ name : domain }, { allow : true }, function(err, err2){
+				console.log(err, err2);
+			});
 		}
 
 	});

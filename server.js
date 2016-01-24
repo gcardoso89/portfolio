@@ -396,11 +396,8 @@ app.post('/sendEmail', function (req, res) {
 });
 
 function allowDomain(id, res){
-	console.log(id);
 	var o_id = new ObjectID(id);
-	console.log(o_id);
 	mongo.connect(mongoUrl, null, function (err, db) {
-		console.log(err);
 		if (err != null) {
 			if (enviromnent != 'development') {
 				slack.send({
@@ -412,10 +409,15 @@ function allowDomain(id, res){
 			}
 		} else {
 			var domainCollection = db.collection('domain');
-			domainCollection.update({ _id : o_id }, { allow : true }, function(err, err2){
-
+			domainCollection.update({ _id : o_id }, { $set : { allow : true } }, function(err){
+				if ( !err ){
+					slack.send({
+						text: "Dominio atualizado com sucesso!",
+						channel: '#gcardoso-portfolio',
+						username: 'Portfolio'
+					});
+				}
 				res.status(200).end();
-				console.log(err, err2);
 			});
 		}
 
@@ -427,7 +429,6 @@ app.post('/outwebook', function (req, res) {
 	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN) {
 
 		var text = req.body.text.toLocaleLowerCase();
-		console.log("entrou no token");
 
 		switch (req.body.trigger_word.toLocaleLowerCase()) {
 
@@ -464,7 +465,6 @@ app.post('/outwebook', function (req, res) {
 				break;
 
 			case 'allow':
-				console.log("entrou");
 				var _id = text.replace('allow ', '');
 				allowDomain(_id, res);
 				break;

@@ -423,6 +423,7 @@ app.post('/outwebook', function (req, res) {
 	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN) {
 
 		var text = req.body.text.toLocaleLowerCase();
+		console.log("entrou no token");
 
 		switch (req.body.trigger_word.toLocaleLowerCase()) {
 
@@ -458,6 +459,7 @@ app.post('/outwebook', function (req, res) {
 				break;
 
 			case 'allow':
+				console.log("entrou");
 				var _id = text.replace('allow ', '');
 				allowDomain(_id);
 				break;

@@ -459,6 +459,7 @@ app.post('/outwebook', function (req, res) {
 
 			case 'allow':
 				var domain = text.replace('allow ', '');
+				console.log(req.body);
 				allowDomain(domain);
 				break;
 

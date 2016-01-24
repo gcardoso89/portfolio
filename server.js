@@ -396,7 +396,9 @@ app.post('/sendEmail', function (req, res) {
 
 function allowDomain(id){
 	var o_id = new mongo.ObjectID(id);
+	console.log(o_id);
 	mongo.connect(mongoUrl, null, function (err, db) {
+		console.log(err);
 		if (err != null) {
 			if (enviromnent != 'development') {
 				slack.send({

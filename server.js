@@ -311,7 +311,7 @@ app.get('/', function (req, res) {
 							getPortfolioAndRender(db, token, ip, res);
 
 							slack.send({
-								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow  " + domain + "'",
+								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow  " + inserted._id + "'",
 								channel: '#gcardoso-portfolio',
 								username: 'Portfolio',
 								link_names: 1
@@ -396,7 +396,7 @@ app.post('/sendEmail', function (req, res) {
 
 });
 
-function allowDomain(domain){
+function allowDomain(id){
 	mongo.connect(mongoUrl, null, function (err, db) {
 		if (err != null) {
 			if (enviromnent != 'development') {
@@ -409,8 +409,7 @@ function allowDomain(domain){
 			}
 		} else {
 			var domainCollection = db.collection('domain');
-			console.log(domain);
-			domainCollection.update({ name : domain }, { allow : true }, function(err, err2){
+			domainCollection.update({ _id : id }, { allow : true }, function(err, err2){
 				console.log(err, err2);
 			});
 		}
@@ -458,9 +457,8 @@ app.post('/outwebook', function (req, res) {
 				break;
 
 			case 'allow':
-				var domain = text.replace('allow ', '');
-				console.log(req.body);
-				allowDomain(domain);
+				var _id = text.replace('allow ', '');
+				allowDomain(_id);
 				break;
 
 		}

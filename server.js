@@ -394,7 +394,8 @@ app.post('/sendEmail', function (req, res) {
 
 });
 
-function allowDomain(id){
+function allowDomain(id, res){
+	console.log(id);
 	var o_id = new mongo.ObjectID(id);
 	console.log(o_id);
 	mongo.connect(mongoUrl, null, function (err, db) {
@@ -411,6 +412,8 @@ function allowDomain(id){
 		} else {
 			var domainCollection = db.collection('domain');
 			domainCollection.update({ _id : o_id }, { allow : true }, function(err, err2){
+
+				res.status(200).end();
 				console.log(err, err2);
 			});
 		}
@@ -437,7 +440,7 @@ app.post('/outwebook', function (req, res) {
 						sockets.socket.disconnect();
 						break;
 				}
-
+				res.status(200).end();
 				break;
 
 			case 'offline':
@@ -456,16 +459,15 @@ app.post('/outwebook', function (req, res) {
 						break;
 
 				}
+				res.status(200).end();
 				break;
 
 			case 'allow':
 				console.log("entrou");
 				var _id = text.replace('allow ', '');
-				allowDomain(_id);
+				allowDomain(_id, res);
 				break;
-
 		}
-		res.status(200).end();
 	}
 
 	else {

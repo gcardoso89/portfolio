@@ -237,11 +237,9 @@ var isOffline = false;
 if (production) {
 	app.get('/*', function (req, res, next) {
 		if (req.headers.host.match(/^www/) == null) {
-			console.log("entrou no redirect");
 			res.redirect(301, 'http://www.' + req.headers.host);
 		}
 		else {
-			console.log("não entrou no redirect");
 			next();
 		}
 	});
@@ -308,12 +306,10 @@ app.get('/', function (req, res) {
 							'allow' : false
 						}, function (err, inserted, err2) {
 
-							console.log(err, inserted, err2);
-
 							getPortfolioAndRender(db, token, ip, res);
 
 							slack.send({
-								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow  " + inserted._id + "'",
+								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow  " + inserted[0]._id + "'",
 								channel: '#gcardoso-portfolio',
 								username: 'Portfolio',
 								link_names: 1
@@ -399,6 +395,7 @@ app.post('/sendEmail', function (req, res) {
 });
 
 function allowDomain(id){
+	var o_id = new mongo.ObjectID(id);
 	mongo.connect(mongoUrl, null, function (err, db) {
 		if (err != null) {
 			if (enviromnent != 'development') {
@@ -411,7 +408,7 @@ function allowDomain(id){
 			}
 		} else {
 			var domainCollection = db.collection('domain');
-			domainCollection.update({ _id : id }, { allow : true }, function(err, err2){
+			domainCollection.update({ _id : o_id }, { allow : true }, function(err, err2){
 				console.log(err, err2);
 			});
 		}

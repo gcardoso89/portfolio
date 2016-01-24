@@ -225,7 +225,7 @@ function extractDomain(url) {
 	domain = domain.split(':')[0];
 
 	if ( domain.indexOf('www.') === 0){
-		domain.replace('www.','');
+		domain = domain.replace('www.','');
 	}
 
 	return domain;

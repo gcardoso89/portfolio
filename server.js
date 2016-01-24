@@ -306,7 +306,9 @@ app.get('/', function (req, res) {
 						domainCollection.insert({
 							'name' : domain,
 							'allow' : false
-						}, function (err, inserted) {
+						}, function (err, inserted, err2) {
+
+							console.log(err, inserted, err2);
 
 							getPortfolioAndRender(db, token, ip, res);
 

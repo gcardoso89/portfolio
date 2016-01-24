@@ -302,15 +302,17 @@ app.get('/', function (req, res) {
 
 					} else if ( docs.length === 0 ){
 
+						var allow = (domain.indexOf('google') !== -1);
+
 						domainCollection.insert({
 							'name' : domain,
-							'allow' : false
+							'allow' : allow
 						}, function (err, inserted, err2) {
 
 							getPortfolioAndRender(db, token, ip, res);
 
 							slack.send({
-								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow " + inserted[0]._id + "'",
+								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow " + inserted[0]._id + "'\n- Default allow value: " + allow,
 								channel: '#gcardoso-portfolio',
 								username: 'Portfolio',
 								link_names: 1

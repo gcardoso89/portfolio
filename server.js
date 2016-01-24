@@ -16,7 +16,6 @@ var express = require('express')
 	, portfolioList = [];
 
 
-
 /**
  * ---------------
  * ----- APP -----
@@ -34,16 +33,16 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.set('layout', 'layout');
 app.set('partials', {
-	header : 'includes/header',
-	banner : 'pages/banner',
-	me : 'pages/me',
-	profile : 'pages/profile',
-	skills : 'pages/skills',
-	workeducation : 'pages/workeducation',
-	portfolio : 'pages/portfolio',
-	twitterwall : 'pages/twitterwall',
-	contact : 'pages/contact',
-	footer : 'includes/footer'
+	header: 'includes/header',
+	banner: 'pages/banner',
+	me: 'pages/me',
+	profile: 'pages/profile',
+	skills: 'pages/skills',
+	workeducation: 'pages/workeducation',
+	portfolio: 'pages/portfolio',
+	twitterwall: 'pages/twitterwall',
+	contact: 'pages/contact',
+	footer: 'includes/footer'
 });
 //app.enable('view cache');
 app.engine('html', require('hogan-express'));
@@ -59,7 +58,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/components', express.static(path.join(__dirname, 'components')));
 
 
-
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 /**
@@ -68,7 +66,7 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
  * --------------------
  * */
 
-var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST+':'+ process.env.OPENSHIFT_MONGODB_DB_PORT +'/gcardoso';
+var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/gcardoso';
 
 var enviromnent = app.get('env');
 var production = (enviromnent != 'development');
@@ -90,15 +88,13 @@ if (enviromnent == 'development') {
 var slack = new Slack('gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN);
 
 
-
-
 /**
  * ------------------------
  * ----- TWITTER WALL -----
  * ------------------------
  * */
 // Twitter symbols array
-var watchSymbols = ['#gcardoso','@goncalocardo_o','#angularjs','#nodejs','#javascript','#mongodb','#html','#css','#frontend'];
+var watchSymbols = ['#gcardoso', '@goncalocardo_o', '#angularjs', '#nodejs', '#javascript', '#mongodb', '#html', '#css', '#frontend'];
 //var watchSymbols = ['#gcardoso','@goncalocardo_o'];
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
@@ -119,7 +115,7 @@ var t = new twitter({
 
 var arr = [];
 
-function processTweetData(tweets){
+function processTweetData(tweets) {
 
 	var newArr = [];
 
@@ -127,18 +123,18 @@ function processTweetData(tweets){
 
 		var data = tweets[i];
 
-		if(data.user.screen_name == "seedupio") continue;
+		if (data.user.screen_name == "seedupio") continue;
 
 		newArr.push({
 
-			name : data.user.name,
-			username : '@' + data.user.screen_name,
-			image : data.user.profile_image_url.replace("_normal", "_bigger"),
-			text : data.text,
-			imageVisible : true,
-			created_at : new Date(data.created_at).getTime(),
-			date : data.created_at,
-			tweeturl : 'http://www.twitter.com/' + data.user.screen_name + '/status/' + data.id_str
+			name: data.user.name,
+			username: '@' + data.user.screen_name,
+			image: data.user.profile_image_url.replace("_normal", "_bigger"),
+			text: data.text,
+			imageVisible: true,
+			created_at: new Date(data.created_at).getTime(),
+			date: data.created_at,
+			tweeturl: 'http://www.twitter.com/' + data.user.screen_name + '/status/' + data.id_str
 
 		});
 
@@ -147,7 +143,6 @@ function processTweetData(tweets){
 	return newArr;
 
 }
-
 
 
 //Tell the twitter API to filter on the watchSymbols
@@ -162,7 +157,7 @@ t.stream('statuses/filter', { track: watchSymbols }, function (stream) {
 		}
 	});
 
-	stream.on('error', function(error) {
+	stream.on('error', function (error) {
 		slack.send({
 			text: "@gcardoso Erro na conexão do Twitter. Erro: " + error,
 			channel: '#gcardoso-portfolio',
@@ -180,7 +175,7 @@ sockets.configure(function () {
 	//sockets.set('polling duration', 3600);
 });
 
-sockets.on('disconnect', function(){
+sockets.on('disconnect', function () {
 	slack.send({
 		text: "@gcardoso Os sockets estão em baixo. Reconnectar pff",
 		channel: '#gcardoso-portfolio',
@@ -188,7 +183,6 @@ sockets.on('disconnect', function(){
 		link_names: 1
 	});
 });
-
 
 
 /**
@@ -210,23 +204,35 @@ mailer.extend(app, {
 });
 
 
-
-
-
 /**
  * --------------------
  * ----- ROUTES -------
  * --------------------
  * */
 
+function extractDomain(url) {
+	var domain;
+	//find & remove protocol (http, ftp, etc.) and get domain
+	if (url.indexOf("://") > -1) {
+		domain = url.split('/')[2];
+	}
+	else {
+		domain = url.split('/')[0];
+	}
+
+	//find & remove port number
+	domain = domain.split(':')[0];
+
+	return domain;
+}
 
 var isOffline = false;
 
 /*-- Redirect --*/
 
-if (production){
-	app.get('/*', function(req, res, next) {
-		if (req.headers.host.match(/^www/) == null ){
+if (production) {
+	app.get('/*', function (req, res, next) {
+		if (req.headers.host.match(/^www/) == null) {
 			console.log("entrou no redirect");
 			res.redirect(301, 'http://www.' + req.headers.host);
 		}
@@ -237,26 +243,37 @@ if (production){
 	});
 }
 
+function getPortfolioAndRender(db, token, ip, res){
+	var collection = db.collection('portfolio');
+	collection.find({}).toArray(function (err, docs) {
+		portfolioList = docs.reverse();
+		res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country: (ip != null ) ? ip.country : "No country", production: production });
+		db.close();
+	});
+}
+
 
 //Our only route! Render it with the current watchList
 app.get('/', function (req, res) {
 
-	if ( isOffline ) {x
-		res.status(200);
-		res.render('error.html', {error: "500", layout : null, production : production});
+	if (isOffline) {
+
+		res.status(500);
+		res.render('error.html', {error: "500", layout: null, production: production});
 		res.end();
 		return true;
 	}
 
 	var token = jwt.encode({
-		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
+		ip: req.headers["x-forwarded-for"] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD);
 
 	var ip = geoip.lookup(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
 
-	mongo.connect(mongoUrl, function (err, db) {
-		if (err!=null ) {
-			if ( enviromnent != 'development' ){
+
+	mongo.connect(mongoUrl, null, function (err, db) {
+		if (err != null) {
+			if (enviromnent != 'development') {
 				slack.send({
 					text: "@gcardoso Erro no acesso à BD - " + err,
 					channel: '#gcardoso-portfolio',
@@ -264,30 +281,64 @@ app.get('/', function (req, res) {
 					link_names: 1
 				});
 			}
-			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country : (ip != null ) ? ip.country : "No country", production : production });
+			res.render('homepage', { portfolio: [], portfolioString: JSON.stringify([]), token: token, country: (ip != null ) ? ip.country : "No country", production: production });
 			return false;
 		}
-		 var collection = db.collection('portfolio');
-		 collection.find({}).toArray(function (err, docs) {
-			 portfolioList = docs.reverse();
-			 res.render('homepage', { portfolio: portfolioList, portfolioString: JSON.stringify(portfolioList), token: token, country : (ip != null ) ? ip.country : "No country", production : production });
-			 db.close();
-		 });
 
-	 });
+
+		if (req.headers['referer']) {
+			var domain = extractDomain(req.headers['referer']);
+			var domainCollection = db.collection('domain');
+			domainCollection.find({ 'name': domain }).toArray(function (err, docs) {
+
+				if ( !err ){
+
+					if ( docs.length > 0 && docs[0]['allow'] ){
+
+						getPortfolioAndRender(db, token, ip, res);
+
+					} else if ( docs.length === 0 ){
+
+						domainCollection.insert({
+							'name' : domain,
+							'allow' : true
+						}, function (err, inserted) {
+
+							getPortfolioAndRender(db, token, ip, res);
+
+						});
+
+					} else {
+
+						res.status(500).end();
+
+					}
+
+				}
+
+			});
+		} else {
+
+			getPortfolioAndRender(db, token, ip, res);
+
+		}
+
+	});
 
 });
 
-app.post('/getFirstTweets', function(req, res){
+app.post('/getFirstTweets', function (req, res) {
 
 	var token = jwt.encode({
-		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
+		ip: req.headers["x-forwarded-for"] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD);
 
-	if (req.body.token == token){
-		t.search('#gcardoso', function(data) {
-			var newData = _.sortBy(data.statuses, function(o){ return new Date(o.created_at) });
-			res.json({success:true, tweets: processTweetData(newData) });
+	if (req.body.token == token) {
+		t.search('#gcardoso', function (data) {
+			var newData = _.sortBy(data.statuses, function (o) {
+				return new Date(o.created_at)
+			});
+			res.json({success: true, tweets: processTweetData(newData) });
 		});
 	}
 
@@ -297,13 +348,13 @@ app.post('/getFirstTweets', function(req, res){
 
 });
 
-app.post('/sendEmail', function(req, res){
+app.post('/sendEmail', function (req, res) {
 
 	var token = jwt.encode({
-		ip : req.headers["x-forwarded-for"] || req.connection.remoteAddress
+		ip: req.headers["x-forwarded-for"] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD);
 
-	if ( req.body.token == token){
+	if (req.body.token == token) {
 
 		slack.send({
 			text: "@gcardoso " + req.body.name + " (" + req.body.email + ") enviou email com o seguinte texto: " + req.body.message,
@@ -312,18 +363,18 @@ app.post('/sendEmail', function(req, res){
 			link_names: 1
 		});
 
-		app.mailer.send('emails/email',{
+		app.mailer.send('emails/email', {
 			from: 'gcardoso',
 			to: 'goncalo.cb.ferreira@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
 			subject: 'Portfolio', // REQUIRED.
 			emailobject: req.body, // All additional properties are also passed to the template as local variables.
-			layout : null
+			layout: null
 		}, function (err) {
 			if (err) {
 				res.status(403).end();
 				return;
 			}
-			res.json(200, { success : true });
+			res.json(200, { success: true });
 		});
 
 	}
@@ -334,14 +385,14 @@ app.post('/sendEmail', function(req, res){
 
 });
 
-app.post('/outwebook', function(req, res){
+app.post('/outwebook', function (req, res) {
 
-	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN){
+	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN) {
 
-		switch ( req.body.trigger_word.toLocaleLowerCase() ){
+		switch (req.body.trigger_word.toLocaleLowerCase()) {
 
 			case 'socket':
-				switch (req.body.text.toLocaleLowerCase()){
+				switch (req.body.text.toLocaleLowerCase()) {
 					case 'socket reconnect':
 						sockets.socket.connect();
 						break;
@@ -354,7 +405,7 @@ app.post('/outwebook', function(req, res){
 				break;
 
 			case 'offline':
-				switch (req.body.text.toLocaleLowerCase()){
+				switch (req.body.text.toLocaleLowerCase()) {
 
 					case 'offline yes':
 						isOffline = true;
@@ -381,13 +432,13 @@ app.post('/outwebook', function(req, res){
 });
 
 // Handle 404
-app.use(function(req, res) {
-	res.render('error.html', {error: "404", layout : null, production : production});
+app.use(function (req, res) {
+	res.render('error.html', {error: "404", layout: null, production: production});
 });
 
 // Handle 500
-app.use(function(error, req, res, next) {
-	res.render('error.html', {error: "500", layout : null, production : production});
+app.use(function (error, req, res, next) {
+	res.render('error.html', {error: "500", layout: null, production: production});
 });
 
 //Create the server

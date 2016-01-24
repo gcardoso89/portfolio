@@ -223,6 +223,10 @@ function extractDomain(url) {
 	//find & remove port number
 	domain = domain.split(':')[0];
 
+	if ( domain.indexOf('www.') === 0){
+		domain.replace('www.','');
+	}
+
 	return domain;
 }
 
@@ -301,10 +305,17 @@ app.get('/', function (req, res) {
 
 						domainCollection.insert({
 							'name' : domain,
-							'allow' : true
+							'allow' : false
 						}, function (err, inserted) {
 
 							getPortfolioAndRender(db, token, ip, res);
+
+							slack.send({
+								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow  " + domain + "'",
+								channel: '#gcardoso-portfolio',
+								username: 'Portfolio',
+								link_names: 1
+							});
 
 						});
 
@@ -385,14 +396,35 @@ app.post('/sendEmail', function (req, res) {
 
 });
 
+function allowDomain(domain){
+	mongo.connect(mongoUrl, null, function (err, db) {
+		if (err != null) {
+			if (enviromnent != 'development') {
+				slack.send({
+					text: "@gcardoso Erro no acesso à BD - " + err,
+					channel: '#gcardoso-portfolio',
+					username: 'Portfolio',
+					link_names: 1
+				});
+			}
+		} else {
+			var domainCollection = db.collection('domain');
+			domainCollection.update({ name : domain }, { allow : true });
+		}
+
+	});
+}
+
 app.post('/outwebook', function (req, res) {
 
 	if (req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN) {
 
+		var text = req.body.text.toLocaleLowerCase();
+
 		switch (req.body.trigger_word.toLocaleLowerCase()) {
 
 			case 'socket':
-				switch (req.body.text.toLocaleLowerCase()) {
+				switch (text) {
 					case 'socket reconnect':
 						sockets.socket.connect();
 						break;
@@ -405,7 +437,7 @@ app.post('/outwebook', function (req, res) {
 				break;
 
 			case 'offline':
-				switch (req.body.text.toLocaleLowerCase()) {
+				switch (text) {
 
 					case 'offline yes':
 						isOffline = true;
@@ -420,6 +452,12 @@ app.post('/outwebook', function (req, res) {
 						break;
 
 				}
+				break;
+
+			case 'allow':
+				var domain = text.replace('allow ', '');
+				allowDomain(domain);
+				break;
 
 		}
 		res.status(200).end();

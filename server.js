@@ -310,7 +310,7 @@ app.get('/', function (req, res) {
 							getPortfolioAndRender(db, token, ip, res);
 
 							slack.send({
-								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow  " + inserted[0]._id + "'",
+								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow " + inserted[0]._id + "'",
 								channel: '#gcardoso-portfolio',
 								username: 'Portfolio',
 								link_names: 1

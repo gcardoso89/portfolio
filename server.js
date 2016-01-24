@@ -10,6 +10,7 @@ var express = require('express')
 	, path = require('path')
 	, util = require('util')
 	, mongo = require('mongodb').MongoClient
+	, ObjectID = require('mongodb').ObjectID
 	, jwt = require('jwt-simple')
 	, geoip = require("geoip-lite")
 	, Slack = require("node-slack")
@@ -396,7 +397,7 @@ app.post('/sendEmail', function (req, res) {
 
 function allowDomain(id, res){
 	console.log(id);
-	var o_id = new mongo.ObjectID(id);
+	var o_id = new ObjectID(id);
 	console.log(o_id);
 	mongo.connect(mongoUrl, null, function (err, db) {
 		console.log(err);

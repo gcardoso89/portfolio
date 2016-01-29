@@ -288,6 +288,14 @@ app.get('/', function (req, res) {
 			return false;
 		}
 
+		if (enviromnent != 'development') {
+			slack.send({
+				text: "*New Access*\n"+ JSON.stringify(req.headers),
+				channel: '#gcardoso-portfolio',
+				username: 'Portfolio',
+				link_names: 1
+			});
+		}
 
 		if (req.headers['referer']) {
 			var domain = extractDomain(req.headers['referer']);

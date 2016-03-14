@@ -53,7 +53,7 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000 }));
 
 //We're using bower components so add it to the path to make things easier
 app.use('/components', express.static(path.join(__dirname, 'components')));

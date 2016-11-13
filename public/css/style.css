@@ -735,10 +735,10 @@ header nav a.act{
 	animation-delay: 0.77s, 4.77s;
 }
 
-.w_moe {
+.w_rea {
 	font-size: 2.8125em;
-	left: 7.2444em;
-	top: 4.3111em; /*left:326px;top:194px;*/
+	left: 7.35556em;
+	top: 4.266667em; /*left:321px;top:194px;*/
 	-webkit-animation-delay: 0.75s, 4.75s;
 	-moz-animation-delay: 0.75s, 4.75s;
 	animation-delay: 0.75s, 4.75s;
@@ -762,10 +762,10 @@ header nav a.act{
 	animation-delay: 0.81s, 4.81s;
 }
 
-.w_inr {
+.w_ecm {
 	font-size: 1.25em;
 	left: 2.25em;
-	top: 13.45em; /*left:45px;top:269px;*/
+	top: 13.55em; /*left:45px;top:271px;*/
 	-webkit-animation-delay: 0.80s, 4.80s;
 	-moz-animation-delay: 0.80s, 4.80s;
 	animation-delay: 0.80s, 4.80s;
@@ -780,10 +780,10 @@ header nav a.act{
 	animation-delay: 0.71s, 4.71s;
 }
 
-.w_sy2 {
-	font-size: 1.25em;
-	left: 13.4em;
-	top: 13.45em; /*left:268px;top:269px;*/
+.w_red {
+	font-size: 1.75em;
+	left: 10em;
+	top: 9.4642em; /*left:280px;top:265px;*/
 	-webkit-animation-delay: 0.54s, 4.54s;
 	-moz-animation-delay: 0.54s, 4.54s;
 	animation-delay: 0.54s, 4.54s;
@@ -843,18 +843,18 @@ header nav a.act{
 	animation-delay: 0.55s, 4.55s;
 }
 
-.w_fix {
+.w_egd {
 	font-size: 1.5625em;
 	left: 8.12em;
-	top: 13.24em; /*left:203px;top:331px;*/
+	top: 13.16em; /*left:203px;top:331px;*/
 	-webkit-animation-delay: 0.87s, 4.87s;
 	-moz-animation-delay: 0.87s, 4.87s;
 	animation-delay: 0.87s, 4.87s;
 }
 
-.w_lar {
+.w_wbp {
 	font-size: 2.625em;
-	left: 7.07143em;
+	left: 6.523em;
 	top: 7.5em; /*left:297px;top:315px;*/
 	-webkit-animation-delay: 0.90s, 4.90s;
 	-moz-animation-delay: 0.90s, 4.90s;
@@ -957,13 +957,13 @@ header nav a.act{
 }
 
 .g_fr {
-	font-size: 2.375em;
+	font-size: 2.3em;
 	display: block;
 	line-height: 1.12em;
 	font-weight: 700;
 	color: #41969c;
 	text-align: right;
-	margin-bottom: 7px;
+	margin-bottom: 9px;
 }
 
 .g_ni {

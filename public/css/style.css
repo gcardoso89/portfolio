@@ -451,7 +451,7 @@ header nav a.act{
 	position: absolute;
 	left: 50%;
 	z-index: 2;
-	background: url(../images/balloon.png) no-repeat;
+	background-repeat: no-repeat;
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;
 	-o-animation-fill-mode: forwards;
@@ -473,6 +473,11 @@ header nav a.act{
 	perspective: 1000;
 
 	-webkit-font-smoothing: antialiased;
+
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-ms-background-size: 100% 100%;
+	background-size: 100% 100%;
 
 }
 
@@ -519,7 +524,8 @@ header nav a.act{
 	height: 2.4375em;
 	margin-left: 8.75em;
 	top: 8.5em;
-	background-position: -38.0em -6.5em /*width:42px;height:38px;margin-left:140px;top:136px;background-position:-608px -104px*/
+	background-image: url(../images/balloon-small.svg);
+	/*background-position: -38.0em -6.5em /*width:42px;height:38px;margin-left:140px;top:136px;background-position:-608px -104px*/
 }
 
 .balloon.small.anim {
@@ -549,7 +555,8 @@ header nav a.act{
 	height: 4.1875em;
 	margin-left: 2.0em;
 	top: 6.6875em;
-	background-position: -38.0em -1.1875em /*width:91px;height:66px;margin-left:32px;top:107px;background-position:-608px -19px*/
+	background-image: url(../images/balloon-med.svg);
+	/*background-position: -38.0em -1.1875em /*width:91px;height:66px;margin-left:32px;top:107px;background-position:-608px -19px*/
 }
 
 .balloon.med.anim {
@@ -579,6 +586,7 @@ header nav a.act{
 	margin-left: -34.5em;
 	top: 2.4375em;
 	width: 37.75em;
+	background-image: url(../images/balloon-big.svg);
 	height: 26.25em /*margin-left:-552px;top:39px;height:420px;width:604px;*/
 }
 
@@ -3057,10 +3065,6 @@ body > footer .button p {
 		font-size: 0.9em;
 	}
 
-	.balloon {
-		background-image: url(../images/balloon1024.png);
-	}
-
 	.base{
 		width: auto;
 	}
@@ -3128,10 +3132,6 @@ body > footer .button p {
 	.banner .base {
 		font-size: 0.8em;
 	}
-
-	.balloon {
-		background-image: url(../images/balloon900.png);
-	}
 }
 
 @media all and (max-width: 915px) {
@@ -3173,10 +3173,6 @@ body > footer .button p {
 
 	.banner .base {
 		font-size: 0.8em;
-	}
-
-	.balloon {
-		background-image: url(../images/balloon900.png);
 	}
 
 	.greetings{
@@ -3422,7 +3418,6 @@ body > footer .button p {
 	}
 
 	.balloon {
-		background-image: url(../images/balloon900.png);
 		left: 50%;
 	}
 
@@ -3882,7 +3877,6 @@ body > footer .button p {
 	}
 
 	.balloon {
-		background-image: url(../images/balloon768.png);
 		left: 50%;
 	}
 

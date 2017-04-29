@@ -1970,6 +1970,7 @@ textarea {
 	-webkit-font-smoothing: antialiased;
 	font-weight: normal;
 	-webkit-appearance: none;
+	font-family: "Source Sans Pro";
 }
 
 .contact form input[type="submit"]:hover {

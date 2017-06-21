@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @import url(font-awesome.min.css);
-@import url("https://fonts.googleapis.com/css?family=Scope+One|Trocchi");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
 /*
 	Urban by TEMPLATED
@@ -1590,7 +1590,7 @@
 	}
 
 	body, input, select, textarea {
-		font-family: "Scope One", serif;
+		font-family: "Roboto", serif;
 		font-size: 13pt;
 		font-weight: 300;
 		line-height: 1.65;
@@ -1962,7 +1962,7 @@
 	input[type="button"],
 	button,
 	.button {
-		background-color: #3498db;
+		background-color: #ec6725;
 		color: #fff !important;
 	}
 
@@ -1971,7 +1971,7 @@
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #4aa3df;
+			background-color: #ec6725;
 		}
 
 		input[type="submit"]:active,
@@ -1979,7 +1979,7 @@
 		input[type="button"]:active,
 		button:active,
 		.button:active {
-			background-color: #258cd1;
+			background-color: #ec6725;
 		}
 
 		input[type="submit"].alt,
@@ -2941,7 +2941,7 @@
 			.wrapper.style1 input[type="button"],
 			.wrapper.style1 button,
 			.wrapper.style1 .button {
-				background-color: #3498db;
+				background-color: #ec6725;
 				color: #fff !important;
 			}
 
@@ -2950,7 +2950,7 @@
 				.wrapper.style1 input[type="button"]:hover,
 				.wrapper.style1 button:hover,
 				.wrapper.style1 .button:hover {
-					background-color: #4aa3df;
+					background-color: #ec6725;
 				}
 
 				.wrapper.style1 input[type="submit"]:active,
@@ -2958,7 +2958,7 @@
 				.wrapper.style1 input[type="button"]:active,
 				.wrapper.style1 button:active,
 				.wrapper.style1 .button:active {
-					background-color: #258cd1;
+					background-color: #ec6725;
 				}
 
 				.wrapper.style1 input[type="submit"].alt,
@@ -3107,8 +3107,8 @@
 			}
 
 		.wrapper.style2 {
-			background-color: #3498db;
-			color: #aed6f1;
+			background-color: #ec6725;
+			color: #ffffff;
 		}
 
 			.wrapper.style2 input, .wrapper.style2 select, .wrapper.style2 textarea {
@@ -3154,7 +3154,7 @@
 			.wrapper.style2 button,
 			.wrapper.style2 .button {
 				background-color: #fff;
-				color: #3498db !important;
+				color: #ec6725 !important;
 			}
 
 				.wrapper.style2 input[type="submit"].alt,
@@ -3188,7 +3188,7 @@
 					.wrapper.style2 input[type="button"].alt.icon:before,
 					.wrapper.style2 button.alt.icon:before,
 					.wrapper.style2 .button.alt.icon:before {
-						color: #67b2e4;
+						color: #ec6725;
 					}
 
 				.wrapper.style2 input[type="submit"].special,
@@ -3267,23 +3267,23 @@
 			}
 
 			.wrapper.style2 ::-webkit-input-placeholder {
-				color: #67b2e4 !important;
+				color: #ec6725 !important;
 			}
 
 			.wrapper.style2 :-moz-placeholder {
-				color: #67b2e4 !important;
+				color: #ec6725 !important;
 			}
 
 			.wrapper.style2 ::-moz-placeholder {
-				color: #67b2e4 !important;
+				color: #ec6725 !important;
 			}
 
 			.wrapper.style2 :-ms-input-placeholder {
-				color: #67b2e4 !important;
+				color: #ec6725 !important;
 			}
 
 			.wrapper.style2 .formerize-placeholder {
-				color: #67b2e4 !important;
+				color: #ec6725 !important;
 			}
 
 			.wrapper.style2 ul.alt li {
@@ -3291,7 +3291,7 @@
 			}
 
 			.wrapper.style2 header p {
-				color: #67b2e4;
+				color: #ec6725;
 			}
 
 			.wrapper.style2 table tbody tr {
@@ -3319,7 +3319,7 @@
 			}
 
 			.wrapper.style2 .image {
-				box-shadow: 0px 0px 0px 7px #3498db, 0px 0px 0px 8px rgba(255, 255, 255, 0.25);
+				box-shadow: 0px 0px 0px 7px #ec6725, 0px 0px 0px 8px rgba(255, 255, 255, 0.25);
 			}
 
 		@media screen and (max-width: 1280px) {
@@ -3427,11 +3427,11 @@
 
 			#header > .logo a {
 				font-size: 1.25em;
-				color: #3498db;
+				color: #ec6725;
 			}
 
 				#header > .logo a:hover {
-					color: #3498db;
+					color: #ec6725;
 				}
 
 			#header > .logo span {
@@ -3453,7 +3453,7 @@
 		}
 
 			#header > a:hover {
-				color: #3498db;
+				color: #ec6725;
 			}
 
 			#header > a[href="#menu"] {
@@ -3613,7 +3613,7 @@
 					}
 
 					#menu > ul.links > li:hover {
-						color: #3498db;
+						color: #ec6725;
 					}
 
 					#menu > ul.links > li:first-child > a:not(.button) {
@@ -3657,7 +3657,7 @@
 			}
 
 			#menu .close:hover {
-				color: #3498db;
+				color: #ec6725;
 			}
 
 			@media screen and (max-width: 736px) {
@@ -3705,7 +3705,7 @@
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		background-image: url("../../images/banner.jpg");
+		background-image: url("../images/banner.jpg");
 		background-position: center;
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -3787,10 +3787,6 @@
 			-webkit-transition: opacity 3s ease;
 			-ms-transition: opacity 3s ease;
 			transition: opacity 3s ease;
-			-moz-transition-delay: 1.25s;
-			-webkit-transition-delay: 1.25s;
-			-ms-transition-delay: 1.25s;
-			transition-delay: 1.25s;
 			content: '';
 			display: block;
 			background-color: #000;

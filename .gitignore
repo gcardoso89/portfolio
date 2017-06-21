@@ -28,8 +28,9 @@ node_modules
 .lock-wscript
 
 # PHPStorm
-.idea
+./.idea
 .idea/workspace.xml
+./.idea/*
 .DS_Store
 
 # Gcardoso keys

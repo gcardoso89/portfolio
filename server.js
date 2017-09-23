@@ -225,8 +225,8 @@ var isOffline = false;
 
 if ( production ) {
 	app.get( '/*', function ( req, res, next ) {
-		if ( req.headers.host.match( /^www/ ) === null ) {
-			res.redirect( 301, 'http://www.' + req.headers.host );
+		if ( req.headers.host.match( /^www/ ) === null && req.headers.host.match( /herokuapp/ ) === null ) {
+			res.redirect( 301, req.protocol + '://www.' + req.headers.host );
 		}
 		else {
 			next();

@@ -53,7 +53,7 @@ app.use( express.bodyParser() );
 app.use( express.methodOverride() );
 app.use( app.router );
 app.use( require( 'stylus' ).middleware( __dirname + '/public' ) );
-app.use( express.static( path.join( __dirname, 'public' ), {maxAge: 86400000} ) );
+app.use( express.static( path.join( __dirname, 'public' ), { maxAge: 86400000 } ) );
 
 //We're using bower components so add it to the path to make things easier
 app.use( '/components', express.static( path.join( __dirname, 'components' ) ) );
@@ -67,13 +67,13 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
  * --------------------
  * */
 
-var mongoUrl = 'mongodb://admin:' + process.env.GCARDOSO_MONGODB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/gcardoso';
+var mongoUrl = process.env.MONGODB_URI;
 
 var enviromnent = app.get( 'env' );
-var production = (enviromnent != 'development');
+var production = (enviromnent !== 'development');
 
 // development only
-if ( enviromnent == 'development' ) {
+if ( enviromnent === 'development' ) {
 	app.use( express.errorHandler() );
 	mongoUrl = 'mongodb://localhost:27017/gcardoso';
 	require( "./gcardoso/env-variables" )();
@@ -95,7 +95,7 @@ var slack = new Slack( 'gcardoso', process.env.GCARDOSO_INWEBOOK_TOKEN );
  * ------------------------
  * */
 // Twitter symbols array
-var watchSymbols = ['#gcardoso', '@goncalocardo_o', '#angularjs', '#nodejs', '#javascript', '#mongodb', '#html', '#css', '#frontend'];
+var watchSymbols = [ '#gcardoso', '@goncalocardo_o', '#angularjs', '#nodejs', '#javascript', '#mongodb', '#html', '#css', '#frontend' ];
 //var watchSymbols = ['#gcardoso','@goncalocardo_o'];
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
@@ -103,8 +103,8 @@ var watchList = {
 	symbols: {}
 };
 //Set the watch symbols to zero.
-_.each( watchSymbols, function( v ) {
-	watchList.symbols[v] = 0;
+_.each( watchSymbols, function ( v ) {
+	watchList.symbols[ v ] = 0;
 } );
 
 var t = new twitter( {
@@ -117,17 +117,14 @@ var t = new twitter( {
 var arr = [];
 
 function processTweetData( tweets ) {
-
 	var newArr = [];
 
 	for ( var i = 0; i < tweets.length; i++ ) {
+		var data = tweets[ i ];
 
-		var data = tweets[i];
-
-		if ( data.user.screen_name == "seedupio" ) continue;
+		if ( data.user.screen_name === "seedupio" ) continue;
 
 		newArr.push( {
-
 			name: data.user.name,
 			username: '@' + data.user.screen_name,
 			image: data.user.profile_image_url.replace( "_normal", "_bigger" ),
@@ -136,29 +133,24 @@ function processTweetData( tweets ) {
 			created_at: new Date( data.created_at ).getTime(),
 			date: data.created_at,
 			tweeturl: 'http://www.twitter.com/' + data.user.screen_name + '/status/' + data.id_str
-
 		} );
-
 	}
 
 	return newArr;
-
 }
 
 
 //Tell the twitter API to filter on the watchSymbols
-t.stream( 'statuses/filter', {track: watchSymbols}, function( stream ) {
-
+t.stream( 'statuses/filter', { track: watchSymbols }, function ( stream ) {
 	//We have a connection. Now watch the 'data' event for incomming tweets.
-	stream.on( 'data', function( data ) {
-
+	stream.on( 'data', function ( data ) {
 		//Make sure it was a valid tweet
 		if ( data.text !== undefined ) {
-			sockets.sockets.emit( 'data', processTweetData( [data] ) );
+			sockets.sockets.emit( 'data', processTweetData( [ data ] ) );
 		}
 	} );
 
-	stream.on( 'error', function( error ) {
+	stream.on( 'error', function ( error ) {
 		slack.send( {
 			text: "@gcardoso Erro na conexão do Twitter. Erro: " + error,
 			channel: '#gcardoso-portfolio',
@@ -166,17 +158,16 @@ t.stream( 'statuses/filter', {track: watchSymbols}, function( stream ) {
 			link_names: 1
 		} );
 	} );
-
 } );
 
 //Start a Socket.IO listen
 var sockets = io.listen( server );
-sockets.configure( function() {
-	sockets.set( 'transports', ['xhr-polling'] );
+sockets.configure( function () {
+	sockets.set( 'transports', [ 'xhr-polling' ] );
 	//sockets.set('polling duration', 3600);
 } );
 
-sockets.on( 'disconnect', function() {
+sockets.on( 'disconnect', function () {
 	slack.send( {
 		text: "@gcardoso Os sockets estão em baixo. Reconnectar pff",
 		channel: '#gcardoso-portfolio',
@@ -215,14 +206,14 @@ function extractDomain( url ) {
 	var domain;
 	//find & remove protocol (http, ftp, etc.) and get domain
 	if ( url.indexOf( "://" ) > -1 ) {
-		domain = url.split( '/' )[2];
+		domain = url.split( '/' )[ 2 ];
 	}
 	else {
-		domain = url.split( '/' )[0];
+		domain = url.split( '/' )[ 0 ];
 	}
 
 	//find & remove port number
-	domain = domain.split( ':' )[0];
+	domain = domain.split( ':' )[ 0 ];
 
 	if ( domain.indexOf( 'www.' ) === 0 ) {
 		domain = domain.replace( 'www.', '' );
@@ -236,8 +227,8 @@ var isOffline = false;
 /*-- Redirect --*/
 
 if ( production ) {
-	app.get( '/*', function( req, res, next ) {
-		if ( req.headers.host.match( /^www/ ) == null ) {
+	app.get( '/*', function ( req, res, next ) {
+		if ( req.headers.host.match( /^www/ ) === null ) {
 			res.redirect( 301, 'http://www.' + req.headers.host );
 		}
 		else {
@@ -248,14 +239,14 @@ if ( production ) {
 
 function getPortfolioAndRender( db, token, ip, res, years ) {
 	var collection = db.collection( 'portfolio' );
-	collection.find( {} ).toArray( function( err, docs ) {
+	collection.find( {} ).toArray( function ( err, docs ) {
 		portfolioList = docs.reverse();
 		res.render( 'homepage', {
 			age: years,
 			portfolio: portfolioList,
 			portfolioString: JSON.stringify( portfolioList ),
 			token: token,
-			country: (ip != null ) ? ip.country : "No country",
+			country: (ip !== null ) ? ip.country : "No country",
 			production: production
 		} );
 		db.close();
@@ -278,28 +269,28 @@ function getAge( today ) {
 }
 
 //Our only route! Render it with the current watchList
-app.get( '/', function( req, res ) {
+app.get( '/', function ( req, res ) {
 
 	var years = getAge( new Date() );
 
 	if ( isOffline ) {
 
 		res.status( 500 );
-		res.render( 'error.html', {error: "500", layout: null, production: production} );
+		res.render( 'error.html', { error: "500", layout: null, production: production } );
 		res.end();
 		return true;
 	}
 
 	var token = jwt.encode( {
-		ip: req.headers["x-forwarded-for"] || req.connection.remoteAddress
+		ip: req.headers[ "x-forwarded-for" ] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD );
 
-	var ip = geoip.lookup( req.headers["x-forwarded-for"] || req.connection.remoteAddress );
+	var ip = geoip.lookup( req.headers[ "x-forwarded-for" ] || req.connection.remoteAddress );
 
 
-	mongo.connect( mongoUrl, null, function( err, db ) {
-		if ( err != null ) {
-			if ( enviromnent != 'development' ) {
+	mongo.connect( mongoUrl, null, function ( err, db ) {
+		if ( err !== null ) {
+			if ( enviromnent !== 'development' ) {
 				slack.send( {
 					text: "@gcardoso Erro no acesso à BD - " + err,
 					channel: '#gcardoso-portfolio',
@@ -318,7 +309,7 @@ app.get( '/', function( req, res ) {
 			return false;
 		}
 
-		if ( enviromnent != 'development' ) {
+		if ( enviromnent !== 'development' ) {
 			slack.send( {
 				text: "*New Access*\n" + JSON.stringify( req.headers ),
 				channel: '#gcardoso-portfolio',
@@ -327,14 +318,14 @@ app.get( '/', function( req, res ) {
 			} );
 		}
 
-		if ( req.headers['referer'] ) {
-			var domain = extractDomain( req.headers['referer'] );
+		if ( req.headers[ 'referer' ] ) {
+			var domain = extractDomain( req.headers[ 'referer' ] );
 			var domainCollection = db.collection( 'domain' );
-			domainCollection.find( {'name': domain} ).toArray( function( err, docs ) {
+			domainCollection.find( { 'name': domain } ).toArray( function ( err, docs ) {
 
 				if ( !err ) {
 
-					if ( docs.length > 0 && docs[0]['allow'] ) {
+					if ( docs.length > 0 && docs[ 0 ][ 'allow' ] ) {
 
 						getPortfolioAndRender( db, token, ip, res, years );
 
@@ -345,12 +336,12 @@ app.get( '/', function( req, res ) {
 						domainCollection.insert( {
 							'name': domain,
 							'allow': allow
-						}, function( err, inserted, err2 ) {
+						}, function ( err, inserted, err2 ) {
 
 							getPortfolioAndRender( db, token, ip, res, years );
 
 							slack.send( {
-								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow " + inserted[0]._id + "'\n- Default allow value: " + allow,
+								text: "@gcardoso NEW DOMAIN ADDED\n- " + domain + "\n- To allow send 'allow " + inserted[ 0 ]._id + "'\n- Default allow value: " + allow,
 								channel: '#gcardoso-portfolio',
 								username: 'Portfolio',
 								link_names: 1
@@ -377,18 +368,18 @@ app.get( '/', function( req, res ) {
 
 } );
 
-app.post( '/getFirstTweets', function( req, res ) {
+app.post( '/getFirstTweets', function ( req, res ) {
 
 	var token = jwt.encode( {
-		ip: req.headers["x-forwarded-for"] || req.connection.remoteAddress
+		ip: req.headers[ "x-forwarded-for" ] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD );
 
-	if ( req.body.token == token ) {
-		t.search( '#gcardoso', function( data ) {
-			var newData = _.sortBy( data.statuses, function( o ) {
+	if ( req.body.token === token ) {
+		t.search( '#gcardoso', function ( data ) {
+			var newData = _.sortBy( data.statuses, function ( o ) {
 				return new Date( o.created_at )
 			} );
-			res.json( {success: true, tweets: processTweetData( newData )} );
+			res.json( { success: true, tweets: processTweetData( newData ) } );
 		} );
 	}
 
@@ -398,13 +389,13 @@ app.post( '/getFirstTweets', function( req, res ) {
 
 } );
 
-app.post( '/sendEmail', function( req, res ) {
+app.post( '/sendEmail', function ( req, res ) {
 
 	var token = jwt.encode( {
-		ip: req.headers["x-forwarded-for"] || req.connection.remoteAddress
+		ip: req.headers[ "x-forwarded-for" ] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD );
 
-	if ( req.body.token == token ) {
+	if ( req.body.token === token ) {
 
 		slack.send( {
 			text: "@gcardoso " + req.body.name + " (" + req.body.email + ") enviou email com o seguinte texto: " + req.body.message,
@@ -419,12 +410,12 @@ app.post( '/sendEmail', function( req, res ) {
 			subject: 'Portfolio', // REQUIRED.
 			emailobject: req.body, // All additional properties are also passed to the template as local variables.
 			layout: null
-		}, function( err ) {
+		}, function ( err ) {
 			if ( err ) {
 				res.status( 403 ).end();
 				return;
 			}
-			res.json( 200, {success: true} );
+			res.json( 200, { success: true } );
 		} );
 
 	}
@@ -437,7 +428,7 @@ app.post( '/sendEmail', function( req, res ) {
 
 function allowDomain( id, res ) {
 	var o_id = new ObjectID( id );
-	mongo.connect( mongoUrl, null, function( err, db ) {
+	mongo.connect( mongoUrl, null, function ( err, db ) {
 		if ( err != null ) {
 			if ( enviromnent != 'development' ) {
 				slack.send( {
@@ -449,7 +440,7 @@ function allowDomain( id, res ) {
 			}
 		} else {
 			var domainCollection = db.collection( 'domain' );
-			domainCollection.update( {_id: o_id}, {$set: {allow: true}}, function( err ) {
+			domainCollection.update( { _id: o_id }, { $set: { allow: true } }, function ( err ) {
 				if ( !err ) {
 					slack.send( {
 						text: "Dominio atualizado com sucesso!",
@@ -464,7 +455,7 @@ function allowDomain( id, res ) {
 	} );
 }
 
-app.post( '/outwebook', function( req, res ) {
+app.post( '/outwebook', function ( req, res ) {
 
 	if ( req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN ) {
 
@@ -518,16 +509,16 @@ app.post( '/outwebook', function( req, res ) {
 } );
 
 // Handle 404
-app.use( function( req, res ) {
-	res.render( 'error.html', {error: "404", layout: null, production: production} );
+app.use( function ( req, res ) {
+	res.render( 'error.html', { error: "404", layout: null, production: production } );
 } );
 
 // Handle 500
-app.use( function( error, req, res, next ) {
-	res.render( 'error.html', {error: "500", layout: null, production: production} );
+app.use( function ( error, req, res, next ) {
+	res.render( 'error.html', { error: "500", layout: null, production: production } );
 } );
 
 //Create the server
-server.listen( app.get( 'port' ), server_ip_address, function() {
+server.listen( app.get( 'port' ), server_ip_address, function () {
 	console.log( 'Express server listening on port ' + app.get( 'port' ) );
 } );

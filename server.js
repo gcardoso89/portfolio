@@ -307,7 +307,7 @@ app.get( '/', function ( req, res ) {
 			slack.send( {
 				text: "*New Access*\n" +
 				"Referer: " + req.headers[ 'referer' ] + "\n" +
-				"Location info: " + ((ip !== null ) ? JSON.stringify(ip) : "No location info"),
+				"Location info: " + ((ip !== null ) ? JSON.stringify( ip ) : "No location info"),
 				channel: '#gcardoso-portfolio',
 				username: 'Portfolio',
 				link_names: 1

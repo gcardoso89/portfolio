@@ -58,9 +58,6 @@ app.use( express.static( path.join( __dirname, 'public' ), { maxAge: 86400000 } 
 //We're using bower components so add it to the path to make things easier
 app.use( '/components', express.static( path.join( __dirname, 'components' ) ) );
 
-
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-
 /**
  * --------------------
  * ----- MONGO DB -----
@@ -519,6 +516,6 @@ app.use( function ( error, req, res, next ) {
 } );
 
 //Create the server
-server.listen( app.get( 'port' ), server_ip_address, function () {
+server.listen( app.get( 'port' ), function () {
 	console.log( 'Express server listening on port ' + app.get( 'port' ) );
 } );

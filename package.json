@@ -5,19 +5,7 @@
   "scripts": {
 	"start": "node server.js"
   },
-  "dependencies": {
-	"express": "3.4.8",
-	"hogan-express": "0.5.2",
-	"socket.io": "0.9.16",
-	"stylus": "0.42.2",
-	"twitter": "0.2.13",
-	"underscore": "1.5.2",
-	"mongodb": "1.4.19",
-	"express-mailer": "0.2.3",
-	"jwt-simple": "0.2.0",
-	"geoip-lite": "1.1.4",
-	"node-slack": "0.0.5"
-  },
+  "dependencies": { },
   "main": "server.js",
   "devDependencies": {
 	"grunt": "^0.4.5",

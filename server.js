@@ -267,11 +267,9 @@ function getAge( today ) {
 
 //Our only route! Render it with the current watchList
 app.get( '/', function ( req, res ) {
-
 	var years = getAge( new Date() );
 
 	if ( isOffline ) {
-
 		res.status( 500 );
 		res.render( 'error.html', { error: "500", layout: null, production: production } );
 		res.end();
@@ -283,7 +281,6 @@ app.get( '/', function ( req, res ) {
 	}, process.env.GCARDOSO_EMAIL_PASSWORD );
 
 	var ip = geoip.lookup( req.headers[ "x-forwarded-for" ] || req.connection.remoteAddress );
-
 
 	mongo.connect( mongoUrl, null, function ( err, db ) {
 		if ( err !== null ) {
@@ -300,7 +297,7 @@ app.get( '/', function ( req, res ) {
 				portfolio: [],
 				portfolioString: JSON.stringify( [] ),
 				token: token,
-				country: (ip != null ) ? ip.country : "No country",
+				country: (ip !== null ) ? ip.country : "No country",
 				production: production
 			} );
 			return false;
@@ -308,7 +305,9 @@ app.get( '/', function ( req, res ) {
 
 		if ( enviromnent !== 'development' ) {
 			slack.send( {
-				text: "*New Access*\n" + JSON.stringify( req.headers ),
+				text: "*New Access*\n" +
+				"Referer: " + req.headers[ 'referer' ] + "\n" +
+				"Location info: " + (ip !== null ) ? JSON.stringify(ip) : "No location info",
 				channel: '#gcardoso-portfolio',
 				username: 'Portfolio',
 				link_names: 1
@@ -321,13 +320,10 @@ app.get( '/', function ( req, res ) {
 			domainCollection.find( { 'name': domain } ).toArray( function ( err, docs ) {
 
 				if ( !err ) {
-
 					if ( docs.length > 0 && docs[ 0 ][ 'allow' ] ) {
-
 						getPortfolioAndRender( db, token, ip, res, years );
 
 					} else if ( docs.length === 0 ) {
-
 						var allow = (domain.indexOf( 'google' ) !== -1);
 
 						domainCollection.insert( {
@@ -345,28 +341,18 @@ app.get( '/', function ( req, res ) {
 							} );
 
 						} );
-
 					} else {
-
 						res.status( 500 ).end();
-
 					}
-
 				}
-
 			} );
 		} else {
-
 			getPortfolioAndRender( db, token, ip, res, years );
-
 		}
-
 	} );
-
 } );
 
 app.post( '/getFirstTweets', function ( req, res ) {
-
 	var token = jwt.encode( {
 		ip: req.headers[ "x-forwarded-for" ] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD );
@@ -383,17 +369,14 @@ app.post( '/getFirstTweets', function ( req, res ) {
 	else {
 		res.status( 403 ).end();
 	}
-
 } );
 
 app.post( '/sendEmail', function ( req, res ) {
-
 	var token = jwt.encode( {
 		ip: req.headers[ "x-forwarded-for" ] || req.connection.remoteAddress
 	}, process.env.GCARDOSO_EMAIL_PASSWORD );
 
 	if ( req.body.token === token ) {
-
 		slack.send( {
 			text: "@gcardoso " + req.body.name + " (" + req.body.email + ") enviou email com o seguinte texto: " + req.body.message,
 			channel: '#gcardoso-portfolio',
@@ -414,20 +397,16 @@ app.post( '/sendEmail', function ( req, res ) {
 			}
 			res.json( 200, { success: true } );
 		} );
-
-	}
-
-	else {
+	} else {
 		res.status( 403 ).end();
 	}
-
 } );
 
 function allowDomain( id, res ) {
 	var o_id = new ObjectID( id );
 	mongo.connect( mongoUrl, null, function ( err, db ) {
-		if ( err != null ) {
-			if ( enviromnent != 'development' ) {
+		if ( err !== null ) {
+			if ( enviromnent !== 'development' ) {
 				slack.send( {
 					text: "@gcardoso Erro no acesso à BD - " + err,
 					channel: '#gcardoso-portfolio',
@@ -448,18 +427,14 @@ function allowDomain( id, res ) {
 				res.status( 200 ).end();
 			} );
 		}
-
 	} );
 }
 
 app.post( '/outwebook', function ( req, res ) {
-
-	if ( req.body.token == process.env.GCARDOSO_OUTWEBOOK_TOKEN ) {
-
+	if ( req.body.token === process.env.GCARDOSO_OUTWEBOOK_TOKEN ) {
 		var text = req.body.text.toLocaleLowerCase();
 
 		switch ( req.body.trigger_word.toLocaleLowerCase() ) {
-
 			case 'socket':
 				switch ( text ) {
 					case 'socket reconnect':
@@ -472,10 +447,8 @@ app.post( '/outwebook', function ( req, res ) {
 				}
 				res.status( 200 ).end();
 				break;
-
 			case 'offline':
 				switch ( text ) {
-
 					case 'offline yes':
 						isOffline = true;
 						break;
@@ -487,22 +460,17 @@ app.post( '/outwebook', function ( req, res ) {
 					default:
 						isOffline = true;
 						break;
-
 				}
 				res.status( 200 ).end();
 				break;
-
 			case 'allow':
 				var _id = text.replace( 'allow ', '' );
 				allowDomain( _id, res );
 				break;
 		}
-	}
-
-	else {
+	} else {
 		res.status( 403 ).end();
 	}
-
 } );
 
 // Handle 404

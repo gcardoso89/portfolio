@@ -306,8 +306,10 @@ app.get( '/', function ( req, res ) {
 		if ( enviromnent !== 'development' ) {
 			slack.send( {
 				text: "*New Access*\n" +
-				"Referer: " + req.headers[ 'referer' ] + "\n" +
-				"Location info: " + ((ip !== null ) ? JSON.stringify( ip ) : "No location info"),
+				( req.headers[ 'host' ] ? ( "Host: " + req.headers[ 'host' ] + '\n' ) : '' ) +
+				( req.headers[ 'referer' ] ? ( "Referer: " + req.headers[ 'referer' ] + "\n" ) : "" ) +
+				( ( ip !== null ) ? ( "Location info: " + JSON.stringify( ip ) ) : "" ) +
+				( ( ip && ip.country && ip.country !== "" ) ? ( "Country: :flag-" + ( ip.country ).toLowerCase() ) + ":" : "" ),
 				channel: '#gcardoso-portfolio',
 				username: 'Portfolio',
 				link_names: 1

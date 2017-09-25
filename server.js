@@ -308,7 +308,7 @@ app.get( '/', function ( req, res ) {
 				text: "*New Access*\n" +
 				( req.headers[ 'host' ] ? ( "Host: " + req.headers[ 'host' ] + '\n' ) : '' ) +
 				( req.headers[ 'referer' ] ? ( "Referer: " + req.headers[ 'referer' ] + "\n" ) : "" ) +
-				( ( ip !== null ) ? ( "Location info: " + JSON.stringify( ip ) ) : "" ) +
+				( ( ip !== null ) ? ( "Location info: " + JSON.stringify( ip ) ) + "\n" : "" ) +
 				( ( ip && ip.country && ip.country !== "" ) ? ( "Country: :flag-" + ( ip.country ).toLowerCase() ) + ":" : "" ),
 				channel: '#gcardoso-portfolio',
 				username: 'Portfolio',
